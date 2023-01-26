@@ -1,6 +1,7 @@
 # Pointed by administrator
 build
 .vscode
+main.cpp
 
 # Prerequisites
 *.d
