@@ -18,7 +18,7 @@ FetchContent_MakeAvailable(googletest)
 project(MONEYTRACKER)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp Src/Tranzaction.cpp)
 add_executable(${PROJECT_NAME}-ut Testing/test.cpp)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
