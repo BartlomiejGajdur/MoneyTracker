@@ -1,8 +1,7 @@
 #pragma once
 #include <string>
 
-extern enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insurance, Medical, Savings, PersonalSpending, Entertainment, Miscellaneous};
-extern enum class ErrorCode { Ok };
+enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insurance, Medical, Savings, PersonalSpending, Entertainment, Miscellaneous};
 
 
 class Tranzaction{
@@ -17,7 +16,7 @@ public:
     //Setters
         void setExpenseCategory(const ExpenseCategory& expenseCategory) { expenseCategory_ = expenseCategory; }
         void setDescription(const std::string& description)             { description_ = description;}
-        void setMoney(const double& money_)                             { money_ = money;}
+        void setMoney(const double& money)                              { money_ = money;}
 
     
 private:
