@@ -14,3 +14,15 @@ bool Date::isLeapYear(){
     return (year_ % 4 == 0 && year_ % 100 != 0) ||
            (year_ % 4 == 0 && year_ % 100 == 0 && year_ % 400 == 0);
 }
+
+DateErrorCode Date::setDate(int day, int month, int year){
+    if(year < 1900 || year > 2023)
+        return DateErrorCode::InvalidYear;
+    year_ = year;
+
+    if(month < 0 || month > 12)
+        return DateErrorCode::InvalidMonth;
+    month_ = month;
+    
+    
+}
