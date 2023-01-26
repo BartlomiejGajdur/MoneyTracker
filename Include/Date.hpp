@@ -1,4 +1,3 @@
-
 #include <string>
 #include <ctime>
 enum class DateErrorCode { Ok, InvalidYear, InvalidMonth, InvalidDay };
@@ -21,7 +20,7 @@ public:
 
     //Functions
     static std::string currentData();
-    
+    static bool isLeapYear(int year);
 
 private:
     int day_{};
@@ -29,4 +28,5 @@ private:
     int year_{};
 
     bool isLeapYear();
+    
 };
