@@ -20,9 +20,12 @@ public:
 
     //Functions
     static std::string currentData();
+    
 
 private:
     int day_{};
     int month_{};
     int year_{};
+
+    bool isLeapYear();
 };
