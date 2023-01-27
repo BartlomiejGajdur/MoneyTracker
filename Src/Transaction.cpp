@@ -51,3 +51,10 @@ std::ostream& operator<<(std::ostream& os,Transaction& transaction){
 
     return os;
 }
+
+std::string Transaction::transactionInString(){
+    return "ID: "  +  std::to_string(this->ID_) + "      | "
+     + "Description: "  +  this->description_ + "      | "
+     + "Money: "  +  std::to_string(this->money_) + " [PLN]      | "
+     + "Category: "  + this->returnExpenseCategoryInString(this->expenseCategory_) + " \n";
+}

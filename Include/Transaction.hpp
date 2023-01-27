@@ -26,6 +26,7 @@ public:
 
     //Functions
         std::string returnExpenseCategoryInString(const ExpenseCategory& ExpenseCategory);
+        std::string transactionInString();
         friend std::ostream& operator<<(std::ostream& os, Transaction& transaction);
     
 private:
