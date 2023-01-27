@@ -11,7 +11,9 @@ public:
                 const ExpenseCategory& expenseCategory) :  
                                                           description_(description),
                                                           money_(money),
-                                                          expenseCategory_(expenseCategory) {ID_++;};
+                                                          expenseCategory_(expenseCategory) {ID_ = counter++;};
+    ~Tranzaction(){ ID_--;};
+
     //Getters
         size_t getID() const {return ID_;};
 
@@ -24,9 +26,11 @@ public:
     
 private:
 
-    static size_t ID_;
+    size_t ID_;
     ExpenseCategory expenseCategory_{ExpenseCategory::Miscellaneous};
     std::string description_;
     double money_;
+
+    static size_t counter;
 
 };

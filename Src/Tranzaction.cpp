@@ -1,3 +1,3 @@
 #include "../Include/Tranzaction.hpp"
 
-size_t Tranzaction::ID_{0};
+size_t Tranzaction::counter{0};
