@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <ostream>
 
 enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insurance, Medical, Savings, PersonalSpending, Entertainment, Miscellaneous};
 
@@ -23,6 +24,9 @@ public:
         void setDescription(const std::string& description)             { description_ = description;}
         void setMoney(const double& money)                              { money_ = money;}
 
+    //Functions
+        std::string printExpenseCategory(const ExpenseCategory& ExpenseCategory);
+        friend std::ostream& operator<<(std::ostream& os, Tranzaction& tranzaction);
     
 private:
 
@@ -34,3 +38,5 @@ private:
     static size_t counter;
 
 };
+
+
