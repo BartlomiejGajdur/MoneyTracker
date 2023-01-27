@@ -12,6 +12,9 @@ public:
                                                           description_(description),
                                                           money_(money),
                                                           expenseCategory_(expenseCategory) {ID_++;};
+    //Getters
+        size_t getID() const {return ID_;};
+
 
     //Setters
         void setExpenseCategory(const ExpenseCategory& expenseCategory) { expenseCategory_ = expenseCategory; }
