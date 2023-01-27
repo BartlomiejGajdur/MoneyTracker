@@ -15,3 +15,12 @@ UserErrorCode User::removeTransactionById(size_t ID){
                                                                                                                             }), transactions_.end());
     return temp>transactions_.size() ? UserErrorCode::Ok : UserErrorCode::NoTransactionFound;
 }
+
+std::string User::printAllTransations(){
+    std::string allTransations{};
+
+    std::for_each(transactions_.begin(), transactions_.end(),[](std::shared_ptr<Transaction> transaction)
+                                                               {
+                                                                   //
+                                                               });
+}
