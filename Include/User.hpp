@@ -9,7 +9,7 @@ enum class UserErrorCode {Ok, NoTranzactionFound};
 class User{
 
 public:
-    void addTranzaction(const std::shared_ptr<Tranzaction> tranzaction);
+    UserErrorCode addTranzaction(const std::shared_ptr<Tranzaction> tranzaction);
     UserErrorCode removeTranzactionById(size_t ID);
 
 private:
