@@ -19,8 +19,17 @@ UserErrorCode User::removeTransactionById(size_t ID){
 std::string User::printAllTransations(){
     std::string allTransations{};
 
-    std::for_each(transactions_.begin(), transactions_.end(),[](std::shared_ptr<Transaction> transaction)
+    std::for_each(transactions_.begin(), transactions_.end(),[&allTransations](std::shared_ptr<Transaction> transaction)
                                                                {
-                                                                   //
+                                                                   allTransations += transaction->transactionInString();
+                                                               });
+
+    return allTransations;
+}
+
+void User::sortByNumberOfEnums(){
+    std::sort(transactions_.begin(), transactions_.end(),[](std::shared_ptr<Transaction> transaction, std::shared_ptr<Transaction> other)
+                                                               {
+                                                                   return static_cast<int>(transaction->getExpenseCategory()) > static_cast<int>(other->getExpenseCategory());
                                                                });
 }

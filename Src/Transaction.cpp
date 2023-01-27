@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "../Include/Transaction.hpp"
 
 size_t Transaction::counter{0};
@@ -53,8 +55,11 @@ std::ostream& operator<<(std::ostream& os,Transaction& transaction){
 }
 
 std::string Transaction::transactionInString(){
+    std::string money = std::to_string(this->money_);
+    money.erase(money.length()-4,money.length());
+
     return "ID: "  +  std::to_string(this->ID_) + "      | "
      + "Description: "  +  this->description_ + "      | "
-     + "Money: "  +  std::to_string(this->money_) + " [PLN]      | "
+     + "Money: "  + money + " [PLN]      | "
      + "Category: "  + this->returnExpenseCategoryInString(this->expenseCategory_) + " \n";
 }

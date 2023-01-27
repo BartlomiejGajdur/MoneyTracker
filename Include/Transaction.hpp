@@ -17,6 +17,7 @@ public:
 
     //Getters
         size_t getID() const {return ID_;};
+        ExpenseCategory getExpenseCategory() const {return expenseCategory_;};
 
 
     //Setters
