@@ -1,4 +1,6 @@
+#include <iostream>
 #include <algorithm>
+#include <map>
 
 #include "../Include/User.hpp"
 
@@ -28,8 +30,37 @@ std::string User::printAllTransations(){
 }
 
 void User::sortByNumberOfEnums(){
-    std::sort(transactions_.begin(), transactions_.end(),[](std::shared_ptr<Transaction> transaction, std::shared_ptr<Transaction> other)
-                                                               {
-                                                                   return static_cast<int>(transaction->getExpenseCategory()) > static_cast<int>(other->getExpenseCategory());
-                                                               });
+
+    struct CompareKeyForTransaction {
+    bool operator()(const Transaction& l, const Transaction& r) const {return l.getExpenseCategory() < r.getExpenseCategory();};
+};
+
+    std::map<Transaction,int,CompareKeyForTransaction> unMap;
+    std::vector<std::pair<Transaction,int>> vecPairs{};
+
+    for(auto tranzaction : transactions_){
+        ++unMap[*tranzaction];
+    }
+
+    for(auto [key,value] : unMap){
+        vecPairs.push_back(std::make_pair(key,value));
+    }
+    
+    auto lambda = [](std::pair<Transaction,int> lhs,std::pair<Transaction,int> rhs){return lhs.second > rhs.second; };
+    std::sort(vecPairs.begin(),vecPairs.end(),lambda);
+
+        int i = 0;
+        for(auto [pair1,pair2] : vecPairs){
+            ExpenseCategory fromPair = pair1.getExpenseCategory();
+            pair2+=i;
+
+            for(i; i<pair2 ; i++){
+
+            auto it = std::find_if(transactions_.begin()+i,transactions_.end(),[&fromPair](std::shared_ptr<Transaction> transaction)
+                                                                        {
+                                                                            return transaction->getExpenseCategory() == fromPair;
+                                                                        });
+                std::rotate(transactions_.begin()+i,it,transactions_.end());
+        }
+    }       
 }
