@@ -1,8 +1,8 @@
-#include "../Include/Tranzaction.hpp"
+#include "../Include/Transaction.hpp"
 
-size_t Tranzaction::counter{0};
+size_t Transaction::counter{0};
 
-std::string Tranzaction::printExpenseCategory(const ExpenseCategory& ExpenseCategory){
+std::string Transaction::returnExpenseCategoryInString(const ExpenseCategory& ExpenseCategory){
     switch (ExpenseCategory)
     {
     case ExpenseCategory::Housing :
@@ -42,12 +42,12 @@ std::string Tranzaction::printExpenseCategory(const ExpenseCategory& ExpenseCate
     }
 }
 
-std::ostream& operator<<(std::ostream& os,Tranzaction& tranzaction){
+std::ostream& operator<<(std::ostream& os,Transaction& transaction){
 
-    os<<"ID: " << tranzaction.ID_<<"      | "
-    <<"Description: " << tranzaction.description_<<"      | "
-    <<"Money: " << tranzaction.money_<<" [PLN]      | "
-    <<"Category: " <<tranzaction.printExpenseCategory(tranzaction.expenseCategory_)<<" \n";
+    os<<"ID: " << transaction.ID_<<"      | "
+    <<"Description: " << transaction.description_<<"      | "
+    <<"Money: " << transaction.money_<<" [PLN]      | "
+    <<"Category: " <<transaction.returnExpenseCategoryInString(transaction.expenseCategory_)<<" \n";
 
     return os;
 }

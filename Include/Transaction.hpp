@@ -5,15 +5,15 @@
 enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insurance, Medical, Savings, PersonalSpending, Entertainment, Miscellaneous};
 
 
-class Tranzaction{
+class Transaction{
 public:
-    Tranzaction(const std::string& description, 
+    Transaction(const std::string& description, 
                 const double& money, 
                 const ExpenseCategory& expenseCategory) :  
                                                           description_(description),
                                                           money_(money),
                                                           expenseCategory_(expenseCategory) {ID_ = counter++;};
-    ~Tranzaction(){ ID_--;};
+    ~Transaction(){ ID_--;};
 
     //Getters
         size_t getID() const {return ID_;};
@@ -25,8 +25,8 @@ public:
         void setMoney(const double& money)                              { money_ = money;}
 
     //Functions
-        std::string printExpenseCategory(const ExpenseCategory& ExpenseCategory);
-        friend std::ostream& operator<<(std::ostream& os, Tranzaction& tranzaction);
+        std::string returnExpenseCategoryInString(const ExpenseCategory& ExpenseCategory);
+        friend std::ostream& operator<<(std::ostream& os, Transaction& transaction);
     
 private:
 

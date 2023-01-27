@@ -2,16 +2,16 @@
 
 #include "../Include/User.hpp"
 
-UserErrorCode User::addTranzaction(const std::shared_ptr<Tranzaction> tranzaction){
-    tranzactions_.push_back(tranzaction);
+UserErrorCode User::addTransaction(const std::shared_ptr<Transaction> transaction){
+    transactions_.push_back(transaction);
     return UserErrorCode::Ok;
 }
 
-UserErrorCode User::removeTranzactionById(size_t ID){
-    auto temp = tranzactions_.size();
-    tranzactions_.erase(std::remove_if(tranzactions_.begin(), tranzactions_.end(),[&ID](std::shared_ptr<Tranzaction> tranzaction)
+UserErrorCode User::removeTransactionById(size_t ID){
+    auto temp = transactions_.size();
+    transactions_.erase(std::remove_if(transactions_.begin(), transactions_.end(),[&ID](std::shared_ptr<Transaction> transaction)
                                                                                                                             {
-                                                                                                                               return tranzaction->getID() == ID;
-                                                                                                                            }), tranzactions_.end());
-    return temp>tranzactions_.size() ? UserErrorCode::Ok : UserErrorCode::NoTranzactionFound;
+                                                                                                                               return transaction->getID() == ID;
+                                                                                                                            }), transactions_.end());
+    return temp>transactions_.size() ? UserErrorCode::Ok : UserErrorCode::NoTransactionFound;
 }

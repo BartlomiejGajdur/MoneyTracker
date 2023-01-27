@@ -18,8 +18,8 @@ FetchContent_MakeAvailable(googletest)
 project(MONEYTRACKER)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp Src/Tranzaction.cpp Src/Date.cpp Src/User.cpp)
-add_executable(${PROJECT_NAME}-ut Testing/DateTests.cpp Testing/UserTests.cpp Src/Tranzaction.cpp Src/Date.cpp Src/User.cpp )
+add_executable(${PROJECT_NAME} main.cpp Src/Transaction.cpp Src/Date.cpp Src/User.cpp)
+add_executable(${PROJECT_NAME}-ut Testing/DateTests.cpp Testing/UserTests.cpp Src/Transaction.cpp Src/Date.cpp Src/User.cpp )
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
 
