@@ -65,7 +65,7 @@ void User::sortByNumberOfEnums(){
     }       
 }
 
-const double User::countSpendings(){
+const double User::countWholeSpendings(){
     double spendings{};
 
     std::for_each(transactions_.begin(),transactions_.end(),[&spendings](std::shared_ptr<Transaction> transaction)
@@ -76,3 +76,22 @@ const double User::countSpendings(){
 
     return spendings;
  }
+
+std::map<ExpenseCategory,double> User::countIndividualSpending(){
+    std::map<ExpenseCategory,double> map;
+
+     std::for_each(transactions_.begin(),transactions_.end(),[&map](std::shared_ptr<Transaction> transaction)
+                                                        {
+                                                            if(transaction->getMoney()<0)
+                                                                {
+                                                                    map[transaction->getExpenseCategory()] += transaction->getMoney();
+                                                                }
+                                                        });
+
+    Transaction t{};
+    for(auto [key,value] : map){
+        std::cout<<"KEY: "<<t.returnExpenseCategoryInString(key)<<"      Value: "<<value<<"\n";
+    }
+
+    return map;
+}

@@ -44,6 +44,6 @@ TEST_F(UserUnderTestFixture, CountSpendings){
 
     addAllTransactions();
 
-    EXPECT_EQ(person.countSpendings(),double(-1365.21));
+    EXPECT_EQ(person.countWholeSpendings(),double(-1365.21));
 
 }

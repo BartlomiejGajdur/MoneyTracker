@@ -16,6 +16,7 @@ public:
                                                           money_(money),
                                                           expenseCategory_(expenseCategory),
                                                           date_(date) {ID_ = counter++;};
+    Transaction(){};
     ~Transaction(){ ID_--;};
 
     //Getters
