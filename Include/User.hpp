@@ -14,6 +14,7 @@ public:
     UserErrorCode removeTransactionById(size_t ID);
     std::string printAllTransations();
     void sortByNumberOfEnums();
+    const double countSpendings();
 private:
     std::vector<std::shared_ptr<Transaction>> transactions_;
     

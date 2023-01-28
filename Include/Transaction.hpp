@@ -20,6 +20,7 @@ public:
 
     //Getters
         size_t getID() const {return ID_;};
+        double getMoney() const {return money_;};
         ExpenseCategory getExpenseCategory() const {return expenseCategory_;};
 
 

@@ -64,3 +64,15 @@ void User::sortByNumberOfEnums(){
         }
     }       
 }
+
+const double User::countSpendings(){
+    double spendings{};
+
+    std::for_each(transactions_.begin(),transactions_.end(),[&spendings](std::shared_ptr<Transaction> transaction)
+                                                        {
+                                                            if(transaction->getMoney()<0)
+                                                                spendings+=transaction->getMoney();
+                                                        });
+
+    return spendings;
+ }
