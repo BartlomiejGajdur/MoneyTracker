@@ -88,9 +88,16 @@ std::map<ExpenseCategory,double> User::countIndividualSpending(){
                                                                 }
                                                         });
 
-    Transaction t{};
-    for(auto [key,value] : map){
-        std::cout<<"KEY: "<<t.returnExpenseCategoryInString(key)<<"      Value: "<<value<<"\n";
+    return map;
+}
+
+std::map<ExpenseCategory,double> User::percentageOfIndividualSpending(){
+    
+    std::map<ExpenseCategory,double> map = this->countIndividualSpending();
+    double wholeSpendigs = this->countWholeSpendings();
+
+    for(auto& [Key,Value] : map){
+        Value = (Value/wholeSpendigs) * 100;
     }
 
     return map;

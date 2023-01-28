@@ -18,6 +18,7 @@ public:
     void sortByNumberOfEnums();
     const double countWholeSpendings();
     std::map<ExpenseCategory,double> countIndividualSpending();
+    std::map<ExpenseCategory,double> percentageOfIndividualSpending();
 private:
     std::vector<std::shared_ptr<Transaction>> transactions_;
     
