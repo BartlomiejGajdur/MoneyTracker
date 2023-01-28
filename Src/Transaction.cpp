@@ -49,7 +49,8 @@ std::ostream& operator<<(std::ostream& os,Transaction& transaction){
     os<<"ID: " << transaction.ID_<<"      | "
     <<"Description: " << transaction.description_<<"      | "
     <<"Money: " << transaction.money_<<" [PLN]      | "
-    <<"Category: " <<transaction.returnExpenseCategoryInString(transaction.expenseCategory_)<<" \n";
+    <<"Category: " <<transaction.returnExpenseCategoryInString(transaction.expenseCategory_)<<"      | "
+    << "Date: " << transaction.date_ <<" \n";
 
     return os;
 }
@@ -61,5 +62,6 @@ std::string Transaction::transactionInString(){
     return "ID: "  +  std::to_string(this->ID_) + "      | "
      + "Description: "  +  this->description_ + "      | "
      + "Money: "  + money + " [PLN]      | "
-     + "Category: "  + this->returnExpenseCategoryInString(this->expenseCategory_) + " \n";
+     + "Category: "  + this->returnExpenseCategoryInString(this->expenseCategory_) + "      | " +
+     + "Date: " + this->date_.dateInString() + " \n";
 }

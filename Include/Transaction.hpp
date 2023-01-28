@@ -2,6 +2,8 @@
 #include <string>
 #include <ostream>
 
+#include "Date.hpp"
+
 enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insurance, Medical, Savings, PersonalSpending, Entertainment, Miscellaneous};
 
 
@@ -9,10 +11,11 @@ class Transaction{
 public:
     Transaction(const std::string& description, 
                 const double& money, 
-                const ExpenseCategory& expenseCategory) :  
+                const ExpenseCategory& expenseCategory, const Date& date) :  
                                                           description_(description),
                                                           money_(money),
-                                                          expenseCategory_(expenseCategory) {ID_ = counter++;};
+                                                          expenseCategory_(expenseCategory),
+                                                          date_(date) {ID_ = counter++;};
     ~Transaction(){ ID_--;};
 
     //Getters
@@ -36,6 +39,7 @@ private:
     ExpenseCategory expenseCategory_{ExpenseCategory::Miscellaneous};
     std::string description_;
     double money_;
+    Date date_;
 
     static size_t counter;
 
