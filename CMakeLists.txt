@@ -9,6 +9,14 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG        main # release-1.10.0
 )
+
+include(FetchContent)
+FetchContent_Declare(
+        Bcrypt
+        GIT_REPOSITORY https://github.com/BartlomiejGajdur/Bcrypt.cpp
+        GIT_TAG master
+)
+FetchContent_MakeAvailable(Bcrypt)
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
