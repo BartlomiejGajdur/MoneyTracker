@@ -21,7 +21,6 @@ UserErrorCode User::removeTransactionById(size_t ID){
 
 UserErrorCode User::modifyDateTransactionById(size_t ID,int day,int month,int year){
 
-   // UserErrorCode userErrorCode = UserErrorCode::NoTransactionFound;
     DateErrorCode dateErrorCode = DateErrorCode::ERROR404;
 
     std::for_each(transactions_.begin(),transactions_.end(),[&](const std::shared_ptr<Transaction>& transaction)
@@ -40,8 +39,10 @@ UserErrorCode User::modifyDateTransactionById(size_t ID,int day,int month,int ye
     else if (dateErrorCode == DateErrorCode::Ok)
     {
         return UserErrorCode::Ok;
-    }                                                                
+    }
     return UserErrorCode::NoTransactionFound;
+                                                                 
+    
 }
 
 std::string User::printAllTransations(){

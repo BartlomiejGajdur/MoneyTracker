@@ -12,6 +12,8 @@ enum class UserErrorCode {Ok, NoTransactionFound, IncorrectData};
 class User{
 
 public:
+    inline void clearTransactions() {transactions_.clear();};
+
     UserErrorCode addTransaction(const std::shared_ptr<Transaction> transaction);
     UserErrorCode removeTransactionById(size_t ID);
     UserErrorCode modifyDateTransactionById(size_t ID,int,int,int);
