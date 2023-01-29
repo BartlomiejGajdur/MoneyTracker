@@ -2,7 +2,10 @@
 #include <ctime>
 #include <ostream>
 #include <string>
-enum class DateErrorCode { Ok, InvalidYear, InvalidMonth, InvalidDay };
+
+
+enum class DateErrorCode { Ok, InvalidYear, InvalidMonth, InvalidDay, ERROR404};
+
 
 class Date{
 public:
