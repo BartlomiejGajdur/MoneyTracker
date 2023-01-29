@@ -30,6 +30,7 @@ add_executable(${PROJECT_NAME} main.cpp Src/Transaction.cpp Src/Date.cpp Src/Use
 add_executable(${PROJECT_NAME}-ut Testing/DateTests.cpp Testing/UserTests.cpp Src/Transaction.cpp Src/Date.cpp Src/User.cpp )
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main)
+target_link_libraries(${PROJECT_NAME} PRIVATE bcrypt)
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME}-ut)
