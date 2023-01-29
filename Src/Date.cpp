@@ -39,9 +39,9 @@ DateErrorCode Date::setDate(int day, int month, int year){
         (month == 2 && this->isLeapYear(year) && day <=29 && day >=0) ||
         (month == 2 && !this->isLeapYear(year) && day <=28 && day >=0))
         {
-            month_ = month;
-            year_ = year;
-            day_ = day;
+            this->month_ = month;
+            this->year_ = year;
+            this->day_ = day;
             return DateErrorCode::Ok;
         }
         return DateErrorCode::InvalidDay;

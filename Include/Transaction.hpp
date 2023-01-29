@@ -17,11 +17,12 @@ public:
                                                           expenseCategory_(expenseCategory),
                                                           date_(date) {ID_ = counter++;};
     Transaction(){};
-    ~Transaction(){ ID_--;};
+    ~Transaction(){};
 
     //Getters
         size_t getID() const {return ID_;};
         double getMoney() const {return money_;};
+        Date getDate() const {return date_;};
         ExpenseCategory getExpenseCategory() const {return expenseCategory_;};
 
 
@@ -29,6 +30,7 @@ public:
         void setExpenseCategory(const ExpenseCategory& expenseCategory) { expenseCategory_ = expenseCategory; }
         void setDescription(const std::string& description)             { description_ = description;}
         void setMoney(const double& money)                              { money_ = money;}
+        DateErrorCode setDate(int,int,int);
 
     //Functions
         std::string returnExpenseCategoryInString(const ExpenseCategory& ExpenseCategory);

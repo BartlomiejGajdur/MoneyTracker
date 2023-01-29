@@ -3,6 +3,7 @@
 #include <map>
 
 #include "../Include/User.hpp"
+#include "../Include/Transaction.hpp"
 
 UserErrorCode User::addTransaction(const std::shared_ptr<Transaction> transaction){
     transactions_.push_back(transaction);
@@ -16,6 +17,19 @@ UserErrorCode User::removeTransactionById(size_t ID){
                                                                                                                                return transaction->getID() == ID;
                                                                                                                             }), transactions_.end());
     return temp>transactions_.size() ? UserErrorCode::Ok : UserErrorCode::NoTransactionFound;
+}
+
+DateErrorCode User::modifyDateTransactionById(size_t ID,int day,int month,int year){
+
+    DateErrorCode dateErrorCode;
+
+    std::for_each(transactions_.begin(),transactions_.end(),[&](const std::shared_ptr<Transaction>& transaction)
+                                                                        {
+                                                                            if(transaction->getID() == ID)
+                                                                                dateErrorCode = transaction->setDate(day,month,year);
+                                                                      });
+                                                                      
+    return dateErrorCode;
 }
 
 std::string User::printAllTransations(){

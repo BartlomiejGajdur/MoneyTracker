@@ -14,6 +14,7 @@ class User{
 public:
     UserErrorCode addTransaction(const std::shared_ptr<Transaction> transaction);
     UserErrorCode removeTransactionById(size_t ID);
+    DateErrorCode modifyDateTransactionById(size_t ID,int,int,int);
     std::string printAllTransations();
     void sortByNumberOfEnums();
     const double countWholeSpendings();

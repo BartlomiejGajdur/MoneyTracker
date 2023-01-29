@@ -4,6 +4,10 @@
 
 size_t Transaction::counter{0};
 
+DateErrorCode Transaction::setDate(int day,int month,int year){
+    return date_.setDate(day,month,year);
+}
+
 std::string Transaction::returnExpenseCategoryInString(const ExpenseCategory& ExpenseCategory){
     switch (ExpenseCategory)
     {
