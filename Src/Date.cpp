@@ -39,11 +39,19 @@ DateErrorCode Date::setDate(int day, int month, int year){
         (month == 2 && this->isLeapYear(year) && day <=29 && day >=0) ||
         (month == 2 && !this->isLeapYear(year) && day <=28 && day >=0))
         {
-            month_ = month;
-            year_ = year;
-            day_ = day;
+            this->month_ = month;
+            this->year_ = year;
+            this->day_ = day;
             return DateErrorCode::Ok;
         }
         return DateErrorCode::InvalidDay;
             
+}
+
+std::ostream& operator<<(std::ostream& os, const Date& date){
+    return os<<date.day_<<"."<<date.month_<<"."<<date.year_;
+}
+
+std::string Date::dateInString(){
+    return std::to_string(this->day_) + "." + std::to_string(this->month_) + "." + std::to_string(this->year_);
 }

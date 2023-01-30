@@ -1,6 +1,11 @@
-#include <string>
+#pragma once
 #include <ctime>
-enum class DateErrorCode { Ok, InvalidYear, InvalidMonth, InvalidDay };
+#include <ostream>
+#include <string>
+
+
+enum class DateErrorCode { Ok, InvalidYear, InvalidMonth, InvalidDay, ERROR404};
+
 
 class Date{
 public:
@@ -9,9 +14,6 @@ public:
 
     //Setters  
     DateErrorCode setDate(int day, int month, int year); 
-    // void setDay(int day)        { day_ = day;}
-    // void setMonth(int month)    { month_ = month;}
-    // void setYear(int year)      { year_ = year;}
 
     //Getters
     int getDay()   const   { return day_;}
@@ -21,6 +23,9 @@ public:
     //Functions
     static std::string currentData();
     static bool isLeapYear(int year);
+
+    friend std::ostream& operator<<(std::ostream& os, const Date& date);
+    std::string dateInString();
 
 private:
     int day_{};
