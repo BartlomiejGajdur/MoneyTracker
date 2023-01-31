@@ -1,26 +1,29 @@
+#pragma once
 #include <tuple>
+#include <algorithm>
 #include <vector>
 #include <string>
 #include <fstream>
 #include <iostream>
+#include "bcrypt.h"
 
 using vecConfig = std::vector<std::tuple<std::string,std::string,std::string>>;
 
 namespace ValidatePassword{
 
     vecConfig vecOfFileNameLoginPassword_;
-    std::string config = "../config.txt";
+    std::string configName = "../config.txt";
    
-    void loadFromFile(vecConfig& vecTuple){
-        std::cout<<"hej";
+    void loadConfigFromFile(){
+
         std::vector<std::string> vec;
         char znak;
         std::string linia;
         std::fstream plik;
-        plik.open(config,plik.in);
+        plik.open(configName,plik.in);
 
         if(plik.is_open()){
-            std::cout<<"hej";
+           
             while (!plik.eof())
              {
                 znak = plik.get();
@@ -39,15 +42,52 @@ namespace ValidatePassword{
                     linia.clear();
                 }
              }
+             plik.close();
 
              for(int i = 0; i<vec.size(); i+=3){
                 vecOfFileNameLoginPassword_.push_back(std::make_tuple(vec[i],vec[i+1],vec[i+2]));
              }
 
-             for(auto [l,s,r]: vecOfFileNameLoginPassword_){
-                std::cout<<l<<" "<<s<<" "<<r<<" \n";
-             }
         }
     }
+
+    bool saveConfigToFile(){
+
+    std::fstream plik;
+
+    plik.open(configName, plik.out | plik.trunc);
+
+    if (plik.is_open())
+    {
+         for(auto [l,s,r]: vecOfFileNameLoginPassword_){
+                plik<<l<<";"<<s<<";"<<r<<";\n";
+             }
+            plik.close();
+            return true;
+    }
+    else
+        return false;
+}
+
+    bool registerNewUser(const std::string& Login, const std::string& Password){
+        auto it = std::find_if(vecOfFileNameLoginPassword_.begin(),vecOfFileNameLoginPassword_.end(),[&](auto user)
+                                                                                                        {
+                                                                                                            return bcrypt::validatePassword(Login,std::get<1>(user));
+                                                                                                        });
+
+        if(it == vecOfFileNameLoginPassword_.end()){
+            std::string PersonalConfigName = "config" + std::to_string(vecOfFileNameLoginPassword_.size()+1);
+
+            vecOfFileNameLoginPassword_.push_back(std::make_tuple(PersonalConfigName,bcrypt::generateHash(Login), bcrypt::generateHash(Password)));
+            
+            return true;
+        }else{
+            std::cout<<"PODANY LOGIN JUZ ISTNIEJE W BAZIE";
+            return false;
+        }
+            
+    }
+
+   
 
 }
