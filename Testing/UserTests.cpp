@@ -67,3 +67,13 @@ TEST_F(UserUnderTestFixture, ModifyDateTransactionByID){
     person.clearTransactions();
 
 }
+
+TEST_F(UserUnderTestFixture, GetCurrentMoneyWITHOUTdeclaratedStartedOne){
+
+    addAllTransactions();
+
+    EXPECT_EQ(person.getCurrentMoney(),12330.79);
+   
+    person.clearTransactions();
+
+}

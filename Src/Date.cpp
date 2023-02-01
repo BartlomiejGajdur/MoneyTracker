@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-std::string Date::currentData(){
+std::string Date::currentDataInString(){
 
     time_t t = time(nullptr);
     tm* timePtr = localtime(&t);
@@ -10,6 +10,21 @@ std::string Date::currentData(){
     return std::to_string(timePtr->tm_mday) + "-" +
            std::to_string(1+timePtr->tm_mon) + "-" + 
            std::to_string(1900+ timePtr->tm_year); 
+}
+
+Date Date::currentData(){
+
+    time_t t = time(nullptr);
+    tm* timePtr = localtime(&t);
+ 
+    return Date(timePtr->tm_mday,1+timePtr->tm_mon,1900+ timePtr->tm_year);
+}
+
+Date Date::operator=(const Date& date){
+    this->day_ = date.day_;
+    this->month_ = date.month_;
+    this->year_ = date.year_;
+    return *this;
 }
 
 bool Date::isLeapYear(){

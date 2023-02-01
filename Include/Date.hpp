@@ -21,10 +21,12 @@ public:
     int getYear()  const   { return year_ ;}
 
     //Functions
-    static std::string currentData();
+    static std::string currentDataInString();
+    static Date currentData();
     static bool isLeapYear(int year);
 
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
+    Date operator=(const Date& date);
     std::string dateInString();
 
 private:

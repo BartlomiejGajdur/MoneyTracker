@@ -7,11 +7,28 @@
 
 #include "Transaction.hpp"
 
+using vecTransactionPtr = std::vector<std::shared_ptr<Transaction>>;
+
 enum class UserErrorCode {Ok, NoTransactionFound, IncorrectData};
+
+
 
 class User{
 
 public:
+    User() = default;
+    User(const std::tuple<std::string,std::string,std::string> userData): configName_(std::get<0>(userData)),
+                                                                            login_(std::get<1>(userData)),
+                                                                            password_(std::get<2>(userData))
+                                                                                                         {};
+
+
+    //Setters
+    void setCurrentMoney(const double& currentMoney);
+    //Getters
+    double getCurrentMoney() const;
+
+
     inline void clearTransactions() {transactions_.clear();};
 
     UserErrorCode addTransaction(const std::shared_ptr<Transaction> transaction);
@@ -23,6 +40,10 @@ public:
     std::map<ExpenseCategory,double> countIndividualSpending();
     std::map<ExpenseCategory,double> percentageOfIndividualSpending();
 private:
-    std::vector<std::shared_ptr<Transaction>> transactions_;
+    vecTransactionPtr transactions_;
+    std::string login_{};
+    std::string password_{};
+    std::string configName_{};
+    double currentMoney_{0};
     
 };

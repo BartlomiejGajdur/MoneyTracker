@@ -4,7 +4,7 @@
 
 #include "Date.hpp"
 
-enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insurance, Medical, Savings, PersonalSpending, Entertainment, Miscellaneous};
+enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insurance, Medical, Savings, PersonalSpending, Entertainment, Miscellaneous, SettingTheBill};
 
 
 class Transaction{
@@ -16,6 +16,16 @@ public:
                                                           money_(money),
                                                           expenseCategory_(expenseCategory),
                                                           date_(date) {ID_ = counter++;};
+    Transaction(const std::string& description, 
+                const double& money, 
+                const ExpenseCategory& expenseCategory) :  
+                                                          description_(description),
+                                                          money_(money),
+                                                          expenseCategory_(expenseCategory)
+                                                          {
+                                                            ID_ = counter++;
+                                                            date_ = Date::currentData();
+                                                            };
     Transaction(){};
     ~Transaction(){};
 

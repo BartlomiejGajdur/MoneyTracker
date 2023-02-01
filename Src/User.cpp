@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include <cmath>
 
 #include "../Include/User.hpp"
 #include "../Include/Transaction.hpp"
@@ -128,4 +129,23 @@ std::map<ExpenseCategory,double> User::percentageOfIndividualSpending(){
     }
 
     return map;
+}
+
+double User::getCurrentMoney() const {
+    double currentMoney = currentMoney_;
+
+    std::for_each(transactions_.begin(),transactions_.end(),[&](std::shared_ptr<Transaction> transaction)
+                                                                                                        {
+                                                                                                            currentMoney+= transaction->getMoney();
+                                                                                                        });
+    currentMoney = std::round(currentMoney*1000.0)/1000.0;
+    return currentMoney;
+}
+
+void User::setCurrentMoney(const double& currentMoney){
+  
+    double bilance = this->getCurrentMoney();
+
+    this->addTransaction(std::make_shared<Transaction>("Alignment by user",currentMoney - bilance,ExpenseCategory::SettingTheBill));
+
 }

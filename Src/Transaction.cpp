@@ -41,6 +41,9 @@ std::string Transaction::returnExpenseCategoryInString(const ExpenseCategory& Ex
     case ExpenseCategory::Miscellaneous :
         return "Miscellaneous" ;
         break;
+    case ExpenseCategory::SettingTheBill :
+        return "SettingTheBill" ;
+        break;
     
     default:
         return "Error";
