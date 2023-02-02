@@ -9,9 +9,19 @@ enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insur
 
 class Transaction{
 public:
+    Transaction(const size_t& ID,
+                const std::string& description, 
+                const double& money, 
+                const ExpenseCategory& expenseCategory, 
+                const Date& date) :                       ID_(ID),
+                                                          description_(description),
+                                                          money_(money),
+                                                          expenseCategory_(expenseCategory),
+                                                          date_(date) {};
     Transaction(const std::string& description, 
                 const double& money, 
-                const ExpenseCategory& expenseCategory, const Date& date) :  
+                const ExpenseCategory& expenseCategory, 
+                const Date& date) :  
                                                           description_(description),
                                                           money_(money),
                                                           expenseCategory_(expenseCategory),
