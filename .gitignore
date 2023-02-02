@@ -2,7 +2,8 @@
 build
 .vscode
 main.cpp
-config.txt
+config*
+LogedOUT
 
 # Prerequisites
 *.d
