@@ -1,6 +1,8 @@
 #include "../Include/Date.hpp"
 
+#include <vector>
 #include <iostream>
+#include <sstream>
 
 std::string Date::currentDataInString(){
 
@@ -69,4 +71,18 @@ std::ostream& operator<<(std::ostream& os, const Date& date){
 
 std::string Date::dateInString(){
     return std::to_string(this->day_) + "." + std::to_string(this->month_) + "." + std::to_string(this->year_);
+}
+
+Date Date::DateFromString(const std::string& dateInString){
+
+    std::string a;
+    std::istringstream extractFrom(dateInString);
+    std::vector<std::string> vec;
+    while(getline(extractFrom,a, '.'))
+        {
+            vec.push_back(a);
+        }
+
+    return Date{std::stoi(vec[0]),std::stoi(vec[1]),std::stoi(vec[2])};
+
 }

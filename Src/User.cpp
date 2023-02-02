@@ -7,7 +7,9 @@
 #include "../Include/User.hpp"
 #include "../Include/Transaction.hpp"
 
+
 UserErrorCode User::addTransaction(const std::shared_ptr<Transaction> transaction){
+    transaction->setID(TransactionCounter++);
     transactions_.push_back(transaction);
     return UserErrorCode::Ok;
 }
@@ -132,6 +134,7 @@ std::map<ExpenseCategory,double> User::percentageOfIndividualSpending(){
     return map;
 }
 
+
 double User::getCurrentMoney() const {
     
     double currentMoney = currentMoney_;
@@ -164,7 +167,7 @@ void User::savePersonalConfigToFile(){
                 plik<<it->getID()<<";"
                     <<it->getDescription()<<";"
                     <<it->getMoney()<<";"
-                    <<it->returnExpenseCategoryInString(it->getExpenseCategory())<<";"
+                    <<static_cast<int>(it->getExpenseCategory())<<";"
                     <<it->getDate()<<";\n";
              }
             plik.close();
@@ -173,4 +176,45 @@ void User::savePersonalConfigToFile(){
         std::cout<<"Problem with FILE;/\n";
     }
 
+}
+void User::loadPersonalConfigFromFile(){
+
+     std::vector<std::string> vec;
+        char znak;
+        std::string linia;
+        std::fstream plik;
+        plik.open("../"+configName_,plik.in);
+
+        if(plik.is_open()){
+           
+            while (!plik.eof())
+             {
+                znak = plik.get();
+
+                if (znak == '\n')
+                {
+                    
+                }
+                else if(znak != ';')
+                {
+                    linia += znak;
+                }
+                else
+                {
+                    vec.push_back(linia);
+                    linia.clear();
+                }
+             }
+             plik.close();
+
+             for(int i = 0; i<vec.size(); i+=5){
+                transactions_.push_back(std::make_shared<Transaction>
+                (std::stoi(vec[i]),vec[i+1],std::stod(vec[i+2]),static_cast<ExpenseCategory>(std::stoi(vec[i+3])),Date::DateFromString(vec[i+4]))
+                );
+             }
+
+             TransactionCounter = std::stoi(vec[vec.size() - 5]) + 1;
+
+        }
+    
 }

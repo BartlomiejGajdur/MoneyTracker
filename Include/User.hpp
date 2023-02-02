@@ -21,11 +21,10 @@ public:
                                                                             login_(std::get<1>(userData)),
                                                                             password_(std::get<2>(userData))
                                                                                                          {
-                                                                                                            //Wykonuje funkcje loadFromFile i robi to z FILE configName_
+                                                                                                            loadPersonalConfigFromFile();
                                                                                                          };
 
-    ~User(){std::cout<<"BAJOOOOO";
-            savePersonalConfigToFile();};
+    ~User(){savePersonalConfigToFile();};
     //Setters
     void setCurrentMoney(const double& currentMoney);
     //Getters
@@ -43,7 +42,8 @@ public:
     std::map<ExpenseCategory,double> countIndividualSpending();
     std::map<ExpenseCategory,double> percentageOfIndividualSpending();
 
-    void saveTransactionsToFile();
+    void savePersonalConfigToFile();
+    void loadPersonalConfigFromFile();
 
 
 private:
@@ -53,6 +53,5 @@ private:
     std::string password_{};
     std::string configName_{};
 
-    void savePersonalConfigToFile();
-    
+    size_t TransactionCounter{0}; // przypisz do odczytanego ID ostatniego 
 };

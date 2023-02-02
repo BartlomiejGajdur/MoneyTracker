@@ -4,6 +4,7 @@
 #include <string>
 
 
+
 enum class DateErrorCode { Ok, InvalidYear, InvalidMonth, InvalidDay, ERROR404};
 
 
@@ -23,6 +24,7 @@ public:
     //Functions
     static std::string currentDataInString();
     static Date currentData();
+    static Date DateFromString(const std::string& dateInString);
     static bool isLeapYear(int year);
 
     friend std::ostream& operator<<(std::ostream& os, const Date& date);

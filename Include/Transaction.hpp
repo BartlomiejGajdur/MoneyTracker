@@ -25,7 +25,7 @@ public:
                                                           description_(description),
                                                           money_(money),
                                                           expenseCategory_(expenseCategory),
-                                                          date_(date) {ID_ = counter++;};
+                                                          date_(date) {};
     Transaction(const std::string& description, 
                 const double& money, 
                 const ExpenseCategory& expenseCategory) :  
@@ -33,7 +33,7 @@ public:
                                                           money_(money),
                                                           expenseCategory_(expenseCategory)
                                                           {
-                                                            ID_ = counter++;
+                                                            
                                                             date_ = Date::currentData();
                                                             };
     Transaction(){};
@@ -51,6 +51,7 @@ public:
         void setExpenseCategory(const ExpenseCategory& expenseCategory) { expenseCategory_ = expenseCategory; }
         void setDescription(const std::string& description)             { description_ = description;}
         void setMoney(const double& money)                              { money_ = money;}
+        void setID(const size_t& ID)                                    { ID_ = ID;}
         DateErrorCode setDate(int,int,int);
 
     //Functions
@@ -67,6 +68,7 @@ private:
     Date date_;
 
     static size_t counter;
+
 
 };
 

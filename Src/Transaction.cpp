@@ -51,6 +51,7 @@ std::string Transaction::returnExpenseCategoryInString(const ExpenseCategory& Ex
     }
 }
 
+
 std::ostream& operator<<(std::ostream& os,Transaction& transaction){
 
     os<<"ID: " << transaction.ID_<<"      | "
