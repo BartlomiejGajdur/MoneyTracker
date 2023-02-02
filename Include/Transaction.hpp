@@ -41,9 +41,10 @@ public:
 
     //Getters
         size_t getID() const {return ID_;};
+        std::string getDescription() const {return description_;};
         double getMoney() const {return money_;};
-        Date getDate() const {return date_;};
         ExpenseCategory getExpenseCategory() const {return expenseCategory_;};
+        Date getDate() const {return date_;};
 
 
     //Setters

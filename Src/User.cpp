@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <map>
 #include <cmath>
+#include <fstream>
 
 #include "../Include/User.hpp"
 #include "../Include/Transaction.hpp"
@@ -148,5 +149,28 @@ void User::setCurrentMoney(const double& currentMoney){
     double bilance = this->getCurrentMoney();
 
     this->addTransaction(std::make_shared<Transaction>("Alignment by user",currentMoney - bilance,ExpenseCategory::SettingTheBill));
+
+}
+
+void User::savePersonalConfigToFile(){
+
+    std::fstream plik;
+
+    plik.open("../"+configName_, plik.out | plik.trunc);
+
+    if (plik.is_open())
+    {
+         for(auto it: transactions_){
+                plik<<it->getID()<<";"
+                    <<it->getDescription()<<";"
+                    <<it->getMoney()<<";"
+                    <<it->returnExpenseCategoryInString(it->getExpenseCategory())<<";"
+                    <<it->getDate()<<";\n";
+             }
+            plik.close();
+
+    }else{
+        std::cout<<"Problem with FILE;/\n";
+    }
 
 }
