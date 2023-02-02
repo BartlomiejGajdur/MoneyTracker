@@ -132,6 +132,7 @@ std::map<ExpenseCategory,double> User::percentageOfIndividualSpending(){
 }
 
 double User::getCurrentMoney() const {
+    
     double currentMoney = currentMoney_;
 
     std::for_each(transactions_.begin(),transactions_.end(),[&](std::shared_ptr<Transaction> transaction)

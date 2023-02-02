@@ -38,7 +38,6 @@ TEST_F(UserUnderTestFixture, RemovingByID){
     EXPECT_EQ(person.removeTransactionById(2),UserErrorCode::Ok);
     EXPECT_EQ(person.removeTransactionById(6),UserErrorCode::NoTransactionFound);
 
-    person.clearTransactions();
 
 
 }
@@ -49,7 +48,6 @@ TEST_F(UserUnderTestFixture, CountSpendings){
 
     EXPECT_EQ(person.countWholeSpendings(),double(-1365.21));
 
-    person.clearTransactions();
 
 }
 
@@ -64,16 +62,20 @@ TEST_F(UserUnderTestFixture, ModifyDateTransactionByID){
     EXPECT_EQ(person.modifyDateTransactionById(12,20,32,2000),UserErrorCode::IncorrectData);
     EXPECT_EQ(person.modifyDateTransactionById(12,20,12,211111),UserErrorCode::IncorrectData);
 
-    person.clearTransactions();
 
 }
 
 TEST_F(UserUnderTestFixture, GetCurrentMoneyWITHOUTdeclaratedStartedOne){
 
     addAllTransactions();
-
     EXPECT_EQ(person.getCurrentMoney(),12330.79);
    
-    person.clearTransactions();
+}
 
+TEST_F(UserUnderTestFixture, SetCurrentMoney){
+
+    addAllTransactions();
+    person.setCurrentMoney(5000);
+    EXPECT_EQ(person.getCurrentMoney(),5000);
+    
 }
