@@ -55,6 +55,17 @@ namespace ValidatePassword{
         return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainLowercaseLetter;
     }
 
+    PasswordErrorCode checkNumber(const std::string& password){
+
+        auto it = std::find_if(password.begin(),password.end(),[](char zn)
+                                                                    {
+                                                                        return (zn>=48 && zn<=57);
+                                                                    });
+
+        return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainNumber;
+    }
+
+
 
    
     void loadConfigFromFile(){
