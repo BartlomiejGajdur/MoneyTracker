@@ -65,6 +65,24 @@ namespace ValidatePassword{
         return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainNumber;
     }
 
+    PasswordErrorCode checkGivenPassword(const std::string& password){
+
+        if(checkLength(password) != PasswordErrorCode::Ok)
+            return checkLength(password);
+        
+        if(checkSpecialChar(password) != PasswordErrorCode::Ok)
+            return checkSpecialChar(password);
+        
+        if(checkUppercaseLetter(password) != PasswordErrorCode::Ok)
+            return checkUppercaseLetter(password);
+        
+        if(checkLowercaseLetter(password) != PasswordErrorCode::Ok)
+            return checkLowercaseLetter(password);
+        
+        if(checkNumber(password) != PasswordErrorCode::Ok)
+            return checkNumber(password);
+
+    }
 
 
    
