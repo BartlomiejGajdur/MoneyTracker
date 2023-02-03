@@ -10,11 +10,20 @@
 
 using vecConfig = std::vector<std::tuple<std::string,std::string,std::string>>;
 
+enum class PasswordErrorCode {Ok, WrongLength, NotContainSpecialChar, NotContainUppercaseLetter, NotContainLowercaseLetter };
+
 namespace ValidatePassword{
 
     vecConfig vecOfFileNameLoginPassword_;
     std::string configName = "../config.txt";
     std::tuple<std::string,std::string,std::string> currentUser;
+
+
+    PasswordErrorCode checkLength(const std::string& password){
+        return (password.size() >= 8 && password.size() <= 32) ? PasswordErrorCode::Ok : PasswordErrorCode::WrongLength;
+    }
+
+
    
     void loadConfigFromFile(){
 
