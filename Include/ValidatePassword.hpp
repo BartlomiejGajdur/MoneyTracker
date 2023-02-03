@@ -10,7 +10,7 @@
 
 using vecConfig = std::vector<std::tuple<std::string,std::string,std::string>>;
 
-enum class PasswordErrorCode {Ok, WrongLength, NotContainSpecialChar, NotContainUppercaseLetter, NotContainLowercaseLetter };
+enum class PasswordErrorCode {Ok, WrongLength, NotContainSpecialChar, NotContainUppercaseLetter, NotContainLowercaseLetter, NotContainNumber};
 
 namespace ValidatePassword{
 
@@ -21,6 +21,18 @@ namespace ValidatePassword{
 
     PasswordErrorCode checkLength(const std::string& password){
         return (password.size() >= 8 && password.size() <= 32) ? PasswordErrorCode::Ok : PasswordErrorCode::WrongLength;
+    }
+
+    PasswordErrorCode checkSpecialChar(const std::string& password){
+        //!"#$%&'()*+,-./
+        //:;<=>?@
+        //[\]^_`
+        auto it = std::find_if(password.begin(),password.end(),[](char zn)
+                                                                    {
+                                                                        return (zn>=33 && zn<=47) || (zn>=58 && zn z<=64) || (zn>=91 && zn z<=98) || (zn>=123);
+                                                                    });
+
+        return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainSpecialChar;
     }
 
 
