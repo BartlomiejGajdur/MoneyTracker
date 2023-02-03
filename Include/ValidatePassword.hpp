@@ -35,6 +35,26 @@ namespace ValidatePassword{
         return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainSpecialChar;
     }
 
+     PasswordErrorCode checkUppercaseLetter(const std::string& password){
+
+        auto it = std::find_if(password.begin(),password.end(),[](char zn)
+                                                                    {
+                                                                        return (zn>=65 && zn<=90);
+                                                                    });
+
+        return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainUppercaseLetter;
+    }
+
+     PasswordErrorCode checkLowercaseLetter(const std::string& password){
+
+        auto it = std::find_if(password.begin(),password.end(),[](char zn)
+                                                                    {
+                                                                        return (zn>=97 && zn<=122);
+                                                                    });
+
+        return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainLowercaseLetter;
+    }
+
 
    
     void loadConfigFromFile(){
