@@ -86,3 +86,9 @@ Date Date::DateFromString(const std::string& dateInString){
     return Date{std::stoi(vec[0]),std::stoi(vec[1]),std::stoi(vec[2])};
 
 }
+
+bool Date::operator==(const Date& date) const{
+    return this->day_ == date.day_ && 
+           this->month_ == date.month_ && 
+           this->year_ == date.year_;
+}

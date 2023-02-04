@@ -6,7 +6,7 @@
 #include "../Include/Date.hpp"
 
 using setDateResponse = std::pair<DateErrorCode,DateErrorCode>;
-Date data{};
+Date data(30,4,2000);
 
 std::vector<setDateResponse> setDateWithResponse = {
     {data.setDate(1,1,1),DateErrorCode::InvalidYear},
@@ -70,3 +70,12 @@ TEST_P(CheckLeapYear, ValidateLeapYear)
 INSTANTIATE_TEST_SUITE_P(LeapYear,
                          CheckLeapYear,
                          testing::ValuesIn(LeapYearWithResponse));
+
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+TEST(DataSet, CheckIfDataIsEqual){
+    Date a{11,2,2000};
+    Date b{11,02,2000};
+    EXPECT_EQ(a,b);
+}
