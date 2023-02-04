@@ -36,7 +36,7 @@ bool Date::isLeapYear(int year){
 
 DateErrorCode Date::setDate(int day, int month, int year){
     
-    if(year < 1900 || year > 2023)
+    if(year < 1800 || year > 2200)
         return DateErrorCode::InvalidYear;
     
    
@@ -80,6 +80,17 @@ Date Date::DateFromString(const std::string& dateInString){
 
     return Date{std::stoi(vec[0]),std::stoi(vec[1]),std::stoi(vec[2])};
 
+}
+
+int Date::distanceFromCurrentData(){
+    Date currentDate = Date::currentData() ;
+    int counter{0};
+    while(*this > currentDate ){
+        ++counter;
+        ++currentDate;
+    }
+
+    return counter;
 }
 
 Date Date::operator=(const Date& otherDate){

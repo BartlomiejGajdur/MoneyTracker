@@ -11,8 +11,8 @@ Date data(30,4,2000);
 std::vector<setDateResponse> setDateWithResponse = {
     {data.setDate(1,1,1),DateErrorCode::InvalidYear},
     {data.setDate(1,1,-5),DateErrorCode::InvalidYear},
-    {data.setDate(1,1,2024),DateErrorCode::InvalidYear},
-    {data.setDate(1,1,1899),DateErrorCode::InvalidYear},
+    {data.setDate(1,1,2201),DateErrorCode::InvalidYear},
+    {data.setDate(1,1,1799),DateErrorCode::InvalidYear},
     {data.setDate(1,13,1901),DateErrorCode::InvalidMonth},
     {data.setDate(1,0,1901),DateErrorCode::InvalidMonth},
     {data.setDate(32,2,1904),DateErrorCode::InvalidDay},
@@ -113,9 +113,9 @@ TEST(DataSet, CheckPreIncOperator1){
 }
 
 TEST(DataSet, CheckPreIncOperator2){
-    Date a{28,2,2001}; 
+    Date a{31,1,2001}; 
     ++a; 
-    Date b{1,3,2001};
+    Date b{1,2,2001};
     EXPECT_EQ(a,b);
 }
 
@@ -160,4 +160,30 @@ TEST(DataSet, Check_Bigger_Smaller_Operator6){
     Date a{23,12,2001};  
     Date b{25,12,2001};
     EXPECT_GT(b,a);
+}
+
+
+TEST(DataSet, Distance){
+    Date a{23,02,2023};  
+    EXPECT_EQ(a.distanceFromCurrentData(),19);
+}
+
+TEST(DataSet, Distance2){
+    Date a{5,02,2023};  
+    EXPECT_EQ(a.distanceFromCurrentData(),1);
+}
+
+TEST(DataSet, Distance3){
+    Date a{4,02,2023};  
+    EXPECT_EQ(a.distanceFromCurrentData(),0);
+}
+
+TEST(DataSet, Distance4){
+    Date a{1,02,2023};  
+    EXPECT_EQ(a.distanceFromCurrentData(),0);
+}
+
+TEST(DataSet, Distance5){
+    Date a{04,02,2024};  
+    EXPECT_EQ(a.distanceFromCurrentData(),365);
 }

@@ -26,6 +26,7 @@ public:
     static Date currentData();
     static Date DateFromString(const std::string& dateInString);
     static bool isLeapYear(int year);
+    int distanceFromCurrentData();
 
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
     Date operator=(const Date& otherDate);
