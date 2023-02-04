@@ -30,6 +30,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
     Date operator=(const Date& date);
     bool operator==(const Date& date) const;
+    bool operator!=(const Date& date) const;
     std::string dateInString();
 
 private:

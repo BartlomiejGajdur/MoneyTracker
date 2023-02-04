@@ -92,3 +92,9 @@ bool Date::operator==(const Date& date) const{
            this->month_ == date.month_ && 
            this->year_ == date.year_;
 }
+
+bool Date::operator!=(const Date& date) const{
+    return this->day_ != date.day_ || 
+           this->month_ != date.month_ || 
+           this->year_ != date.year_;
+}

@@ -79,3 +79,9 @@ TEST(DataSet, CheckIfDataIsEqual){
     Date b{11,02,2000};
     EXPECT_EQ(a,b);
 }
+
+TEST(DataSet, CheckIfDataIsNotEqual){
+    Date a{11,3,2000};  
+    Date b{11,2,2000};
+    EXPECT_NE(a,b);
+}
