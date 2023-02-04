@@ -84,14 +84,54 @@ Date Date::DateFromString(const std::string& dateInString){
 
 int Date::distanceFromCurrentData(){
     Date currentDate = Date::currentData() ;
+    Date thisDate = *this;
     int counter{0};
-    while(*this > currentDate ){
+
+    if(thisDate > currentDate)
+    {
+         while(thisDate > currentDate )
+         {
         ++counter;
         ++currentDate;
-    }
+        }
+    }else if(thisDate < currentDate){
 
+        while(thisDate < currentDate )
+         {
+        --counter;
+        ++thisDate;
+        }
+
+    }
+   
     return counter;
 }
+
+int Date::distance(const Date& lhsDATE, const Date& rhsDATE){
+    int counter{0};
+
+    Date lhs = lhsDATE;
+    Date rhs = rhsDATE;
+
+    if(lhs > rhs)
+    {
+         while(lhs > rhs )
+         {
+        ++counter;
+        ++rhs;
+        }
+    }else if (lhs < rhs) {
+
+        while(lhs < rhs )
+         {
+        --counter;
+        ++lhs;
+        }
+
+    }
+    return counter;
+}
+
 
 Date Date::operator=(const Date& otherDate){
     this->day_ = otherDate.day_;
@@ -129,21 +169,6 @@ Date& Date::operator++(){
 
     return *this;
 } 
-
-// Date Date::operator++(int){
-
-
-// }
-
-// Date& Date::operator--(){
-
-
-// }
-
-// Date Date::operator--(int){
-
-
-// }
 
 bool Date::operator<(const Date& other) const {
         if (year_ != other.year_) return year_ < other.year_;
