@@ -29,7 +29,7 @@ namespace ValidatePassword{
         //[\]^_`
         auto it = std::find_if(password.begin(),password.end(),[](char zn)
                                                                     {
-                                                                        return (zn>=33 && zn<=47) || (zn>=58 && zn z<=64) || (zn>=91 && zn z<=98) || (zn>=123);
+                                                                        return (zn>=33 && zn<=47) || (zn>=58 && zn<=64) || (zn>=91 && zn<=98) || (zn>=123);
                                                                     });
 
         return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainSpecialChar;
@@ -81,6 +81,8 @@ namespace ValidatePassword{
         
         if(checkNumber(password) != PasswordErrorCode::Ok)
             return checkNumber(password);
+        
+        return PasswordErrorCode::Ok;
 
     }
 
