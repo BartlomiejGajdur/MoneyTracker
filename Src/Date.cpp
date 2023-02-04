@@ -133,3 +133,13 @@ Date& Date::operator++(){
 
 
 // }
+
+bool Date::operator<(const Date& other) const {
+        if (year_ != other.year_) return year_ < other.year_;
+        if (month_ != other.month_) return month_ < other.month_;
+        return day_ < other.day_;
+    }
+
+bool Date::operator>(const Date& other) const{
+    return other < *this;
+  }

@@ -125,3 +125,39 @@ TEST(DataSet, CheckPreIncOperator3){
     Date b{1,1,2002};
     EXPECT_EQ(a,b);
 }
+
+TEST(DataSet, CheckBigger_Smaller_Operator1){
+    Date a{31,12,2001};  
+    Date b{1,1,2002};
+    EXPECT_LT(a,b);
+}
+
+TEST(DataSet, Check_Bigger_Smaller_Operator2){
+    Date a{31,11,2001};  
+    Date b{1,12,2001};
+    EXPECT_LT(a,b);
+}
+
+TEST(DataSet, Check_Bigger_Smaller_Operator3){
+    Date a{23,12,2001};  
+    Date b{25,12,2001};
+    EXPECT_LT(a,b);
+}
+
+TEST(DataSet, Check_Bigger_Smaller_Operator4){
+    Date a{31,12,2001};  
+    Date b{1,1,2002};
+    EXPECT_GT(b,a);
+}
+
+TEST(DataSet, Check_Bigger_Smaller_Operator5){
+    Date a{31,11,2001};  
+    Date b{1,12,2001};
+    EXPECT_GT(b,a);
+}
+
+TEST(DataSet, Check_Bigger_Smaller_Operator6){
+    Date a{23,12,2001};  
+    Date b{25,12,2001};
+    EXPECT_GT(b,a);
+}

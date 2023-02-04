@@ -36,6 +36,8 @@ public:
     // Date& operator--(); //Prefix
     // Date operator--(int); // Postfix
 
+    bool operator<(const Date& other) const;
+    bool operator>(const Date& other) const;
 
     std::string dateInString();
 
