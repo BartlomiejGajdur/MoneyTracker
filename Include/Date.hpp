@@ -28,9 +28,9 @@ public:
     static bool isLeapYear(int year);
 
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
-    Date operator=(const Date& date);
-    bool operator==(const Date& date) const;
-    bool operator!=(const Date& date) const;
+    Date operator=(const Date& otherDate);
+    bool operator==(const Date& otherDate) const;
+    bool operator!=(const Date& otherDate) const;
     std::string dateInString();
 
 private:

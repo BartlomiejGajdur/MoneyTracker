@@ -22,12 +22,7 @@ Date Date::currentData(){
     return Date(timePtr->tm_mday,1+timePtr->tm_mon,1900+ timePtr->tm_year);
 }
 
-Date Date::operator=(const Date& date){
-    this->day_ = date.day_;
-    this->month_ = date.month_;
-    this->year_ = date.year_;
-    return *this;
-}
+
 
 bool Date::isLeapYear(){
     return (year_ % 4 == 0 && year_ % 100 != 0) ||
@@ -87,14 +82,21 @@ Date Date::DateFromString(const std::string& dateInString){
 
 }
 
-bool Date::operator==(const Date& date) const{
-    return this->day_ == date.day_ && 
-           this->month_ == date.month_ && 
-           this->year_ == date.year_;
+Date Date::operator=(const Date& otherDate){
+    this->day_ = otherDate.day_;
+    this->month_ = otherDate.month_;
+    this->year_ = otherDate.year_;
+    return *this;
 }
 
-bool Date::operator!=(const Date& date) const{
-    return this->day_ != date.day_ || 
-           this->month_ != date.month_ || 
-           this->year_ != date.year_;
+bool Date::operator==(const Date& otherDate) const{
+    return this->day_ == otherDate.day_ && 
+           this->month_ == otherDate.month_ && 
+           this->year_ == otherDate.year_;
+}
+
+bool Date::operator!=(const Date& otherDate) const{
+    return this->day_ != otherDate.day_ || 
+           this->month_ != otherDate.month_ || 
+           this->year_ != otherDate.year_;
 }
