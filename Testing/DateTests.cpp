@@ -80,8 +80,48 @@ TEST(DataSet, CheckIfDataIsEqual){
     EXPECT_EQ(a,b);
 }
 
-TEST(DataSet, CheckIfDataIsNotEqual){
+TEST(DataSet, CheckIfDataIsNotEqual1){
     Date a{11,3,2000};  
     Date b{11,2,2000};
     EXPECT_NE(a,b);
+}
+
+TEST(DataSet, CheckIfDataIsNotEqual2){
+    Date a{12,2,2000};  
+    Date b{11,2,2000};
+    EXPECT_NE(a,b);
+}
+
+TEST(DataSet, CheckIfDataIsNotEqual3){
+    Date a{11,2,2001};  
+    Date b{11,2,2000};
+    EXPECT_NE(a,b);
+}
+
+TEST(DataSet, CheckIfDataIsNotEqual4){
+    Date a{2,13,1999};  
+    Date b{11,2,2000};
+    EXPECT_NE(a,b);
+}
+
+
+TEST(DataSet, CheckPreIncOperator1){
+    Date a{10,2,2000}; 
+    ++a; 
+    Date b{11,2,2000};
+    EXPECT_EQ(a,b);
+}
+
+TEST(DataSet, CheckPreIncOperator2){
+    Date a{28,2,2001}; 
+    ++a; 
+    Date b{1,3,2001};
+    EXPECT_EQ(a,b);
+}
+
+TEST(DataSet, CheckPreIncOperator3){
+    Date a{31,12,2001}; 
+    ++a; 
+    Date b{1,1,2002};
+    EXPECT_EQ(a,b);
 }

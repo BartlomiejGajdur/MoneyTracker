@@ -100,3 +100,36 @@ bool Date::operator!=(const Date& otherDate) const{
            this->month_ != otherDate.month_ || 
            this->year_ != otherDate.year_;
 }
+
+Date& Date::operator++(){
+    DateErrorCode errorCode = this->setDate(++this->day_,this->month_,this->year_);
+
+    if(errorCode == DateErrorCode::InvalidDay)
+    {
+        this->day_ = 1;
+        errorCode = this->setDate(this->day_,++this->month_,this->year_);
+
+        if(errorCode == DateErrorCode::InvalidMonth)
+        {
+            this->month_ = 1;
+            ++this->year_;
+        }
+    }
+
+    return *this;
+} 
+
+// Date Date::operator++(int){
+
+
+// }
+
+// Date& Date::operator--(){
+
+
+// }
+
+// Date Date::operator--(int){
+
+
+// }
