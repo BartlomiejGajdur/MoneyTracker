@@ -172,10 +172,7 @@ void User::savePersonalConfigToFile(){
              }
             plik.close();
 
-    }else{
-        std::cout<<"Problem with FILE;/\n";
     }
-
 }
 void User::loadPersonalConfigFromFile(){
 
