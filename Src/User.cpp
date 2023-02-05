@@ -155,7 +155,7 @@ void User::setCurrentMoney(const double& currentMoney){
 
 }
 
-void User::savePersonalConfigToFile(){
+bool User::savePersonalConfigToFile(){
 
     std::fstream plik;
 
@@ -171,10 +171,13 @@ void User::savePersonalConfigToFile(){
                     <<it->getDate()<<";\n";
              }
             plik.close();
+            return true;
 
+    }else{
+        return false;
     }
 }
-void User::loadPersonalConfigFromFile(){
+bool User::loadPersonalConfigFromFile(){
 
      std::vector<std::string> vec;
         char znak;
@@ -211,7 +214,10 @@ void User::loadPersonalConfigFromFile(){
              }
 
              TransactionCounter = std::stoi(vec[vec.size() - 5]) + 1;
+             return true;
 
+        }else{
+            return false;
         }
     
 }

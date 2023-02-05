@@ -26,9 +26,8 @@ PasswordErrorCode ValidatePassword::checkSpecialChar(const std::string& password
         //[\]^_`
         auto it = std::find_if(password.begin(),password.end(),[](char zn)
                                                                     {
-                                                                        return (zn>=33 && zn<=47) || (zn>=58 && zn<=64) || (zn>=91 && zn<=98) || (zn>=123);
+                                                                        return (zn>=33 && zn<=47) || (zn>=58 && zn<=64) || (zn>=91 && zn<=96) || (zn>=123);
                                                                     });
-
         return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainSpecialChar;
     }
 

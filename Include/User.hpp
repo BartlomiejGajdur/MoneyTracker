@@ -42,8 +42,8 @@ public:
     std::map<ExpenseCategory,double> countIndividualSpending();
     std::map<ExpenseCategory,double> percentageOfIndividualSpending();
 
-    void savePersonalConfigToFile();
-    void loadPersonalConfigFromFile();
+    bool savePersonalConfigToFile();
+    bool loadPersonalConfigFromFile();
 
 
 private:
