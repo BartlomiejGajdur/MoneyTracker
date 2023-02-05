@@ -7,7 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include <conio.h>
-#include "C:\Users\gajdu\Desktop\C++\MoneyTracker\build\_deps\bcrypt-src\include\bcrypt.h"
+#include "bcrypt.h"
 
 using vecConfig = std::vector<std::tuple<std::string,std::string,std::string>>;
 
