@@ -22,12 +22,7 @@ Date Date::currentData(){
     return Date(timePtr->tm_mday,1+timePtr->tm_mon,1900+ timePtr->tm_year);
 }
 
-Date Date::operator=(const Date& date){
-    this->day_ = date.day_;
-    this->month_ = date.month_;
-    this->year_ = date.year_;
-    return *this;
-}
+
 
 bool Date::isLeapYear(){
     return (year_ % 4 == 0 && year_ % 100 != 0) ||
@@ -41,7 +36,7 @@ bool Date::isLeapYear(int year){
 
 DateErrorCode Date::setDate(int day, int month, int year){
     
-    if(year < 1900 || year > 2023)
+    if(year < 1800 || year > 2200)
         return DateErrorCode::InvalidYear;
     
    
@@ -86,3 +81,101 @@ Date Date::DateFromString(const std::string& dateInString){
     return Date{std::stoi(vec[0]),std::stoi(vec[1]),std::stoi(vec[2])};
 
 }
+
+int Date::distanceFromCurrentData(){
+    Date currentDate = Date::currentData() ;
+    Date thisDate = *this;
+    int counter{0};
+
+    if(thisDate > currentDate)
+    {
+         while(thisDate > currentDate )
+         {
+        ++counter;
+        ++currentDate;
+        }
+    }else if(thisDate < currentDate){
+
+        while(thisDate < currentDate )
+         {
+        --counter;
+        ++thisDate;
+        }
+
+    }
+   
+    return counter;
+}
+
+int Date::distance(const Date& lhsDATE, const Date& rhsDATE){
+    int counter{0};
+
+    Date lhs = lhsDATE;
+    Date rhs = rhsDATE;
+
+    if(lhs > rhs)
+    {
+         while(lhs > rhs )
+         {
+        ++counter;
+        ++rhs;
+        }
+    }else if (lhs < rhs) {
+
+        while(lhs < rhs )
+         {
+        --counter;
+        ++lhs;
+        }
+
+    }
+    return counter;
+}
+
+
+Date Date::operator=(const Date& otherDate){
+    this->day_ = otherDate.day_;
+    this->month_ = otherDate.month_;
+    this->year_ = otherDate.year_;
+    return *this;
+}
+
+bool Date::operator==(const Date& otherDate) const{
+    return this->day_ == otherDate.day_ && 
+           this->month_ == otherDate.month_ && 
+           this->year_ == otherDate.year_;
+}
+
+bool Date::operator!=(const Date& otherDate) const{
+    return this->day_ != otherDate.day_ || 
+           this->month_ != otherDate.month_ || 
+           this->year_ != otherDate.year_;
+}
+
+Date& Date::operator++(){
+    DateErrorCode errorCode = this->setDate(++this->day_,this->month_,this->year_);
+
+    if(errorCode == DateErrorCode::InvalidDay)
+    {
+        this->day_ = 1;
+        errorCode = this->setDate(this->day_,++this->month_,this->year_);
+
+        if(errorCode == DateErrorCode::InvalidMonth)
+        {
+            this->month_ = 1;
+            ++this->year_;
+        }
+    }
+
+    return *this;
+} 
+
+bool Date::operator<(const Date& other) const {
+        if (year_ != other.year_) return year_ < other.year_;
+        if (month_ != other.month_) return month_ < other.month_;
+        return day_ < other.day_;
+    }
+
+bool Date::operator>(const Date& other) const{
+    return other < *this;
+  }

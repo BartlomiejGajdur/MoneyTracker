@@ -55,12 +55,12 @@ TEST_F(UserUnderTestFixture, ModifyDateTransactionByID){
 
     addAllTransactions();
 
-    EXPECT_EQ(person.modifyDateTransactionById(12,20,12,2000),UserErrorCode::Ok);
+    EXPECT_EQ(person.modifyDateTransactionById(0,20,12,2000),UserErrorCode::Ok);
     EXPECT_EQ(person.modifyDateTransactionById(100000,32,13,2000),UserErrorCode::NoTransactionFound);
     EXPECT_EQ(person.modifyDateTransactionById(100000,2,12,2000),UserErrorCode::NoTransactionFound);
-    EXPECT_EQ(person.modifyDateTransactionById(12,32,12,2000),UserErrorCode::IncorrectData);
-    EXPECT_EQ(person.modifyDateTransactionById(12,20,32,2000),UserErrorCode::IncorrectData);
-    EXPECT_EQ(person.modifyDateTransactionById(12,20,12,211111),UserErrorCode::IncorrectData);
+    EXPECT_EQ(person.modifyDateTransactionById(1,32,12,2000),UserErrorCode::IncorrectData);
+    EXPECT_EQ(person.modifyDateTransactionById(2,20,32,2000),UserErrorCode::IncorrectData);
+    EXPECT_EQ(person.modifyDateTransactionById(3,20,12,211111),UserErrorCode::IncorrectData);
 
 
 }

@@ -26,9 +26,19 @@ public:
     static Date currentData();
     static Date DateFromString(const std::string& dateInString);
     static bool isLeapYear(int year);
+    static int distance(const Date& lhsDATE, const Date& rhsDATE);
+    int distanceFromCurrentData();
 
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
-    Date operator=(const Date& date);
+    Date operator=(const Date& otherDate);
+    bool operator==(const Date& otherDate) const;
+    bool operator!=(const Date& otherDate) const;
+    Date& operator++(); //Prefix
+
+
+    bool operator<(const Date& other) const;
+    bool operator>(const Date& other) const;
+
     std::string dateInString();
 
 private:
