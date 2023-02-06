@@ -40,3 +40,15 @@ std::string MenuFunctions::insertPassword(){
 
         return password;
     }
+
+size_t  MenuFunctions::insertNumber(const size_t& zakresL, const size_t& zakresP){
+    size_t choice;
+    std::cout<<"Insert number in range: "<<zakresL <<  " to " <<zakresP<<"\n>";
+    while(!(std::cin>>choice) || choice<zakresL || choice >zakresP){
+        std::cout<<"Please enter number only in range: "<<zakresL <<  " to " <<zakresP<<"\n>";
+        std::cin.clear();
+        std::cin.ignore(1000,'\n');
+    }
+
+    return choice;
+}
