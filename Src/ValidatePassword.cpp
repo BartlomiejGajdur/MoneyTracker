@@ -168,31 +168,3 @@ void ValidatePassword::loadConfigFromFile(){
             return false;
         }
     }
-
-    //To będzie raczej w jakims MENU CZY COS
-    std::string ValidatePassword::insertPassword(){
-        std::string password{};
-        char ch;
-
-        do{
-            ch = _getch();
-            if(ch == 8)
-            {
-                if(password.size()>0)
-                {
-                    std::cout<<"\b \b";
-                    password.pop_back();
-                }
-                
-            }else if(ch == 13){
-
-            }
-            else{
-                std::cout<<"*";
-                password+=ch;
-            }
-
-        }while(ch != 13);
-
-        return password;
-    }

@@ -6,7 +6,6 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include <conio.h>
 #include "bcrypt.h"
 
 using vecConfig = std::vector<std::tuple<std::string,std::string,std::string>>;
@@ -29,8 +28,4 @@ namespace ValidatePassword{
     bool registerNewUser(const std::string& Login, const std::string& Password);
     bool saveConfigToFile();
     bool logIn(const std::string& Login, const std::string& Password);
-
-    //To będzie raczej w jakims MENU CZY COS
-    std::string insertPassword();
-
 }
