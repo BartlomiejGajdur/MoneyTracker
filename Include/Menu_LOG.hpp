@@ -1,6 +1,5 @@
 #pragma once
 #include "ValidatePassword.hpp"
-
 class Menu_LOG{
 public:
     Menu_LOG(){ValidatePassword::loadConfigFromFile();};
@@ -13,4 +12,5 @@ private:
     void optionsMenu();
     void RegisterMenu();
     bool LogINMenu();
+    void printColoredRequirements(const std::string& password);
 };
