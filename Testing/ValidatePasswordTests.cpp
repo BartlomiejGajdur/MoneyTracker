@@ -38,6 +38,12 @@ TEST(ValidatePassword, Number){
     EXPECT_EQ(ValidatePassword::checkNumber("abcd1egasg"),PasswordErrorCode::Ok);
 }
 
+TEST(ValidatePassword, PasswordMatch){
+
+    EXPECT_EQ(ValidatePassword::checkPasswordMatch("abcdefg" , "abcdefg"),PasswordErrorCode::Ok);
+    EXPECT_EQ(ValidatePassword::checkPasswordMatch("abcdefg" , "abcdefG"),PasswordErrorCode::PasswordNotMatch);
+}
+
 TEST(ValidatePassword, GivenPassword){
 
     EXPECT_EQ(ValidatePassword::checkGivenPassword("Br2!lL"),PasswordErrorCode::WrongLength);

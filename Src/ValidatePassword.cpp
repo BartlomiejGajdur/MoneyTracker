@@ -60,6 +60,10 @@ PasswordErrorCode ValidatePassword::checkNumber(const std::string& password){
 
         return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainNumber;
     }
+    
+PasswordErrorCode ValidatePassword::checkPasswordMatch(const std::string& LHSpassword, const std::string& RHSpassword){
+    return std::equal(LHSpassword.begin(),LHSpassword.end(),RHSpassword.begin())? PasswordErrorCode::Ok : PasswordErrorCode::PasswordNotMatch;
+}
 
 PasswordErrorCode ValidatePassword::checkGivenPassword(const std::string& password){
 

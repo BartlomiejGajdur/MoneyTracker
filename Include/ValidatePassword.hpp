@@ -10,7 +10,7 @@
 
 using vecConfig = std::vector<std::tuple<std::string,std::string,std::string>>;
 
-enum class PasswordErrorCode {Ok, WrongLength, NotContainSpecialChar, NotContainUppercaseLetter, NotContainLowercaseLetter, NotContainNumber};
+enum class PasswordErrorCode {Ok, WrongLength, NotContainSpecialChar, NotContainUppercaseLetter, NotContainLowercaseLetter, NotContainNumber, PasswordNotMatch};
 
 namespace ValidatePassword{
 
@@ -20,6 +20,7 @@ namespace ValidatePassword{
     PasswordErrorCode checkUppercaseLetter(const std::string& password);
     PasswordErrorCode checkLowercaseLetter(const std::string& password);
     PasswordErrorCode checkNumber(const std::string& password);
+    PasswordErrorCode checkPasswordMatch(const std::string& LHSpassword, const std::string& RHSpassword);
     PasswordErrorCode checkGivenPassword(const std::string& password);
 
     std::tuple<std::string,std::string,std::string>& getCurrentUser();

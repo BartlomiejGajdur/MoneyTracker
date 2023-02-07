@@ -55,7 +55,8 @@ void Menu_LOG::RegisterMenu(){
 
         int choice;
         std::string login;
-        std::string password;
+        std::string password, passwordToMatch;
+
         bool RegisterNewUserResult = false; 
         do{
         MenuFunctions::ClearTerminal();
@@ -65,19 +66,28 @@ void Menu_LOG::RegisterMenu(){
         std::cin>>login;
         std::cout<<"Insert password:\n>";
         password = MenuFunctions::insertPassword();
+        std::cout<<"\nConfirm Password:\n>";
+        passwordToMatch =  MenuFunctions::insertPassword();
         printColoredRequirements(password);
 
             if(ValidatePassword::checkGivenPassword(password)!= PasswordErrorCode::Ok){
-                std::cout<<"\nInserted password does not meet the requirements ;/\n";
+                std::cout<< MenuFunctions::SetTextColor(Color::Red,"\nInserted password does not meet the requirements ;/\n");
                 std::cout<<"Do you want to try again?\n";
                 std::cout<<"1. Yes\n";
                 std::cout<<"2. No\n>";
                 choice = MenuFunctions::insertNumber(1,2);
 
+            }else if (ValidatePassword::checkPasswordMatch(password,passwordToMatch) != PasswordErrorCode::Ok ){
+                std::cout<< MenuFunctions::SetTextColor(Color::Red,"\nConfirmed Password doesn't match with the first one!\n");
+                std::cout<<"Do you want to try again?\n";
+                    std::cout<<"1. Yes\n";
+                    std::cout<<"2. No\n>";
+                    choice = MenuFunctions::insertNumber(1,2);
+
             }else{
                 RegisterNewUserResult = !ValidatePassword::registerNewUser(login,password);
                 if(RegisterNewUserResult){
-                    std::cout<<"\nInserted login is already taken ;/\n";
+                    std::cout<< MenuFunctions::SetTextColor(Color::Red,"\nInserted login is already taken ;/\n");
                     std::cout<<"Do you want to try again?\n";
                     std::cout<<"1. Yes\n";
                     std::cout<<"2. No\n>";
