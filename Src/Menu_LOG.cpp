@@ -26,9 +26,11 @@ void Menu_LOG::firstRunMenu(){
 
 void Menu_LOG::optionsMenu(){
    MenuFunctions::ClearTerminal();
-   std::cout<<"1. Register\n";
-   std::cout<<"2. LogIn\n";
-   std::cout<<"0. Exit\n"; 
+   std::cout<<"+------------+\n";
+   std::cout<<"|1. Register |\n";
+   std::cout<<"|2. LogIn    |\n";
+   std::cout<<"|0. Exit     |\n";
+   std::cout<<"+------------+\n"; 
 }
 
 void Menu_LOG::printPasswordRequirements(){
@@ -112,7 +114,7 @@ bool Menu_LOG::LogINMenu(){
         std::string login;
         std::string password;
         system("cls");
-        std::cout<<"!!!LogIN!!!\n\n";
+        std::cout<<"    LogIN\n\n";
         std::cout<<"Insert login:\n>";
         std::cin>>login;
         std::cout<<"Insert password:\n>";
