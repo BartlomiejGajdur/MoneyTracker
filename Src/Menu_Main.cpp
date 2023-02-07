@@ -4,7 +4,7 @@
 void Menu_Main::run(){
     MenuLOG.run();
 
-    int liczba;
+    int liczba = 0;
         std::cout<<"Przed PETLA: " <<std::get<0>(ValidatePassword::getCurrentUser())<<"\n";
         std::cout<<"Przed PETLA: " <<std::get<1>(ValidatePassword::getCurrentUser())<<"\n";
         std::cout<<"Przed PETLA: " <<std::get<2>(ValidatePassword::getCurrentUser())<<"\n";

@@ -43,6 +43,7 @@ void Menu_LOG::printColoredRequirements(const std::string& password){
 
 void Menu_LOG::RegisterMenu(){
 
+        int choice;
         std::string login;
         std::string password;
         bool RegisterNewUserResult = false; 
@@ -67,20 +68,28 @@ void Menu_LOG::RegisterMenu(){
 
             if(ValidatePassword::checkGivenPassword(password)!= PasswordErrorCode::Ok){
                 std::cout<<"\nInserted password does not meet the requirements ;/\n";
-               MenuFunctions::WaitForAction();
+                std::cout<<"Do you want to try again?\n";
+                std::cout<<"1. Yes\n";
+                std::cout<<"2. No\n>";
+                choice = MenuFunctions::insertNumber(1,2);
+
             }else{
                 RegisterNewUserResult = !ValidatePassword::registerNewUser(login,password);
                 if(RegisterNewUserResult){
                     std::cout<<"\nInserted login is already taken ;/\n";
-                   MenuFunctions::WaitForAction();
+                    std::cout<<"Do you want to try again?\n";
+                    std::cout<<"1. Yes\n";
+                    std::cout<<"2. No\n>";
+                    choice = MenuFunctions::insertNumber(1,2);
                 }else{
                     std::cout<<"\nCongratulations, You registered a new account! :)\n";
+                    choice = 0;
                    MenuFunctions::WaitForAction();
                 }
                 
             }
         
-        }while(ValidatePassword::checkGivenPassword(password)!= PasswordErrorCode::Ok || RegisterNewUserResult );
+        }while(choice == 1);
 
 
             
