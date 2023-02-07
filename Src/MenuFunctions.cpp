@@ -52,3 +52,11 @@ size_t  MenuFunctions::insertNumber(const size_t& zakresL, const size_t& zakresP
 
     return choice;
 }
+
+std::string MenuFunctions::SetTextColor(const Color& color, const std::string& text){
+    return "\x1B["+ std::to_string(static_cast<int>(color))+"m" + text+"\033[0m";
+}
+
+std::string MenuFunctions::SetBackgroundColor(const Color& color, const std::string& text){
+    return "\x1B["+ std::to_string(static_cast<int>(color)+10)+"m" + text+"\033[0m";
+}
