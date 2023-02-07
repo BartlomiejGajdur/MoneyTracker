@@ -31,6 +31,16 @@ void Menu_LOG::optionsMenu(){
    std::cout<<"0. Exit\n"; 
 }
 
+void Menu_LOG::printPasswordRequirements(){
+    std::cout<<"+-------------------------------------------------------+\n";
+    std::cout<<"|Password should have 8 to 32 characters long!          |\n";
+    std::cout<<"|Password should have at least one special char!        |\n";
+    std::cout<<"|Password should have at least one lowercase letter!    |\n";
+    std::cout<<"|Password should have at least one uppercase letter!    |\n";
+    std::cout<<"|Password should have at least one number!              |\n";
+    std::cout<<"+-------------------------------------------------------+\n";
+}
+
 void Menu_LOG::printColoredRequirements(const std::string& password){
     
     ValidatePassword::checkLength(password) == PasswordErrorCode::Ok ? std::cout<<"\n\x1B[32m*The password contains the appropriate number of characters\033[0m\n" : std::cout<<"\n\x1B[31m*The password does not contain the appropriate number of characters\033[0m\n";
@@ -49,22 +59,13 @@ void Menu_LOG::RegisterMenu(){
         bool RegisterNewUserResult = false; 
         do{
         MenuFunctions::ClearTerminal();
-        std::cout<<"!!!Registration!!!\n\n";
+        std::cout<<"                  Registration\n\n";
+        printPasswordRequirements();
         std::cout<<"Insert login:\n>";
         std::cin>>login;
-
-        
-      
-
-        
-            MenuFunctions::ClearTerminal();
-            std::cout<<"!!!Registration!!!\n\n";
-            std::cout<<"Insert login:\n>";
-            std::cout<<login;
-
-            std::cout<<"\nInsert password:\n>";
-            password = MenuFunctions::insertPassword();
-            printColoredRequirements(password);
+        std::cout<<"Insert password:\n>";
+        password = MenuFunctions::insertPassword();
+        printColoredRequirements(password);
 
             if(ValidatePassword::checkGivenPassword(password)!= PasswordErrorCode::Ok){
                 std::cout<<"\nInserted password does not meet the requirements ;/\n";

@@ -13,4 +13,5 @@ private:
     void RegisterMenu();
     bool LogINMenu();
     void printColoredRequirements(const std::string& password);
+    void printPasswordRequirements();
 };
