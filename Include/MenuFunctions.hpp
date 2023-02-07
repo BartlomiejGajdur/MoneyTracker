@@ -1,3 +1,5 @@
+#include <string>
+
 namespace MenuFunctions{
 
     void ClearTerminal();
