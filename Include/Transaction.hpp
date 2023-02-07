@@ -55,7 +55,7 @@ public:
         DateErrorCode setDate(int,int,int);
 
     //Functions
-        std::string returnExpenseCategoryInString(const ExpenseCategory& ExpenseCategory);
+        static std::string returnExpenseCategoryInString(const ExpenseCategory& ExpenseCategory);
         std::string transactionInString();
         friend std::ostream& operator<<(std::ostream& os, Transaction& transaction);
     

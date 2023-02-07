@@ -127,6 +127,7 @@ std::map<ExpenseCategory,double> User::percentageOfIndividualSpending(){
     std::map<ExpenseCategory,double> map = this->countIndividualSpending();
     double wholeSpendigs = this->countWholeSpendings();
 
+
     for(auto& [Key,Value] : map){
         Value = (Value/wholeSpendigs) * 100;
     }
