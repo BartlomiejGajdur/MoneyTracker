@@ -14,6 +14,6 @@ namespace MenuFunctions{
     std::string SetTextColor(const Color& color, const std::string& text);
     std::string SetBackgroundColor(const Color& color, const std::string& text);
     std::string SetBoldText(const std::string& text);
-    int arrowMenu(std::vector<std::string> Options);
+    int arrowMenu(const std::vector<std::string>& Options);
 
 }

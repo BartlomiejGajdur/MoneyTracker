@@ -66,7 +66,8 @@ std::string MenuFunctions::SetBoldText(const std::string& text){
     return "\e[1m" + text + "\e[0m";
 }
 
-int MenuFunctions::arrowMenu(std::vector<std::string> Options){
+//Options Menu should be formatted in a way that 0.EXit is the last string in vector Options
+int MenuFunctions::arrowMenu(const std::vector<std::string>& Options){
     
     int counter = 1;
     char znak;

@@ -44,7 +44,13 @@ std::string Transaction::returnExpenseCategoryInString(const ExpenseCategory& Ex
     case ExpenseCategory::SettingTheBill :
         return "SettingTheBill" ;
         break;
-    
+    case ExpenseCategory::Work :
+        return "Work" ;
+        break;
+    case ExpenseCategory::Others :
+        return "Others" ;
+        break;
+
     default:
         return "Error";
         break;
