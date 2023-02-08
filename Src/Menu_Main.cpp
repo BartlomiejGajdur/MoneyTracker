@@ -39,7 +39,6 @@ void Menu_Main::AddNewTransaction_Menu(User& user){
     int money;
     std::string description;
     int expenseCatInINt;
-    //std::vector<std::string> vec
     while(choice != 0) {
 
     
@@ -100,7 +99,7 @@ void Menu_Main::SetCurrentMoney_Menu(User& user){
     MenuFunctions::WaitForAction();
 }
 
-void Menu_Main::printAllTransactions_Menu(User& user){
+void Menu_Main::printAllTransactions_Menu(User& user){ //To jest do zrobienia ładnego, np jak za duzy description to wtedy po chiwli (...) i na dole poznaj szczegoly/EXIT i np wpisz id jak poznaj szczegoly i ladnie w ramce sie wysweitla wszystko a 
     MenuFunctions::ClearTerminal();
 
 
@@ -110,7 +109,7 @@ void Menu_Main::printAllTransactions_Menu(User& user){
     MenuFunctions::WaitForAction();
 }
 
-void Menu_Main::sortTransactionByDate_Menu(User& user){
+void Menu_Main::sortTransactionByDate_Menu(User& user){ // Do zrobienia
 
 }
 
@@ -121,10 +120,11 @@ void Menu_Main::sortTransactionByNumberOfExpenseCategory_Menu(User& user){
     user.sortByNumberOfEnums();
     std::cout<<MenuFunctions::SetTextColor(Color::Green,"All your transactions have been sorted by the number of expense category, correctly! \n");
 
+
     MenuFunctions::WaitForAction();
 }
 
-void Menu_Main::showSpendingOnIndividualExpenseCategory_Menu(User& user){
+void Menu_Main::showSpendingOnIndividualExpenseCategory_Menu(User& user){ // Do zrobienia 
 
 }
 
@@ -161,11 +161,11 @@ void Menu_Main::showSpendingsPercentageOnIndividualExpenseCategory_Menu(User& us
      MenuFunctions::WaitForAction();
 }
 
-void Menu_Main::modifyDateTransactionByID_Menu(User& user){
+void Menu_Main::modifyDateTransactionByID_Menu(User& user){ // Do zrobienia
 
 }
 
-void Menu_Main::removeTransactionByID_Menu(User& user){
+void Menu_Main::removeTransactionByID_Menu(User& user){ // Do zrobienia
 
 }
 
@@ -201,27 +201,15 @@ void Menu_Main::run(){
             {
             case 1:
                 AddNewTransaction_Menu(User);
-                // std::cout<<"PODAJ MI TERAZ PLS DESCRIPTION, money, I NA CO ZOSTALO WYDANE ";
-   
-                // std::getline( std::cin, description );
-                // std::getline( std::cin, description );
-                // std::cin>>money;
-                // std::cin>>expenseCatInINt;
-                // expenseCategory = static_cast<ExpenseCategory>(expenseCatInINt);
-                // User.addTransaction(std::make_shared<Transaction>(description,money,expenseCategory));
+                
                 break;
             case 2:
                 SetCurrentMoney_Menu(User);
-                // double moneySetted;
-                // moneySetted = MenuFunctions::insertNumber(-9999,9999); 
-                // User.setCurrentMoney(moneySetted);
-                // MenuFunctions::WaitForAction();
+
                 break;
             case 3:
                 printAllTransactions_Menu(User);
-                // std::cout<<User.printAllTransations();
-                // MenuFunctions::WaitForAction();
-                
+
                 break;
             case 4:
                 sortTransactionByDate_Menu(User);
