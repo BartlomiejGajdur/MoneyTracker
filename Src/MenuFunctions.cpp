@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <conio.h>
+#include <vector>
 
 #include "../Include/MenuFunctions.hpp"
 #include "bcrypt.h"
@@ -59,4 +60,69 @@ std::string MenuFunctions::SetTextColor(const Color& color, const std::string& t
 
 std::string MenuFunctions::SetBackgroundColor(const Color& color, const std::string& text){
     return "\x1B["+ std::to_string(static_cast<int>(color)+10)+"m" + text+"\033[0m";
+}
+
+std::string MenuFunctions::SetBoldText(const std::string& text){
+    return "\e[1m" + text + "\e[0m";
+}
+
+int MenuFunctions::arrowMenu(std::vector<std::string> Options){
+    
+    int counter = 1;
+    char znak;
+    bool exit = false;
+    int vecSize = Options.size();
+
+    while(!exit)
+    {
+        
+        MenuFunctions::ClearTerminal();
+        std::cout<<"+-------------------+\n";
+        std::cout<<"|     W -> UP       |\n"; 
+        std::cout<<"|     S -> DOWN     |\n"; 
+        std::cout<<"| ENTER -> APPROVAL |\n";
+        std::cout<<"+-------------------+\n\n"; 
+        for (int i = 0; i < vecSize ; i++)
+        {
+            if(i+1 == counter){
+                std::cout<<"--> "<<MenuFunctions::SetBoldText(Options[i])<<"\n";
+            }else{
+                std::cout<<Options[i]<<"\n";
+            }
+            
+        }
+        znak = _getch();
+
+        if(znak == 'W' || znak =='w')
+        {
+            if(counter == 1){
+
+            }else{
+                --counter;
+            }
+        }
+
+        if(znak == 'S' || znak == 's')
+        {
+            if(counter == vecSize){
+
+            }else{
+                ++counter;
+            }
+        }
+
+        if(znak == 13)
+        {
+            exit = true;
+        }
+
+        if(znak == 13 && counter == vecSize)
+        {
+            counter = 0;
+            exit = true;
+        }
+
+    }
+
+    return counter;
 }
