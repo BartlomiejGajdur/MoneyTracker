@@ -3,6 +3,8 @@
 #include <map>
 #include <cmath>
 #include <fstream>
+#include <sstream>
+#include <iomanip>
 
 #include "../Include/User.hpp"
 #include "../Include/Transaction.hpp"
@@ -52,10 +54,23 @@ UserErrorCode User::modifyDateTransactionById(size_t ID,int day,int month,int ye
 std::string User::printAllTransations(){
     std::string allTransations{};
     
+    std::stringstream is;
+
+    is<<"+-----+------------------------------------------+------------------+----------------------+------------+\n"
+    <<"| "<<std::setw(3)<< std::left<< "ID" <<" | "
+    <<std::setw(40) << std::left<<"Description"<<" | "
+    <<std::setw(16) << std::left<<"Money" <<" | "
+    <<std::setw(20) << std::left<<"Expense Category"<<" | "
+    <<std::setw(10) << std::left<<"Date" <<" |\n"
+    <<"+-----+------------------------------------------+------------------+----------------------+------------+\n";
+
+    allTransations += is.str();
+
     std::for_each(transactions_.begin(), transactions_.end(),[&allTransations](std::shared_ptr<Transaction> transaction)
                                                                {
                                                                    allTransations += transaction->transactionInString();
                                                                });
+    allTransations += "+-------------------------------------------------------------------------------------------------------+\n";
 
     return allTransations;
 }
