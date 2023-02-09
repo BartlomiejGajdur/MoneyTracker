@@ -51,7 +51,7 @@ UserErrorCode User::modifyDateTransactionById(size_t ID,int day,int month,int ye
 
 std::string User::printAllTransations(){
     std::string allTransations{};
-
+    
     std::for_each(transactions_.begin(), transactions_.end(),[&allTransations](std::shared_ptr<Transaction> transaction)
                                                                {
                                                                    allTransations += transaction->transactionInString();

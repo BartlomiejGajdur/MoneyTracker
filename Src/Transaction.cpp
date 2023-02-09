@@ -1,5 +1,8 @@
 #include <algorithm>
-
+#include <sstream>
+#include <iomanip>
+#include <string>
+#include "../Include/MenuFunctions.hpp"
 #include "../Include/Transaction.hpp"
 
 size_t Transaction::counter{0};
@@ -72,10 +75,15 @@ std::ostream& operator<<(std::ostream& os,Transaction& transaction){
 std::string Transaction::transactionInString(){
     std::string money = std::to_string(this->money_);
     money.erase(money.length()-4,money.length());
+    money += " PLN";
+    std::stringstream is;
+    this->money_>=0 ? money =  MenuFunctions::SetTextColor(Color::Green,money) : money = MenuFunctions::SetTextColor(Color::Red,money);   
 
-    return "ID: "  +  std::to_string(this->ID_) + "      | "
-     + "Description: "  +  this->description_ + "      | "
-     + "Money: "  + money + " [PLN]      | "
-     + "Category: "  + this->returnExpenseCategoryInString(this->expenseCategory_) + "      | " +
-     + "Date: " + this->date_.dateInString() + " \n";
+    is<<"| "<<std::setw(3)<< std::left<< this->ID_ <<" | "
+    <<std::setw(40) << std::left<<this->description_<<" | "
+    <<std::setw(25) << std::left<<money <<" | "
+    <<std::setw(20) << std::left<<this->returnExpenseCategoryInString(this->expenseCategory_)<<" | "
+    <<std::setw(10) << std::left<<this->date_.dateInString() <<" |\n";
+
+    return is.str();
 }
