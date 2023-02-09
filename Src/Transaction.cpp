@@ -79,8 +79,16 @@ std::string Transaction::transactionInString(){
     std::stringstream is;
     this->money_>=0 ? money =  MenuFunctions::SetTextColor(Color::Green,money) : money = MenuFunctions::SetTextColor(Color::Red,money);   
 
+    std::string shortedDescirption = this->description_;
+
+    if(shortedDescirption.size() >= 35)
+    {
+        shortedDescirption.erase(shortedDescirption.begin() + 35, shortedDescirption.end());
+        shortedDescirption+="(...)";
+    }
+
     is<<"| "<<std::setw(3)<< std::left<< this->ID_ <<" | "
-    <<std::setw(40) << std::left<<this->description_<<" | "
+    <<std::setw(40) << std::left<<shortedDescirption<<" | "
     <<std::setw(25) << std::left<<money <<" | "
     <<std::setw(20) << std::left<<this->returnExpenseCategoryInString(this->expenseCategory_)<<" | "
     <<std::setw(10) << std::left<<this->date_.dateInString() <<" |\n";
