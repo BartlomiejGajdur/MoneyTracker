@@ -54,6 +54,17 @@ int  MenuFunctions::insertNumber(const int& zakresL, const int& zakresP){
     return choice;
 }
 
+int MenuFunctions::insertNumber(){
+    int choice;
+    while(!(std::cin>>choice)){
+        std::cout<<"Please enter numbers only: \n>";
+        std::cin.clear();
+        std::cin.ignore(1000,'\n');
+    }
+
+    return choice;
+}
+
 std::string MenuFunctions::SetTextColor(const Color& color, const std::string& text){
     return "\x1B["+ std::to_string(static_cast<int>(color))+"m" + text+"\033[0m";
 }

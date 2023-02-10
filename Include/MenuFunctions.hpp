@@ -11,6 +11,7 @@ namespace MenuFunctions{
     void WaitForAction();
     std::string insertPassword();
     int insertNumber(const int& zakresL, const int& zakresP);
+    int insertNumber();
     std::string SetTextColor(const Color& color, const std::string& text);
     std::string SetBackgroundColor(const Color& color, const std::string& text);
     std::string SetBoldText(const std::string& text);

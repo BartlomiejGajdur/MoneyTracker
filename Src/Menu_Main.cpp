@@ -166,6 +166,17 @@ void Menu_Main::modifyDateTransactionByID_Menu(User& user){ // Do zrobienia
 }
 
 void Menu_Main::removeTransactionByID_Menu(User& user){ // Do zrobienia
+    MenuFunctions::ClearTerminal();
+
+
+    int choice;
+    std::cout<<"Insert ID number, which u want to remove\n>";
+    choice = MenuFunctions::insertNumber();
+    user.removeTransactionById(choice) == UserErrorCode::Ok ?
+    std::cout<<MenuFunctions::SetTextColor(Color::Green, "Transaction with given ID removed correctly :)\n") : 
+    std::cout<<MenuFunctions::SetTextColor(Color::Red, "Transaction with given ID have not been found ;/\n");
+    MenuFunctions::WaitForAction(); 
+
 
 }
 
