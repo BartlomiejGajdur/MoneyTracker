@@ -4,13 +4,14 @@
 #include "../Include/Menu_Main.hpp"
 #include "../Include/User.hpp"
 #include "../Include/Transaction.hpp"
+#include "../Include/Date.hpp"
 
 void Menu_Main::greetUser(const User& User){
     MenuFunctions::ClearTerminal();
     std::string moneyToDisplay = std::to_string(User.getCurrentMoney());
     moneyToDisplay.erase(moneyToDisplay.length()-4,moneyToDisplay.length());
     moneyToDisplay+=" PLN\n";
-    std::cout <<"                                  Hello "+std::get<1>(ValidatePassword::getCurrentUser()) +"!\n";
+    std::cout <<"                                  Hello "+std::get<1>(ValidatePassword::getCurrentUser()) +"!                      "<<Date::currentData()<<"\n";
     std::cout <<"                        Current balance: ";
     User.getCurrentMoney() >= 0 ? std::cout<<MenuFunctions::SetTextColor(Color::Green,"+"+moneyToDisplay) :
                                   std::cout<<MenuFunctions::SetTextColor(Color::Red, moneyToDisplay);
@@ -99,8 +100,7 @@ void Menu_Main::SetCurrentMoney_Menu(User& user){
     MenuFunctions::WaitForAction();
 }
 
-void Menu_Main::printAllTransactions_Menu(User& user){ //To jest do zrobienia ładnego, np jak za duzy description to wtedy po chiwli (...) i na dole poznaj szczegoly/EXIT i np wpisz id jak poznaj szczegoly i ladnie w ramce sie wysweitla wszystko a 
-    MenuFunctions::ClearTerminal();
+void Menu_Main::printAllTransactions_Menu(User& user){
 
 
     std::cout<<user.printAllTransations();
@@ -161,11 +161,54 @@ void Menu_Main::showSpendingsPercentageOnIndividualExpenseCategory_Menu(User& us
      MenuFunctions::WaitForAction();
 }
 
-void Menu_Main::modifyDateTransactionByID_Menu(User& user){ // Do zrobienia
+void Menu_Main::modifyDateTransactionByID_Menu(User& user){ 
+     MenuFunctions::ClearTerminal();
 
+     std::string dateInString;
+     int ID, day,month,year;
+
+     std::cout<<"Insert transaction ID number to set date\n>";
+     ID = MenuFunctions::insertNumber();
+
+    MenuFunctions::ClearTerminal();
+    std::cout<<"Transaction ID for which you want to change the date: "<< ID <<"\n";
+    std::cout<<"DD-MM-YYYY\n";
+    std::cout<<"Insert day\n>";
+    day = MenuFunctions::insertNumber();
+
+    MenuFunctions::ClearTerminal();
+    std::cout<<"Transaction ID for which you want to change the date: "<< ID <<"\n";
+    std::cout<<day<<"-MM-YYYY\n";
+    std::cout<<"Insert month\n>";
+    month = MenuFunctions::insertNumber();
+
+    MenuFunctions::ClearTerminal();
+    std::cout<<"Transaction ID for which you want to change the date: "<< ID <<"\n";
+    std::cout<<day<<"-"<<month<<"-YYYY\n";
+    std::cout<<"Insert year\n>";
+    year = MenuFunctions::insertNumber();
+
+    MenuFunctions::ClearTerminal();
+    std::cout<<"Transaction ID for which you want to change the date: "<< ID <<"\n";
+    std::cout<<day<<"-"<<month<<"-"<<year<<"\n";
+    UserErrorCode UserError = user.modifyDateTransactionById(ID,day, month, year);
+     
+     if(UserError == UserErrorCode::Ok)
+     {
+       std::cout<<MenuFunctions::SetTextColor(Color::Green, "New date have been setted correctly!\n");
+     }else if( UserError == UserErrorCode::IncorrectData)
+     {
+       std::cout<<MenuFunctions::SetTextColor(Color::Red, "Incorrect date given!\n");
+     }else
+     {
+       std::cout<<MenuFunctions::SetTextColor(Color::Red, "Transaction with given ID have not been found!\n");
+     }
+
+
+     MenuFunctions::WaitForAction(); 
 }
 
-void Menu_Main::removeTransactionByID_Menu(User& user){ // Do zrobienia
+void Menu_Main::removeTransactionByID_Menu(User& user){ 
     MenuFunctions::ClearTerminal();
 
 
