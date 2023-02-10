@@ -101,7 +101,7 @@ void Menu_Main::SetCurrentMoney_Menu(User& user){
 }
 
 void Menu_Main::printAllTransactions_Menu(User& user){
-
+    MenuFunctions::ClearTerminal();
 
     std::cout<<user.printAllTransations();
 
@@ -109,8 +109,28 @@ void Menu_Main::printAllTransactions_Menu(User& user){
     MenuFunctions::WaitForAction();
 }
 
-void Menu_Main::sortTransactionByDate_Menu(User& user){ // Do zrobienia
+void Menu_Main::sortTransactionByDate_Menu(User& user){
+    MenuFunctions::ClearTerminal();
 
+    int choice;
+    choice = MenuFunctions::arrowMenu({"Ascending","Descending","EXIT"});
+
+    switch (choice)
+    {
+    case 1:
+        user.sortByDate(SortOrder::Ascending);
+        break;
+    case 2:
+        user.sortByDate(SortOrder::Descending);
+        break;
+    case 0:
+            
+        break;
+    default:
+        break;
+    }
+
+    MenuFunctions::WaitForAction();
 }
 
 void Menu_Main::sortTransactionByNumberOfExpenseCategory_Menu(User& user){

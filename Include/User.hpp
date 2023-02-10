@@ -10,7 +10,7 @@
 using vecTransactionPtr = std::vector<std::shared_ptr<Transaction>>;
 
 enum class UserErrorCode {Ok, NoTransactionFound, IncorrectData};
-
+enum class SortOrder {Ascending, Descending};
 
 
 class User{
@@ -38,6 +38,7 @@ public:
     UserErrorCode modifyDateTransactionById(size_t ID,int,int,int);
     std::string printAllTransations();
     void sortByNumberOfEnums();
+    void sortByDate(const SortOrder& SortOrder);
     const double countWholeSpendings();
     std::map<ExpenseCategory,double> countIndividualSpending();
     std::map<ExpenseCategory,double> percentageOfIndividualSpending();

@@ -74,7 +74,25 @@ std::string User::printAllTransations(){
 
     return allTransations;
 }
+void User::sortByDate(const SortOrder& SortOrder){
+    if(SortOrder == SortOrder::Ascending)
+    {   
+        auto lambda = [](std::shared_ptr<Transaction> lhs, std::shared_ptr<Transaction> rhs)
+        {
+            return lhs->getDate() == rhs->getDate() ? lhs->getID() < rhs->getID() : lhs->getDate() < rhs->getDate() ;
+        };
+        std::sort(transactions_.begin(), transactions_.end(),lambda);
+    }
 
+    if(SortOrder == SortOrder::Descending)
+    {
+        auto lambda = [](std::shared_ptr<Transaction> lhs, std::shared_ptr<Transaction> rhs)
+        {
+            return lhs->getDate() == rhs->getDate() ? lhs->getID() > rhs->getID() : lhs->getDate() > rhs->getDate() ;
+        };
+        std::sort(transactions_.begin(), transactions_.end(),lambda);
+    }
+}
 void User::sortByNumberOfEnums(){
 
     struct CompareKeyForTransaction {
