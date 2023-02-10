@@ -247,7 +247,10 @@ bool User::loadPersonalConfigFromFile(){
                 );
              }
 
-             TransactionCounter = std::stoi(vec[vec.size() - 5]) + 1;
+             auto it = std::max_element(transactions_.begin(), transactions_.end(), [](std::shared_ptr<Transaction> a, std::shared_ptr<Transaction>  b) {
+         return a->getID() < b->getID();
+    });
+            TransactionCounter = it[0]->getID() + 1;
              return true;
 
         }else{

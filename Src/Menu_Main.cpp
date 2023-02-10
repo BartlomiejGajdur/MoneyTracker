@@ -25,8 +25,8 @@ void Menu_Main::printOptions(){
     std::cout <<"| > 3.   Print all transactions                                              |\n";
     std::cout <<"| > 4.   Sort transaction by date                                            |\n";
     std::cout <<"| > 5.   Sort transaction by number of expense category                      |\n";
-    std::cout <<"| > 6.   Show spendings on individual expense category                       |\n";
-    std::cout <<"| > 7.   Show spendings percentage on individual expense category            |\n";
+    std::cout <<"| > 6.   Show earnings on individual expense category                        |\n";
+    std::cout <<"| > 7.   Show spendings on individual expense category                       |\n";
     std::cout <<"| > 8.   Modify date transaction by ID                                       |\n";
     std::cout <<"| > 9.   Remove transaction by ID                                            |\n";
     std::cout <<"| > 10.  Delete all transactions                                             |\n";
@@ -37,7 +37,7 @@ void Menu_Main::printOptions(){
 void Menu_Main::AddNewTransaction_Menu(User& user){
     MenuFunctions::ClearTerminal();
     int choice = 1;
-    int money;
+    double money;
     std::string description;
     int expenseCatInINt;
     while(choice != 0) {
@@ -69,7 +69,7 @@ void Menu_Main::AddNewTransaction_Menu(User& user){
         std::getline( std::cin, description );
         std::getline( std::cin, description );
         std::cout<<"\nInsert expense amount\n:";
-        money = MenuFunctions::insertNumber(0,99999);
+        money = MenuFunctions::insertNumber(0.0,99999.00);
         std::cout<<"\nInsert expense category\n:";
         expenseCatInINt = MenuFunctions::arrowMenu({"Housing","Transportation","Food", "Utilities", "Insurance", "Medical", "PersonalSpending", "Entertainment", "Miscellaneous", "SettingTheBill"});
         if(expenseCatInINt == 0)
@@ -144,7 +144,7 @@ void Menu_Main::sortTransactionByNumberOfExpenseCategory_Menu(User& user){
     MenuFunctions::WaitForAction();
 }
 
-void Menu_Main::showSpendingOnIndividualExpenseCategory_Menu(User& user){ // Do zrobienia 
+void Menu_Main::showEarningsOnIndividualExpenseCategory_Menu(User& user){ // Do zrobienia 
 
 }
 
@@ -152,12 +152,15 @@ void Menu_Main::showSpendingsPercentageOnIndividualExpenseCategory_Menu(User& us
      MenuFunctions::ClearTerminal();
     std::string zestawienie;
     int counterColor = static_cast<int>(Color::Red);
-    std::map<ExpenseCategory,double> map = user.percentageOfIndividualSpending();
+    std::map<ExpenseCategory,double> map = user.countIndividualSpending();
+    double wholeSpendigs = user.countWholeSpendings();
+
+
 
 
      for(auto[key,value] : map){
-        std::cout<<Transaction::returnExpenseCategoryInString(key) <<":\n[";
-        value = round(value);
+        std::cout<<Transaction::returnExpenseCategoryInString(key) <<":"<<value<<"\n[";
+        value = round((value/wholeSpendigs) * 100);
         for(int i = 0; i<int(value); i++){
             std::cout<<MenuFunctions::SetBackgroundColor(static_cast<Color>(counterColor), " ");
             zestawienie += MenuFunctions::SetBackgroundColor(static_cast<Color>(counterColor), " ");
@@ -294,7 +297,7 @@ void Menu_Main::run(){
                 
                 break;
             case 6:
-                showSpendingOnIndividualExpenseCategory_Menu(User);
+                showEarningsOnIndividualExpenseCategory_Menu(User);
                 
                 break;
             case 7:
