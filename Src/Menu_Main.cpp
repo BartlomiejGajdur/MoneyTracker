@@ -36,11 +36,10 @@ void Menu_Main::printOptions(){
 
 void Menu_Main::AddNewTransaction_Menu(User& user){
     MenuFunctions::ClearTerminal();
-    int choice = 1;
+    int choice{};
     double money;
     std::string description;
     int expenseCatInINt;
-    while(choice != 0) {
 
     
 
@@ -53,14 +52,14 @@ void Menu_Main::AddNewTransaction_Menu(User& user){
         std::getline( std::cin, description );
         std::getline( std::cin, description );
         std::cout<<"\nInsert earned money\n:";
-        money = MenuFunctions::insertNumber(0,99999);
+        money = MenuFunctions::insertNumber(0.0,99999.99);
         std::cout<<"\nInsert earn category\n:";
         expenseCatInINt = MenuFunctions::arrowMenu({"Savings","Work","Other"});
         if(expenseCatInINt == 0)
             expenseCatInINt = 3;
         user.addTransaction(std::make_shared<Transaction>(description,money,static_cast<ExpenseCategory>(expenseCatInINt+10)));
         std::cout<<MenuFunctions::SetTextColor(Color::Green,"Transaction added, corectlly!:)\n");
-        choice = 0;
+
         MenuFunctions::WaitForAction();
         break;
     case 2:
@@ -69,21 +68,22 @@ void Menu_Main::AddNewTransaction_Menu(User& user){
         std::getline( std::cin, description );
         std::getline( std::cin, description );
         std::cout<<"\nInsert expense amount\n:";
-        money = MenuFunctions::insertNumber(0.0,99999.00);
+        money = MenuFunctions::insertNumber(0.0,99999.99);
         std::cout<<"\nInsert expense category\n:";
         expenseCatInINt = MenuFunctions::arrowMenu({"Housing","Transportation","Food", "Utilities", "Insurance", "Medical", "PersonalSpending", "Entertainment", "Miscellaneous", "SettingTheBill"});
         if(expenseCatInINt == 0)
             expenseCatInINt = 10;
         user.addTransaction(std::make_shared<Transaction>(description,-money,static_cast<ExpenseCategory>(expenseCatInINt)));
         std::cout<<MenuFunctions::SetTextColor(Color::Green,"Transaction added, corectlly!:)\n");
-        choice = 0;
+
         MenuFunctions::WaitForAction();
         break;
     
     default:
         break;
     }
-    }
+    user.sortByDate(SortOrder::Descending);
+    
 }
 
 void Menu_Main::SetCurrentMoney_Menu(User& user){
@@ -96,6 +96,7 @@ void Menu_Main::SetCurrentMoney_Menu(User& user){
     user.setCurrentMoney(moneyToSet);
     std::cout<<MenuFunctions::SetTextColor(Color::Green,"Your current balance have been set to " + std::to_string(moneyToSet) + "PLN, correctly!\n" );
 
+    user.sortByDate(SortOrder::Descending);
 
     MenuFunctions::WaitForAction();
 }
@@ -156,8 +157,6 @@ void Menu_Main::showSpendingsPercentageOnIndividualExpenseCategory_Menu(User& us
     double wholeSpendigs = user.countWholeSpendings();
 
 
-
-
      for(auto[key,value] : map){
         std::cout<<Transaction::returnExpenseCategoryInString(key) <<":"<<value<<"\n[";
         value = round((value/wholeSpendigs) * 100);
@@ -168,7 +167,7 @@ void Menu_Main::showSpendingsPercentageOnIndividualExpenseCategory_Menu(User& us
 
         if(static_cast<Color>(++counterColor) == Color::White)
         {
-            counterColor++;
+            counterColor = 90;
         }
 
         for(int i = 0; i<100-int(value); i++){
@@ -251,6 +250,7 @@ void Menu_Main::deleteAllTransactions_Menu(User& user){
 
 
     user.clearTransactions();
+    user.setTransactionCounter(0);
     std::cout<<MenuFunctions::SetTextColor(Color::Green,"All your transactions have been deleted, correctly! \n");
 
     MenuFunctions::WaitForAction();

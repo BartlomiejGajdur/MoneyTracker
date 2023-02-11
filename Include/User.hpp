@@ -27,6 +27,7 @@ public:
     ~User(){savePersonalConfigToFile();};
     //Setters
     void setCurrentMoney(const double& currentMoney);
+    void setTransactionCounter(const size_t& Transactioncounter) {TransactionCounter = Transactioncounter;};
     //Getters
     double getCurrentMoney() const;
 
