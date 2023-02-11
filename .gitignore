@@ -1,7 +1,6 @@
 # Pointed by administrator
 build
 .vscode
-main.cpp
 config*
 LogedOUT
 
