@@ -155,6 +155,33 @@ std::map<ExpenseCategory,double> User::countIndividualSpending(){
     return map;
 }
 
+const double User::countWholeEarnings(){
+    double earnings{};
+
+    std::for_each(transactions_.begin(),transactions_.end(),[&earnings](std::shared_ptr<Transaction> transaction)
+                                                        {
+                                                            if(transaction->getMoney()>0)
+                                                                earnings+=transaction->getMoney();
+                                                        });
+
+    return earnings;
+ }
+
+
+std::map<ExpenseCategory,double> User::countIndividualEarning(){
+     std::map<ExpenseCategory,double> map;
+
+     std::for_each(transactions_.begin(),transactions_.end(),[&map](std::shared_ptr<Transaction> transaction)
+                                                        {
+                                                            if(transaction->getMoney()>0)
+                                                                {
+                                                                    map[transaction->getExpenseCategory()] += transaction->getMoney();
+                                                                }
+                                                        });
+
+    return map;
+}
+
 std::map<ExpenseCategory,double> User::percentageOfIndividualSpending(){
     
     std::map<ExpenseCategory,double> map = this->countIndividualSpending();
