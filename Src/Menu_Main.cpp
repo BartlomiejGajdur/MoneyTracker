@@ -145,8 +145,38 @@ void Menu_Main::sortTransactionByNumberOfExpenseCategory_Menu(User& user){
     MenuFunctions::WaitForAction();
 }
 
-void Menu_Main::showEarningsOnIndividualExpenseCategory_Menu(User& user){ // Do zrobienia 
+void Menu_Main::showEarningsOnIndividualExpenseCategory_Menu(User& user){ 
+    MenuFunctions::ClearTerminal();
+    std::string zestawienie;
+    int counterColor = static_cast<int>(Color::Red);
+    std::map<ExpenseCategory,double> map = user.countIndividualEarning();
+    double wholeEarnings = user.countWholeEarnings();
 
+
+     for(auto[key,value] : map){
+        std::cout<<Transaction::returnExpenseCategoryInString(key) <<":"<<value<<"\n[";
+        value = round((value/wholeEarnings) * 100);
+        for(int i = 0; i<int(value); i++){
+            std::cout<<MenuFunctions::SetBackgroundColor(static_cast<Color>(counterColor), " ");
+            zestawienie += MenuFunctions::SetBackgroundColor(static_cast<Color>(counterColor), " ");
+        }
+
+        if(static_cast<Color>(++counterColor) == Color::White)
+        {
+            counterColor = 90;
+        }
+
+        for(int i = 0; i<100-int(value); i++){
+            std::cout<<MenuFunctions::SetBackgroundColor(Color::White, " ");
+        }
+        std::cout<<"]  ->" <<value<<"%\n\n";
+        
+     }
+    
+    std::cout<<MenuFunctions::SetBoldText("                                           Summary of results:");
+    std::cout<<"\n["+ zestawienie +"]\n";
+
+     MenuFunctions::WaitForAction();
 }
 
 void Menu_Main::showSpendingsPercentageOnIndividualExpenseCategory_Menu(User& user){
@@ -173,7 +203,7 @@ void Menu_Main::showSpendingsPercentageOnIndividualExpenseCategory_Menu(User& us
         for(int i = 0; i<100-int(value); i++){
             std::cout<<MenuFunctions::SetBackgroundColor(Color::White, " ");
         }
-        std::cout<<"]  ->" <<value<<"%\n\n\n\n";
+        std::cout<<"]  ->" <<value<<"%\n\n";
         
      }
     

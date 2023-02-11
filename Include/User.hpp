@@ -43,7 +43,7 @@ public:
     const double countWholeSpendings();
     std::map<ExpenseCategory,double> countIndividualSpending();
     std::map<ExpenseCategory,double> percentageOfIndividualSpending();
-    double countWholeEarnings();
+    const double countWholeEarnings();
     std::map<ExpenseCategory,double> countIndividualEarning();
 
     bool savePersonalConfigToFile();
