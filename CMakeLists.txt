@@ -18,16 +18,38 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Bcrypt)
 
-include(FetchContent)
-FetchContent_Declare(
-        OpenXLSX
-        GIT_REPOSITORY https://github.com/troldal/OpenXLSX
-        GIT_TAG master
-)
-FetchContent_MakeAvailable(OpenXLSX)
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+
+
+FetchContent_Declare(
+
+    libxlsxwriter
+
+    GIT_REPOSITORY
+
+    https://github.com/jmcnamara/libxlsxwriter.git
+
+    GIT_TAG main
+
+)
+
+FetchContent_MakeAvailable(libxlsxwriter)
+
+FetchContent_GetProperties(libxlsxwriter)
+
+if(NOT libxlsxwriter_POPULATED)
+
+    FetchContent_Populate(libxlsxwriter)
+
+    message(STATUS "libxlsxwriter source dir: ${libxlsxwriter_SOURCE_DIR}")
+
+    message(STATUS "libxlsxwriter binary dir: ${libxlsxwriter_BINARY_DIR}")
+
+    add_subdirectory(${libxlsxwriter_SOURCE_DIR} ${libxlsxwriter_BINARY_DIR})
+
+endif()
 
 # Now simply link against gtest or gtest_main as needed. Eg
 
@@ -38,7 +60,7 @@ add_executable(${PROJECT_NAME} main.cpp Src/Transaction.cpp Src/Date.cpp Src/Use
 add_executable(${PROJECT_NAME}-ut Testing/DateTests.cpp Testing/UserTests.cpp Testing/ValidatePasswordTests.cpp Src/Transaction.cpp Src/Date.cpp Src/User.cpp Src/ValidatePassword.cpp Src/Menu_LOG.cpp Src/MenuFunctions.cpp Src/Menu_Main.cpp)
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main bcrypt)
-target_link_libraries(${PROJECT_NAME} PRIVATE bcrypt OpenXLSX)
+target_link_libraries(${PROJECT_NAME} PRIVATE bcrypt xlsxwriter)
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME}-ut)
