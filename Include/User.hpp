@@ -30,7 +30,7 @@ public:
     void setTransactionCounter(const size_t& Transactioncounter) {TransactionCounter = Transactioncounter;};
     //Getters
     double getCurrentMoney() const;
-
+    std::string getLogin() const {return login_;};
 
     inline void clearTransactions() {transactions_.clear();};
 

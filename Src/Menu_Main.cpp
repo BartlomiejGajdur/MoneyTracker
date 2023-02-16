@@ -5,6 +5,7 @@
 #include "../Include/User.hpp"
 #include "../Include/Transaction.hpp"
 #include "../Include/Date.hpp"
+#include "../Include/ExcelGenerator.hpp"
 
 void Menu_Main::greetUser(const User& User){
     MenuFunctions::ClearTerminal();
@@ -301,6 +302,7 @@ void Menu_Main::run(){
     if(std::get<0>(ValidatePassword::getCurrentUser()) != "LogedOUT"){
        
         User User{ValidatePassword::getCurrentUser()};
+        ExcelGenerator ExcelGenerator{User};
         do{
             greetUser(User);
             printOptions();
@@ -350,12 +352,15 @@ void Menu_Main::run(){
             case 11:
                 MenuFunctions::ClearTerminal();
                 std::cout<<"Tutaj bedzie excel generatorH EHEHEHE!\n";
+                ExcelGenerator.greetUser_Excel();
                 MenuFunctions::WaitForAction();
+               
                 
                 break;
             case 0:
                 MenuFunctions::ClearTerminal();
                 std::cout<<" Goodbay! \n";
+                ExcelGenerator.close_Excel();
                 MenuFunctions::WaitForAction();
                 
                 break;
