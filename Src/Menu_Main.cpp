@@ -30,6 +30,7 @@ void Menu_Main::printOptions(){
     std::cout <<"| > 8.   Modify date transaction by ID                                       |\n";
     std::cout <<"| > 9.   Remove transaction by ID                                            |\n";
     std::cout <<"| > 10.  Delete all transactions                                             |\n";
+    std::cout <<"| > 11.  TUTAJ BEDZIE GENERATOR EXcel                                        |\n";
     std::cout <<"| > 0.   SAVE & EXIT                                                         |\n";
     std::cout <<"+----------------------------------------------------------------------------+\n";
 }
@@ -303,7 +304,7 @@ void Menu_Main::run(){
         do{
             greetUser(User);
             printOptions();
-            liczba = MenuFunctions::insertNumber(0,10);
+            liczba = MenuFunctions::insertNumber(0,11);
             switch (liczba)
             {
             case 1:
@@ -344,6 +345,12 @@ void Menu_Main::run(){
                 break;
             case 10:
                 deleteAllTransactions_Menu(User);
+                
+                break;
+            case 11:
+                MenuFunctions::ClearTerminal();
+                std::cout<<"Tutaj bedzie excel generatorH EHEHEHE!\n";
+                MenuFunctions::WaitForAction();
                 
                 break;
             case 0:
