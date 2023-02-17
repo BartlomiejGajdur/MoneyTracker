@@ -31,6 +31,7 @@ public:
     //Getters
     double getCurrentMoney() const;
     std::string getLogin() const {return login_;};
+    vecTransactionPtr getTransactions() const {return transactions_;};
 
     inline void clearTransactions() {transactions_.clear();};
 

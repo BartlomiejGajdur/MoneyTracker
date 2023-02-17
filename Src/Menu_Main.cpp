@@ -92,9 +92,9 @@ void Menu_Main::SetCurrentMoney_Menu(User& user){
     MenuFunctions::ClearTerminal();
 
 
-    int moneyToSet;
+    double moneyToSet;
     std::cout<<"Insert your current balance:\n";
-    moneyToSet = MenuFunctions::insertNumber(-99999,99999);
+    moneyToSet = MenuFunctions::insertNumber(-99999.9,99999.9);
     user.setCurrentMoney(moneyToSet);
     std::cout<<MenuFunctions::SetTextColor(Color::Green,"Your current balance have been set to " + std::to_string(moneyToSet) + "PLN, correctly!\n" );
 
@@ -298,9 +298,9 @@ void Menu_Main::run(){
     int liczba = 0;
 
 
-
     if(std::get<0>(ValidatePassword::getCurrentUser()) != "LogedOUT"){
        
+
         User User{ValidatePassword::getCurrentUser()};
         ExcelGenerator ExcelGenerator{User};
         do{
@@ -352,18 +352,21 @@ void Menu_Main::run(){
             case 11:
                 ExcelGenerator.updateTransactions(User);
                 MenuFunctions::ClearTerminal();
-                std::cout<<"Tutaj bedzie excel generatorH EHEHEHE!\n";
+                std::cout<<"ZAMKNIJ EXCELA!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+                MenuFunctions::WaitForAction();
                 ExcelGenerator.greetUser_Excel();
                 ExcelGenerator.CurrentMoney_Excel();
-                MenuFunctions::WaitForAction();
-               
+                if(User.getTransactions().size() != 0){
+                    ExcelGenerator.Transactions_Excel();
+                }
                 
+                                
                 break;
             case 0:
                 MenuFunctions::ClearTerminal();
                 std::cout<<" Goodbay! \n";
                 ExcelGenerator.close_Excel();
-                MenuFunctions::WaitForAction();
+                //MenuFunctions::WaitForAction();
                 
                 break;
             default:

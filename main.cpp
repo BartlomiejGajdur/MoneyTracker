@@ -2,8 +2,6 @@
 #include "Include/ExcelGenerator.hpp"
 int main(){
 
-    ExcelGenerator excel{};
-
     Menu_Main Menu_Main;
     Menu_Main.run();
 

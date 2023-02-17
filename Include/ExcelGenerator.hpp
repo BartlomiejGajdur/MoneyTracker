@@ -13,6 +13,7 @@ public:
     //Take User name and Greet him
     void greetUser_Excel();
     void CurrentMoney_Excel();
+    void Transactions_Excel();
     void close_Excel();
     void updateTransactions(const User& user) {user_ = user;};
 
