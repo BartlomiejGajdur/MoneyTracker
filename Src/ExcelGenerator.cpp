@@ -133,38 +133,56 @@ void ExcelGenerator::Transactions_Excel(){
     }
 }
 
-void ExcelGenerator::PieChart_Excel(const std::map<ExpenseCategory, double>& map){
+std::string ExcelGenerator::generateSeriesRange(const int firstRow, const int Column, const int secondRow){
+
+    std::string columnInLetters;
+    columnInLetters.push_back(char(Column + 65));
+
+    std::string result = "=" + SheetName_ + "!$" + columnInLetters + "$" + std::to_string(firstRow) + ":$" +columnInLetters + "$" + std::to_string(secondRow);
+
+    return result.c_str();
+}
+
+void ExcelGenerator::PieChart_Excel(const std::map<ExpenseCategory, double>& map, const std::string& ChartTitle){
     
     lxw_chart_series *series;
- 
- 
+    
     for(auto [key,value] :map){
 
+        
         value*=100;
         value = ceil(value);
         value/=100;
            worksheet_write_string(worksheet_, row_, column_, Transaction::returnExpenseCategoryInString(key).c_str(), NULL);
            worksheet_write_number(worksheet_, row_, column_+1, value,     NULL);
-           ++row_;
+        ++row_;
     }
- 
  
     /* Create a pie chart. */
     lxw_chart *chart = workbook_add_chart(workbook_, LXW_CHART_PIE);
- 
+
     /* Add the data series to the chart. */
-    series = chart_add_series(chart, "=SHEET23!$A$21:$A$27",
-                                     "=SHEET23!$B$21:$B$27");
+    series = chart_add_series(chart, generateSeriesRange(row_ - map.size()+1, column_, row_).c_str(),
+                                     generateSeriesRange(row_ - map.size()+1, column_+1, row_).c_str());
+
     chart_series_set_labels(series);
  
     lxw_chart_point *points[] = {NULL};
  
     /* Add the points to the series. */
     chart_series_set_points(series, points);
- 
+
+    /*Percentage and title*/
+    chart_series_set_labels(series);
+    chart_series_set_labels_options(series, LXW_FALSE, LXW_FALSE, LXW_FALSE);
+    chart_series_set_labels_percentage(series);
+    chart_title_set_name(chart, ChartTitle.c_str());
  
     /* Insert the chart into the worksheet. */
-    worksheet_insert_chart(worksheet_,row_+2,column_ , chart);
+    worksheet_insert_chart(worksheet_,row_ - map.size(),column_ , chart);
+
+    row_ = row_ - map.size() + 15;
+    column_ = 0;
 
 }
 

@@ -14,7 +14,7 @@ public:
     void greetUser_Excel();
     void CurrentMoney_Excel();
     void Transactions_Excel();
-    void PieChart_Excel(const std::map<ExpenseCategory, double>& map);
+    void PieChart_Excel(const std::map<ExpenseCategory, double>& map, const std::string& ChartTitle);
     void open_Excel(const std::string& ExcelName, const std::string& SheetName);
     void close_Excel();
     void updateTransactions(const User& user) {user_ = user;};
@@ -25,4 +25,6 @@ private:
     std::string ExcelName_{"Report001.xlsx"}, SheetName_{"Sheet1"};
     lxw_workbook  *workbook_;
     lxw_worksheet *worksheet_;
+
+    std::string generateSeriesRange(const int firstRow, const int Column, const int secondRow);
 };

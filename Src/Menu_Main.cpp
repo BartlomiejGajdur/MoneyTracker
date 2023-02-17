@@ -353,12 +353,13 @@ void Menu_Main::run(){
             
             if(User.getTransactions().size() > 0 ){
 
-                ExcelGenerator.open_Excel("NowyTesT.xlsx","SHEET23");
+                ExcelGenerator.open_Excel("Wydatki.xlsx","Karta_pierwsza");
                 ExcelGenerator.updateTransactions(User);
                 ExcelGenerator.greetUser_Excel();
                 ExcelGenerator.CurrentMoney_Excel();
                 ExcelGenerator.Transactions_Excel();
-                ExcelGenerator.PieChart_Excel(User.percentageOfIndividualSpending());
+                ExcelGenerator.PieChart_Excel(User.percentageOfIndividualSpending(), "Percentage Of Individual Spendings");
+                ExcelGenerator.PieChart_Excel(User.countIndividualEarning(), "Percentage Of Individual Earnings");
                 MenuFunctions::ClearTerminal();
                 std::cout<<"JAKIES DANE ZOSTALY ZAPISANE \n";
                 std::cout<<User.getTransactions().size();
