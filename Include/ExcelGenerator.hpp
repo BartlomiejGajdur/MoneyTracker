@@ -14,6 +14,7 @@ public:
     void greetUser_Excel();
     void CurrentMoney_Excel();
     void Transactions_Excel();
+    void PieChart_Excel(const std::map<ExpenseCategory, double>& map);
     void open_Excel(const std::string& Name_excel, const std::string& Name_Sheet);
     void close_Excel();
     void updateTransactions(const User& user) {user_ = user;};

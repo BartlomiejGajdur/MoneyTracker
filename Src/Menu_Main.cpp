@@ -358,6 +358,7 @@ void Menu_Main::run(){
                 ExcelGenerator.greetUser_Excel();
                 ExcelGenerator.CurrentMoney_Excel();
                 ExcelGenerator.Transactions_Excel();
+                ExcelGenerator.PieChart_Excel(User.percentageOfIndividualSpending());
                 MenuFunctions::ClearTerminal();
                 std::cout<<"JAKIES DANE ZOSTALY ZAPISANE \n";
                 std::cout<<User.getTransactions().size();

@@ -1,5 +1,6 @@
 #include "../Include/ExcelGenerator.hpp"
 #include <iostream>
+#include <cmath>
 void ExcelGenerator::greetUser_Excel(){
 
     std::string greetText = "Hello " + user_.getLogin() + "!";
@@ -130,6 +131,41 @@ void ExcelGenerator::Transactions_Excel(){
             ++row_;
         }
     }
+}
+
+void ExcelGenerator::PieChart_Excel(const std::map<ExpenseCategory, double>& map){
+    
+    lxw_chart_series *series;
+ 
+ 
+    for(auto [key,value] :map){
+
+        value*=100;
+        value = ceil(value);
+        value/=100;
+           worksheet_write_string(worksheet_, row_, column_, Transaction::returnExpenseCategoryInString(key).c_str(), NULL);
+           worksheet_write_number(worksheet_, row_, column_+1, value,     NULL);
+           ++row_;
+    }
+ 
+ 
+    /* Create a pie chart. */
+    lxw_chart *chart = workbook_add_chart(workbook_, LXW_CHART_PIE);
+ 
+    /* Add the data series to the chart. */
+    series = chart_add_series(chart, "=SHEET23!$A$21:$A$27",
+                                     "=SHEET23!$B$21:$B$27");
+    chart_series_set_labels(series);
+ 
+    lxw_chart_point *points[] = {NULL};
+ 
+    /* Add the points to the series. */
+    chart_series_set_points(series, points);
+ 
+ 
+    /* Insert the chart into the worksheet. */
+    worksheet_insert_chart(worksheet_,row_+2,column_ , chart);
+
 }
 
 void ExcelGenerator::open_Excel(const std::string& Name_excel, const std::string& Name_Sheet){
