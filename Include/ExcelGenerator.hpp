@@ -14,6 +14,7 @@ public:
     void greetUser_Excel();
     void CurrentMoney_Excel();
     void close_Excel();
+    void updateTransactions(const User& user) {user_ = user;};
 
 private:
     User user_;

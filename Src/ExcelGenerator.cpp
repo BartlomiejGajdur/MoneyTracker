@@ -35,12 +35,11 @@ void ExcelGenerator::CurrentMoney_Excel(){
     
     worksheet_merge_range(worksheet_, row_, column_, row_+2, column_ +4," ", format);
 
-   // 
+   
     std::string toDisplay;
     std::string money = std::to_string(user_.getCurrentMoney());
     money.erase(money.length()-4,money.length());
     money+=" PLN\n";
-    
     toDisplay = "Current money: " + money;
 
     if(user_.getCurrentMoney() >= 0)
@@ -52,8 +51,10 @@ void ExcelGenerator::CurrentMoney_Excel(){
         format_set_font_color(format, LXW_COLOR_RED);
         worksheet_write_string(worksheet_,row_,0, toDisplay.c_str(), format);
     }
-
+    
+    //Set Row and Column Index To next free row of cells
     ++row_+=2;
+    column_ = 0;
 }
 
 void ExcelGenerator::close_Excel(){

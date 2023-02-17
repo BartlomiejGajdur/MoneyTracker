@@ -350,8 +350,7 @@ void Menu_Main::run(){
                 
                 break;
             case 11:
-
-            // Tu musi być coś w stylu update transactions zeby przypisalo nowe transakcje
+                ExcelGenerator.updateTransactions(User);
                 MenuFunctions::ClearTerminal();
                 std::cout<<"Tutaj bedzie excel generatorH EHEHEHE!\n";
                 ExcelGenerator.greetUser_Excel();
