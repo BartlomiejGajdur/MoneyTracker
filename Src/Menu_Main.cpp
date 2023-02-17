@@ -350,22 +350,34 @@ void Menu_Main::run(){
                 
                 break;
             case 11:
+            
+            if(User.getTransactions().size() > 0 ){
+
+                ExcelGenerator.open_Excel("NowyTesT.xlsx","SHEET23");
                 ExcelGenerator.updateTransactions(User);
-                MenuFunctions::ClearTerminal();
-                std::cout<<"ZAMKNIJ EXCELA!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
-                MenuFunctions::WaitForAction();
                 ExcelGenerator.greetUser_Excel();
                 ExcelGenerator.CurrentMoney_Excel();
-                if(User.getTransactions().size() != 0){
-                    ExcelGenerator.Transactions_Excel();
-                }
+                ExcelGenerator.Transactions_Excel();
+                MenuFunctions::ClearTerminal();
+                std::cout<<"JAKIES DANE ZOSTALY ZAPISANE \n";
+                std::cout<<User.getTransactions().size();
+                MenuFunctions::WaitForAction();
+            }   else{
+                MenuFunctions::ClearTerminal();
+                std::cout<<"BRAK DANYCH\n";
+                std::cout<<User.getTransactions().size();
+                MenuFunctions::WaitForAction();
+
+            } 
                 
                                 
                 break;
             case 0:
                 MenuFunctions::ClearTerminal();
                 std::cout<<" Goodbay! \n";
+                
                 ExcelGenerator.close_Excel();
+                
                 //MenuFunctions::WaitForAction();
                 
                 break;

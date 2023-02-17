@@ -132,6 +132,14 @@ void ExcelGenerator::Transactions_Excel(){
     }
 }
 
+void ExcelGenerator::open_Excel(const std::string& Name_excel, const std::string& Name_Sheet){
+    workbook_  = workbook_new(Name_excel.c_str());
+    worksheet_ = workbook_add_worksheet(workbook_, Name_Sheet.c_str());
+
+    row_ = 0;
+    column_ = 0;
+}
+
 void ExcelGenerator::close_Excel(){
     workbook_close(workbook_);
 }
