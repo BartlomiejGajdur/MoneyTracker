@@ -12,6 +12,7 @@ public:
 
     //Take User name and Greet him
     void greetUser_Excel();
+    void CurrentMoney_Excel();
     void close_Excel();
 
 private:

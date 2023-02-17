@@ -22,6 +22,40 @@ void ExcelGenerator::greetUser_Excel(){
     column_ = 0;    
 }
 
+void ExcelGenerator::CurrentMoney_Excel(){
+    lxw_format *format = workbook_add_format(workbook_);
+
+    format_set_bold(format);
+    format_set_font_size(format, 12);
+    format_set_align   (format, LXW_ALIGN_CENTER);
+    format_set_align   (format, LXW_ALIGN_VERTICAL_CENTER);
+    format_set_border  (format, LXW_BORDER_DOUBLE);
+    format_set_bold    (format);
+    format_set_bg_color(format, 0xD7E4BC); 
+    
+    worksheet_merge_range(worksheet_, row_, column_, row_+2, column_ +4," ", format);
+
+   // 
+    std::string toDisplay;
+    std::string money = std::to_string(user_.getCurrentMoney());
+    money.erase(money.length()-4,money.length());
+    money+=" PLN\n";
+    
+    toDisplay = "Current money: " + money;
+
+    if(user_.getCurrentMoney() >= 0)
+    {   
+        format_set_font_color(format, LXW_COLOR_GREEN);
+        worksheet_write_string(worksheet_,row_,0, toDisplay.c_str(), format);
+    }else
+    {
+        format_set_font_color(format, LXW_COLOR_RED);
+        worksheet_write_string(worksheet_,row_,0, toDisplay.c_str(), format);
+    }
+
+    ++row_+=2;
+}
+
 void ExcelGenerator::close_Excel(){
     workbook_close(workbook_);
 }
