@@ -168,9 +168,12 @@ void ExcelGenerator::PieChart_Excel(const std::map<ExpenseCategory, double>& map
 
 }
 
-void ExcelGenerator::open_Excel(const std::string& Name_excel, const std::string& Name_Sheet){
-    workbook_  = workbook_new(Name_excel.c_str());
-    worksheet_ = workbook_add_worksheet(workbook_, Name_Sheet.c_str());
+void ExcelGenerator::open_Excel(const std::string& ExcelName, const std::string& SheetName){
+    ExcelName_ = ExcelName;
+    SheetName_ = SheetName;
+
+    workbook_  = workbook_new(ExcelName_.c_str());
+    worksheet_ = workbook_add_worksheet(workbook_, SheetName_.c_str());
 
     row_ = 0;
     column_ = 0;
