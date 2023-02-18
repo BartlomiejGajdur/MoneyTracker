@@ -16,7 +16,7 @@ public:
     void Transactions_Excel();
     void PieChart_Excel(const std::map<ExpenseCategory, double>& map, const std::string& ChartTitle);
     void open_Excel(const std::string& ExcelName, const std::string& SheetName);
-    void close_Excel();
+    lxw_error close_Excel();
     void updateTransactions(const User& user) {user_ = user;};
 
 private:

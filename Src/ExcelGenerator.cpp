@@ -12,7 +12,7 @@ void ExcelGenerator::greetUser_Excel(){
     format_set_align   (merge_format, LXW_ALIGN_VERTICAL_CENTER);
     format_set_border  (merge_format, LXW_BORDER_DOUBLE);
     format_set_bold    (merge_format);
-    format_set_bg_color(merge_format, 0xD7E4BC);    
+    format_set_bg_color(merge_format, 0x95B3D7);    
 
     int size = 4;
 
@@ -32,7 +32,7 @@ void ExcelGenerator::CurrentMoney_Excel(){
     format_set_align   (format, LXW_ALIGN_VERTICAL_CENTER);
     format_set_border  (format, LXW_BORDER_DOUBLE);
     format_set_bold    (format);
-    format_set_bg_color(format, 0xD7E4BC); 
+    format_set_bg_color(format, 0xB8CCE4); 
     
     worksheet_merge_range(worksheet_, row_, column_, row_+2, column_ +4," ", format);
 
@@ -197,6 +197,6 @@ void ExcelGenerator::open_Excel(const std::string& ExcelName, const std::string&
     column_ = 0;
 }
 
-void ExcelGenerator::close_Excel(){
-    workbook_close(workbook_);
+lxw_error ExcelGenerator::close_Excel(){
+    return workbook_close(workbook_);
 }

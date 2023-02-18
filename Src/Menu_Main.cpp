@@ -31,7 +31,7 @@ void Menu_Main::printOptions(){
     std::cout <<"| > 8.   Modify date transaction by ID                                       |\n";
     std::cout <<"| > 9.   Remove transaction by ID                                            |\n";
     std::cout <<"| > 10.  Delete all transactions                                             |\n";
-    std::cout <<"| > 11.  TUTAJ BEDZIE GENERATOR EXcel                                        |\n";
+    std::cout <<"| > 11.  "<<MenuFunctions::SetTextColor(Color::Yellow,"Generate Summary in Excel file")<<"                                      |\n";
     std::cout <<"| > 0.   SAVE & EXIT                                                         |\n";
     std::cout <<"+----------------------------------------------------------------------------+\n";
 }
@@ -353,15 +353,17 @@ void Menu_Main::run(){
             
             if(User.getTransactions().size() > 0 ){
 
-                ExcelGenerator.open_Excel("Wydatki.xlsx","Karta_pierwsza");
                 ExcelGenerator.updateTransactions(User);
+                ExcelGenerator.open_Excel("Wydatki.xlsx","Karta_pierwsza");
+                
                 ExcelGenerator.greetUser_Excel();
                 ExcelGenerator.CurrentMoney_Excel();
                 ExcelGenerator.Transactions_Excel();
                 ExcelGenerator.PieChart_Excel(User.percentageOfIndividualSpending(), "Percentage Of Individual Spendings");
                 ExcelGenerator.PieChart_Excel(User.countIndividualEarning(), "Percentage Of Individual Earnings");
+
                 MenuFunctions::ClearTerminal();
-                std::cout<<"JAKIES DANE ZOSTALY ZAPISANE \n";
+                std::cout<<"JAKIES DANE ZOSTALY ZAPISANE ->\n";
                 std::cout<<User.getTransactions().size();
                 MenuFunctions::WaitForAction();
             }   else{
@@ -379,8 +381,8 @@ void Menu_Main::run(){
                 std::cout<<" Goodbay! \n";
                 
                 ExcelGenerator.close_Excel();
+
                 
-                //MenuFunctions::WaitForAction();
                 
                 break;
             default:
