@@ -362,6 +362,8 @@ void Menu_Main::run(){
                 ExcelGenerator.PieChart_Excel(User.percentageOfIndividualSpending(), "Percentage Of Individual Spendings");
                 ExcelGenerator.PieChart_Excel(User.countIndividualEarning(), "Percentage Of Individual Earnings");
 
+                ExcelGenerator.SummaryTable_Excel();
+
                 MenuFunctions::ClearTerminal();
                 std::cout<<"JAKIES DANE ZOSTALY ZAPISANE ->\n";
                 std::cout<<User.getTransactions().size();

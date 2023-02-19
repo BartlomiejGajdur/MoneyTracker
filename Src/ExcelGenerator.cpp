@@ -186,6 +186,126 @@ void ExcelGenerator::PieChart_Excel(const std::map<ExpenseCategory, double>& map
 
 }
 
+
+void  ExcelGenerator::SummaryTable_Excel(){
+    
+        std::map<ExpenseCategory,double> spendings = user_.countIndividualSpending();
+        std::map<ExpenseCategory,double> earnings = user_.countIndividualEarning();
+
+        lxw_table_column col1 = {.header         = const_cast<char*>("Spendings Category")};
+        lxw_table_column col2 = {.header         = const_cast<char*>("Money Spend [PLN]")};
+
+        lxw_table_column col3 = {.header         = const_cast<char*>("Earnings Category")};
+        lxw_table_column col4 = {.header         = const_cast<char*>("Money Earn [PLN]")};
+        
+        lxw_table_column *columns1[] = {&col1, &col2, NULL};
+        lxw_table_column *columns2[] = {&col3, &col4, NULL};
+        
+        lxw_table_options options1 = {.columns = columns1};
+        lxw_table_options options2 = {.columns = columns2};
+
+        worksheet_set_column(worksheet_, column_, column_, 19, NULL);
+        worksheet_set_column(worksheet_, column_+1, column_+1, 19, NULL);
+        worksheet_set_column(worksheet_, column_+2, column_+2, 18, NULL);
+        worksheet_set_column(worksheet_, column_+3, column_+3, 18, NULL);
+
+       
+        worksheet_add_table(worksheet_, row_, column_, row_ + spendings.size(), column_+1, &options1) ;
+
+
+        worksheet_add_table(worksheet_, row_, column_+2, row_ + earnings.size(), column_+3, &options2) ;
+
+        
+
+        lxw_format *format = workbook_add_format(workbook_);
+        format_set_align   (format, LXW_ALIGN_CENTER);
+        format_set_align   (format, LXW_ALIGN_VERTICAL_CENTER);
+
+        lxw_format *formatG = workbook_add_format(workbook_);
+        format_set_align   (formatG, LXW_ALIGN_CENTER);
+        format_set_align   (formatG, LXW_ALIGN_VERTICAL_CENTER);
+        format_set_bold(formatG);
+
+        lxw_format *formatR = workbook_add_format(workbook_);
+        format_set_align   (formatR, LXW_ALIGN_CENTER);
+        format_set_align   (formatR, LXW_ALIGN_VERTICAL_CENTER);
+        format_set_bold(formatR);
+
+
+        row_++;
+        for(const auto& [key,value] : spendings)
+        {   
+            
+            //EXPENSE CATEGORY
+            worksheet_write_string(worksheet_, row_, column_, Transaction::returnExpenseCategoryInString(key).c_str(), format);
+
+             if(value >= 0)
+            {   
+                format_set_font_color(formatG, LXW_COLOR_GREEN);
+                worksheet_write_number(worksheet_, row_, column_+1, value , formatG);
+            }else
+            {
+                format_set_font_color(formatR, LXW_COLOR_RED);
+                worksheet_write_number(worksheet_, row_, column_+1, value , formatR);
+            }
+
+            //INC row_ index
+            ++row_;
+        }
+        lxw_format *formatTotal = workbook_add_format(workbook_);
+        format_set_border  (formatTotal, LXW_BORDER_THIN);
+        format_set_bold(formatTotal);
+        format_set_font_size(formatTotal, 12);
+        format_set_align   (formatTotal, LXW_ALIGN_CENTER);
+        format_set_align   (formatTotal, LXW_ALIGN_VERTICAL_CENTER);
+        format_set_bg_color(formatTotal, 0x95B3D7); 
+
+        worksheet_write_string(worksheet_, row_, column_, "Total Spending: ", formatTotal);
+
+        format_set_font_color(formatTotal, LXW_COLOR_RED);
+        worksheet_write_number(worksheet_, row_, column_+1, user_.countWholeSpendings() , formatTotal);
+
+        
+        row_ = row_ - spendings.size();
+
+        for(const auto& [key,value] : earnings)
+        {   
+            
+            //EXPENSE CATEGORY
+            worksheet_write_string(worksheet_, row_, column_+2, Transaction::returnExpenseCategoryInString(key).c_str(), format);
+
+             if(value >= 0)
+            {   
+                format_set_font_color(formatG, LXW_COLOR_GREEN);
+                worksheet_write_number(worksheet_, row_, column_+3, value , formatG);
+            }else
+            {
+                format_set_font_color(formatR, LXW_COLOR_RED);
+                worksheet_write_number(worksheet_, row_, column_+3, value , formatR);
+            }
+
+            //INC row_ index
+            ++row_;
+        }
+        lxw_format *formatTotalEarning = workbook_add_format(workbook_);
+        format_set_border  (formatTotalEarning, LXW_BORDER_THIN);
+        format_set_bold(formatTotalEarning);
+        format_set_font_size(formatTotalEarning, 12);
+        format_set_align   (formatTotalEarning, LXW_ALIGN_CENTER);
+        format_set_align   (formatTotalEarning, LXW_ALIGN_VERTICAL_CENTER);
+        format_set_bg_color(formatTotalEarning, 0x95B3D7); 
+        worksheet_write_string(worksheet_, row_, column_+2, "Total Earning: ", formatTotalEarning);
+
+        format_set_font_color(formatTotalEarning, LXW_COLOR_GREEN);
+        worksheet_write_number(worksheet_, row_, column_+3, user_.countWholeEarnings() , formatTotalEarning);
+
+        row_= row_ - earnings.size();
+        spendings.size() > earnings.size() ? row_+=spendings.size() : row_+= earnings.size();
+        row_++;
+    
+}
+
+
 void ExcelGenerator::open_Excel(const std::string& ExcelName, const std::string& SheetName){
     ExcelName_ = ExcelName;
     SheetName_ = SheetName;
