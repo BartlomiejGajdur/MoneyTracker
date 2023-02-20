@@ -65,6 +65,10 @@ std::string MenuFunctions::SetBoldText(const std::string& text){
     return "\e[1m" + text + "\e[0m";
 }
 
+std::string MenuFunctions::SetBoldText(const bool& text){
+    return text ?"\e[1mON\e[0m" : "\e[1mOFF\e[0m" ;
+}
+
 //Options Menu should be formatted in a way that 0.EXit is the last string in vector Options
 int MenuFunctions::arrowMenu(const std::vector<std::string>& Options){
     
@@ -117,6 +121,92 @@ int MenuFunctions::arrowMenu(const std::vector<std::string>& Options){
         }
 
         if(znak == 13 && counter == vecSize)
+        {
+            counter = 0;
+            exit = true;
+        }
+
+    }
+
+    return counter;
+}
+
+
+//Options Menu should be formatted in a way that 0.EXit is the last string in vector Options
+int MenuFunctions::arrowMenu(std::vector<std::pair<std::string,bool>> Options){
+    
+    int counter = 0;
+    char znak;
+    bool exit = false;
+    int vecSize = Options.size();
+
+    while(!exit)
+    {
+        
+        MenuFunctions::ClearTerminal();
+        std::cout<<"+-------------------+\n";
+        std::cout<<"|     W -> UP       |\n"; 
+        std::cout<<"|     S -> DOWN     |\n"; 
+        std::cout<<"| ENTER -> APPROVAL |\n";
+        std::cout<<"+-------------------+\n\n"; 
+        for (int i = 0; i < vecSize ; i++)
+        {
+            if(i == counter){
+                if(counter != vecSize -1)
+                {
+                Options[i].first.erase(Options[i].first.begin() + Options[i].first.size()  - 6,Options[i].first.begin() + Options[i].first.size() -2);
+                std::cout<<"--> "<<MenuFunctions::SetBoldText(Options[i].first);
+                Options[i].second? 
+                std::cout<<MenuFunctions::SetTextColor(Color::Green,MenuFunctions::SetBoldText(Options[i].second))<<"\n":
+                std::cout<<MenuFunctions::SetTextColor(Color::Red,MenuFunctions::SetBoldText(Options[i].second))<<"\n";
+
+                Options[i].first.insert(Options[i].first.size() -2 ,"    ");
+                }else{
+                 std::cout<<"--> "<<MenuFunctions::SetBoldText(Options[i].first);   
+                }
+
+            }else{
+
+                if(i == vecSize - 1)
+                {
+                    std::cout<<Options[i].first<<"\n";
+                }else{
+                    std::cout<<Options[i].first;
+                    Options[i].second? std::cout<<MenuFunctions::SetTextColor(Color::Green, "ON\n") : std::cout<< MenuFunctions::SetTextColor(Color::Red, "OFF\n");
+                }
+                
+            }
+            
+        }
+        znak = _getch();
+
+        if(znak == 'W' || znak =='w')
+        {
+            if(counter == 0){
+
+            }else{
+                --counter;
+            }
+        }
+
+        if(znak == 'S' || znak == 's')
+        {
+            if(counter == vecSize-1){
+
+            }else{
+                ++counter;
+            }
+        }
+
+        if(znak == 13)
+        {
+            if(Options[counter].second)
+                Options[counter].second = false;
+            else
+                Options[counter].second = true;
+        }
+
+        if(znak == 13 && counter == vecSize-1)
         {
             counter = 0;
             exit = true;

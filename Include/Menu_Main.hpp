@@ -1,10 +1,12 @@
 #pragma once
 #include "Menu_LOG.hpp"
 #include "User.hpp"
+#include "ExcelGenerator.hpp"
 
 class Menu_Main{
 public:
     void run();
+    void excelMenuRun(const User& User, ExcelGenerator& ExcelGenerator);
 
 private:
     Menu_LOG MenuLOG;
@@ -21,5 +23,9 @@ private:
     void modifyDateTransactionByID_Menu(User& user);
     void removeTransactionByID_Menu(User& user);
     void deleteAllTransactions_Menu(User& user);
+
+    bool fileExists(const std::string& fileName);
+    std::string findFreeFileName();
+
 
 };

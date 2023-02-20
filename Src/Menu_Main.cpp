@@ -1,4 +1,6 @@
 #include <cmath>
+#include <fstream>
+#include <iostream>
 
 #include "../Include/MenuFunctions.hpp"
 #include "../Include/Menu_Main.hpp"
@@ -6,6 +8,65 @@
 #include "../Include/Transaction.hpp"
 #include "../Include/Date.hpp"
 #include "../Include/ExcelGenerator.hpp"
+
+
+bool Menu_Main::fileExists(const std::string& fileName) {
+    std::ifstream file(fileName);
+    return file.good();
+}
+
+std::string Menu_Main::findFreeFileName(){
+    std::string fileName = "MoneyTracker_Summary_" + Date::currentDataInString() + ".xlsx";
+    int counter{1};
+    while (fileExists(fileName))
+    {   
+        if(counter > 1 && counter != 10 ){
+            fileName.erase(fileName.begin() + fileName.size() - 8 - std::to_string(counter).size(), fileName.begin() + fileName.size() - 5);
+        }else if ( counter == 10)
+        {
+            fileName.erase(fileName.begin() + fileName.size() - 9, fileName.begin() + fileName.size() - 5);
+        }
+
+        fileName.insert(fileName.size() - 5, "_(" + std::to_string(counter++) + ")" );
+    }
+
+    return fileName;
+}
+
+void Menu_Main::excelMenuRun(const User& User, ExcelGenerator& ExcelGenerator){
+    
+    std::string FileName = findFreeFileName();
+    ExcelGenerator.updateTransactions(User);
+    ExcelGenerator.open_Excel(FileName,"Summary");
+    
+    std::vector<std::pair<std::string,bool>> vec{
+        std::make_pair<std::string,bool>("GreetUser                  | ",false),
+        std::make_pair<std::string,bool>("CurrentMoney_Excel         | ",false),
+        std::make_pair<std::string,bool>("Transactions_Excel         | ",false),
+        std::make_pair<std::string,bool>("PieChart_ExcelSpendings    | ",false),
+        std::make_pair<std::string,bool>("PieChart_ExcelEarnigns     | ",false),
+        std::make_pair<std::string,bool>("SummaryTable_Excel         | ",false),
+        std::make_pair<std::string,bool>("Exit",false),
+        };
+    MenuFunctions::arrowMenu(vec);
+     MenuFunctions::WaitForAction();
+
+        ExcelGenerator.greetUser_Excel();
+        ExcelGenerator.CurrentMoney_Excel();
+        ExcelGenerator.Transactions_Excel();
+        ExcelGenerator.PieChart_Excel(ExcelGenerator.getUser().percentageOfIndividualSpending(), "Percentage Of Individual Spendings");
+        ExcelGenerator.PieChart_Excel(ExcelGenerator.getUser().countIndividualEarning(), "Percentage Of Individual Earnings");
+        ExcelGenerator.SummaryTable_Excel();
+
+
+
+
+    MenuFunctions::ClearTerminal();
+    std::cout<<MenuFunctions::SetTextColor(Color::Green, "Excel File Generated Correctly!\n> FileName: " + FileName + " \n");
+    MenuFunctions::WaitForAction();
+}
+
+
 
 void Menu_Main::greetUser(const User& User){
     MenuFunctions::ClearTerminal();
@@ -350,42 +411,20 @@ void Menu_Main::run(){
                 
                 break;
             case 11:
-            
-            if(User.getTransactions().size() > 0 ){
-
-                ExcelGenerator.updateTransactions(User);
-                ExcelGenerator.open_Excel("Wydatki.xlsx","Karta_pierwsza");
-                
-                ExcelGenerator.greetUser_Excel();
-                ExcelGenerator.CurrentMoney_Excel();
-                ExcelGenerator.Transactions_Excel();
-                ExcelGenerator.PieChart_Excel(User.percentageOfIndividualSpending(), "Percentage Of Individual Spendings");
-                ExcelGenerator.PieChart_Excel(User.countIndividualEarning(), "Percentage Of Individual Earnings");
-
-                ExcelGenerator.SummaryTable_Excel();
-
-                MenuFunctions::ClearTerminal();
-                std::cout<<"JAKIES DANE ZOSTALY ZAPISANE ->\n";
-                std::cout<<User.getTransactions().size();
-                MenuFunctions::WaitForAction();
-            }   else{
-                MenuFunctions::ClearTerminal();
-                std::cout<<"BRAK DANYCH\n";
-                std::cout<<User.getTransactions().size();
-                MenuFunctions::WaitForAction();
-
-            } 
-                
-                                
+                if(User.getTransactions().size() > 0)
+                {
+                    excelMenuRun(User, ExcelGenerator);
+                }
+                else
+                {
+                    MenuFunctions::ClearTerminal();
+                    std::cout<<MenuFunctions::SetTextColor(Color::Red, "You must have at least one transaction assigned to your account!\n");
+                    MenuFunctions::WaitForAction();
+                }          
                 break;
             case 0:
-                MenuFunctions::ClearTerminal();
-                std::cout<<" Goodbay! \n";
-                
+                MenuFunctions::ClearTerminal();            
                 ExcelGenerator.close_Excel();
-
-                
-                
                 break;
             default:
                 break;

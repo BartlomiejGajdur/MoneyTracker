@@ -15,7 +15,9 @@ namespace MenuFunctions{
     std::string SetTextColor(const Color& color, const std::string& text);
     std::string SetBackgroundColor(const Color& color, const std::string& text);
     std::string SetBoldText(const std::string& text);
+    std::string SetBoldText(const bool& text);
     int arrowMenu(const std::vector<std::string>& Options);
+    int arrowMenu(std::vector<std::pair<std::string,bool>> Options);
 
     template<typename Type>
     Type insertNumber(const Type& zakresL, const Type& zakresP){

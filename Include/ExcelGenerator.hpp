@@ -12,7 +12,7 @@ public:
     //Getters
     int getRow()    const {return row_;};
     int getColumn() const {return column_;};
-
+    User getUser() const {return user_;};
     //Functions
     void greetUser_Excel();
     void CurrentMoney_Excel();
