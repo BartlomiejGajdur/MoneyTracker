@@ -1,6 +1,9 @@
-#include "xlsxwriter.h"
+#pragma once
 #include <string>
+
 #include "User.hpp"
+#include "xlsxwriter.h"
+
 class ExcelGenerator{
 public:
     ExcelGenerator(const User& user) : user_(user) {};
@@ -10,15 +13,15 @@ public:
     int getRow()    const {return row_;};
     int getColumn() const {return column_;};
 
-    
+    //Functions
     void greetUser_Excel();
     void CurrentMoney_Excel();
     void Transactions_Excel();
     void SummaryTable_Excel();
     void PieChart_Excel(const std::map<ExpenseCategory, double>& map, const std::string& ChartTitle);
+    void updateTransactions(const User& user) {user_ = user;};
     void open_Excel(const std::string& ExcelName, const std::string& SheetName);
     lxw_error close_Excel();
-    void updateTransactions(const User& user) {user_ = user;};
 
 private:
     User user_;

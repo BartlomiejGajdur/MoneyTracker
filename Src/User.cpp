@@ -1,14 +1,13 @@
-#include <iostream>
 #include <algorithm>
-#include <map>
 #include <cmath>
 #include <fstream>
-#include <sstream>
 #include <iomanip>
+#include <iostream>
+#include <map>
+#include <sstream>
 
 #include "../Include/User.hpp"
 #include "../Include/Transaction.hpp"
-
 
 UserErrorCode User::addTransaction(const std::shared_ptr<Transaction> transaction){
     transaction->setID(TransactionCounter++);

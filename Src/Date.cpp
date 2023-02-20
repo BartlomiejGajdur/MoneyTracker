@@ -1,8 +1,8 @@
-#include "../Include/Date.hpp"
-
-#include <vector>
 #include <iostream>
 #include <sstream>
+#include <vector>
+
+#include "../Include/Date.hpp"
 
 std::string Date::currentDataInString(){
 
@@ -21,8 +21,6 @@ Date Date::currentData(){
  
     return Date(timePtr->tm_mday,1+timePtr->tm_mon,1900+ timePtr->tm_year);
 }
-
-
 
 bool Date::isLeapYear(){
     return (year_ % 4 == 0 && year_ % 100 != 0) ||
@@ -174,8 +172,8 @@ bool Date::operator<(const Date& other) const {
         if (year_ != other.year_) return year_ < other.year_;
         if (month_ != other.month_) return month_ < other.month_;
         return day_ < other.day_;
-    }
+}
 
 bool Date::operator>(const Date& other) const{
     return other < *this;
-  }
+}

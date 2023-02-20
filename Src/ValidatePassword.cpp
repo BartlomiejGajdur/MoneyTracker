@@ -1,6 +1,5 @@
 #include "../Include/ValidatePassword.hpp"
 
-
 namespace ValidatePassword{
     vecConfig vecOfFileNameLoginPassword_;
     std::string configName = "../config.txt";
@@ -18,7 +17,7 @@ vecConfig& ValidatePassword::getVecOfFileNameLoginPassword_(){
 
 PasswordErrorCode ValidatePassword::checkLength(const std::string& password){
         return (password.size() >= 8 && password.size() <= 32) ? PasswordErrorCode::Ok : PasswordErrorCode::WrongLength;
-    }
+}
 
 PasswordErrorCode ValidatePassword::checkSpecialChar(const std::string& password){
         //!"#$%&'()*+,-./
@@ -29,7 +28,7 @@ PasswordErrorCode ValidatePassword::checkSpecialChar(const std::string& password
                                                                         return (zn>=33 && zn<=47) || (zn>=58 && zn<=64) || (zn>=91 && zn<=96) || (zn>=123);
                                                                     });
         return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainSpecialChar;
-    }
+}
 
 PasswordErrorCode ValidatePassword::checkUppercaseLetter(const std::string& password){
 
@@ -39,7 +38,7 @@ PasswordErrorCode ValidatePassword::checkUppercaseLetter(const std::string& pass
                                                                     });
 
         return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainUppercaseLetter;
-    }
+}
 
 PasswordErrorCode ValidatePassword::checkLowercaseLetter(const std::string& password){
 
@@ -49,7 +48,7 @@ PasswordErrorCode ValidatePassword::checkLowercaseLetter(const std::string& pass
                                                                     });
 
         return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainLowercaseLetter;
-    }
+}
 
 PasswordErrorCode ValidatePassword::checkNumber(const std::string& password){
 
@@ -59,7 +58,7 @@ PasswordErrorCode ValidatePassword::checkNumber(const std::string& password){
                                                                     });
 
         return it != password.end() ? PasswordErrorCode::Ok : PasswordErrorCode::NotContainNumber;
-    }
+}
     
 PasswordErrorCode ValidatePassword::checkPasswordMatch(const std::string& LHSpassword, const std::string& RHSpassword){
     return std::equal(LHSpassword.begin(),LHSpassword.end(),RHSpassword.begin())? PasswordErrorCode::Ok : PasswordErrorCode::PasswordNotMatch;
@@ -84,7 +83,7 @@ PasswordErrorCode ValidatePassword::checkGivenPassword(const std::string& passwo
         
         return PasswordErrorCode::Ok;
 
-    }
+ }
 
 void ValidatePassword::loadConfigFromFile(){
 
@@ -121,9 +120,9 @@ void ValidatePassword::loadConfigFromFile(){
              }
 
         }
-    }
+}
 
-    bool ValidatePassword::saveConfigToFile(){
+bool ValidatePassword::saveConfigToFile(){
 
     std::fstream plik;
 
@@ -141,7 +140,8 @@ void ValidatePassword::loadConfigFromFile(){
         return false;
 }
 
-    bool ValidatePassword::registerNewUser(const std::string& Login, const std::string& Password){
+
+bool ValidatePassword::registerNewUser(const std::string& Login, const std::string& Password){
         auto it = std::find_if(ValidatePassword::vecOfFileNameLoginPassword_.begin(),ValidatePassword::vecOfFileNameLoginPassword_.end(),[&](auto user)
                                                                                                         {
                                                                                                             return bcrypt::validatePassword(Login,std::get<1>(user));
@@ -157,9 +157,9 @@ void ValidatePassword::loadConfigFromFile(){
             return false;
         }
             
-    }
+}
 
-    bool ValidatePassword::logIn(const std::string& Login, const std::string& Password){
+bool ValidatePassword::logIn(const std::string& Login, const std::string& Password){
         auto it = std::find_if(ValidatePassword::vecOfFileNameLoginPassword_.begin(),ValidatePassword::vecOfFileNameLoginPassword_.end(),[&](auto user)
                                                                                                         {
                                                                                                             return bcrypt::validatePassword(Login,std::get<1>(user)) && bcrypt::validatePassword({Password},std::get<2>(user)) ;
@@ -171,4 +171,4 @@ void ValidatePassword::loadConfigFromFile(){
         }else{
             return false;
         }
-    }
+}

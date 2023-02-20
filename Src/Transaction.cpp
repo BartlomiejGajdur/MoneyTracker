@@ -1,7 +1,8 @@
 #include <algorithm>
-#include <sstream>
 #include <iomanip>
+#include <sstream>
 #include <string>
+
 #include "../Include/MenuFunctions.hpp"
 #include "../Include/Transaction.hpp"
 

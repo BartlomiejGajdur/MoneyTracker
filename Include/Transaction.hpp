@@ -6,7 +6,6 @@
 
 enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insurance, Medical, PersonalSpending, Entertainment, Miscellaneous, SettingTheBill, Savings, Work, Others};
 
-
 class Transaction{
 public:
     Transaction(const size_t& ID,
@@ -46,7 +45,6 @@ public:
         ExpenseCategory getExpenseCategory() const {return expenseCategory_;};
         Date getDate() const {return date_;};
 
-
     //Setters
         void setExpenseCategory(const ExpenseCategory& expenseCategory) { expenseCategory_ = expenseCategory; }
         void setDescription(const std::string& description)             { description_ = description;}
@@ -60,15 +58,12 @@ public:
         friend std::ostream& operator<<(std::ostream& os, Transaction& transaction);
     
 private:
-
     size_t ID_;
     ExpenseCategory expenseCategory_{ExpenseCategory::Miscellaneous};
     std::string description_;
     double money_;
     Date date_;
-
     static size_t counter;
-
 
 };
 

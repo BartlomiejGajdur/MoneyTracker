@@ -3,8 +3,6 @@
 #include "../Include/Menu_LOG.hpp"
 #include "../Include/MenuFunctions.hpp"
    
-
-
 bool Menu_LOG::firstRun()
 {   
     return ValidatePassword::getVecOfFileNameLoginPassword_().size() == 0 ? true : false;
@@ -102,11 +100,7 @@ void Menu_LOG::RegisterMenu(){
                 
             }
         
-        }while(choice == 1);
-
-
-            
-        
+        }while(choice == 1);                  
 }
 
 bool Menu_LOG::LogINMenu(){

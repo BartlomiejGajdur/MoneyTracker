@@ -1,3 +1,4 @@
+#pragma once
 #include "Menu_LOG.hpp"
 #include "User.hpp"
 
@@ -10,7 +11,6 @@ private:
 
     void printOptions();
     void greetUser(const User& user);
-
     void AddNewTransaction_Menu(User& user);
     void SetCurrentMoney_Menu(User& user);
     void printAllTransactions_Menu(User& user);

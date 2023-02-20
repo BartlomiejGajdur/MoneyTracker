@@ -1,11 +1,11 @@
 #pragma once
-
-#include <tuple>
 #include <algorithm>
-#include <vector>
-#include <string>
 #include <fstream>
 #include <iostream>
+#include <string>
+#include <tuple>
+#include <vector>
+
 #include "bcrypt.h"
 
 using vecConfig = std::vector<std::tuple<std::string,std::string,std::string>>;
@@ -13,7 +13,6 @@ using vecConfig = std::vector<std::tuple<std::string,std::string,std::string>>;
 enum class PasswordErrorCode {Ok, WrongLength, NotContainSpecialChar, NotContainUppercaseLetter, NotContainLowercaseLetter, NotContainNumber, PasswordNotMatch};
 
 namespace ValidatePassword{
-
 
     PasswordErrorCode checkLength(const std::string& password);
     PasswordErrorCode checkSpecialChar(const std::string& password);
@@ -29,4 +28,5 @@ namespace ValidatePassword{
     bool registerNewUser(const std::string& Login, const std::string& Password);
     bool saveConfigToFile();
     bool logIn(const std::string& Login, const std::string& Password);
+    
 }

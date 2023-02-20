@@ -42,19 +42,6 @@ std::string MenuFunctions::insertPassword(){
         return password;
     }
 
-// template<typename Type>
-// Type MenuFunctions::insertNumber(const Type& zakresL, const Type& zakresP){
-//     Type choice;
-//     std::cout<<"Insert number in range: "<<zakresL <<  " to " <<zakresP<<"\n>";
-//     while(!(std::cin>>choice) || choice<zakresL || choice >zakresP){
-//         std::cout<<"Please enter number only in range: "<<zakresL <<  " to " <<zakresP<<"\n>";
-//         std::cin.clear();
-//         std::cin.ignore(1000,'\n');
-//     }
-
-//     return choice;
-// }
-
 int MenuFunctions::insertNumber(){
     int choice;
     while(!(std::cin>>choice)){
