@@ -133,7 +133,7 @@ int MenuFunctions::arrowMenu(const std::vector<std::string>& Options){
 
 
 //Options Menu should be formatted in a way that 0.EXit is the last string in vector Options
-int MenuFunctions::arrowMenu(std::vector<std::pair<std::string,bool>> Options){
+int MenuFunctions::arrowMenu(std::vector<std::pair<std::string,bool>>& Options){
     
     int counter = 0;
     char znak;
@@ -144,11 +144,11 @@ int MenuFunctions::arrowMenu(std::vector<std::pair<std::string,bool>> Options){
     {
         
         MenuFunctions::ClearTerminal();
-        std::cout<<"+-------------------+\n";
-        std::cout<<"|     W -> UP       |\n"; 
-        std::cout<<"|     S -> DOWN     |\n"; 
-        std::cout<<"| ENTER -> APPROVAL |\n";
-        std::cout<<"+-------------------+\n\n"; 
+        std::cout<<"   +-------------------+\n";
+        std::cout<<"   |     W -> UP       |\n"; 
+        std::cout<<"   |     S -> DOWN     |\n"; 
+        std::cout<<"   | ENTER -> APPROVAL |\n";
+        std::cout<<"   +-------------------+\n\n"; 
         for (int i = 0; i < vecSize ; i++)
         {
             if(i == counter){

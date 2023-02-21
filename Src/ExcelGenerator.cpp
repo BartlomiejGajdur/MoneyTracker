@@ -252,18 +252,21 @@ void  ExcelGenerator::SummaryTable_Excel(){
             //INC row_ index
             ++row_;
         }
-        lxw_format *formatTotal = workbook_add_format(workbook_);
-        format_set_border  (formatTotal, LXW_BORDER_THIN);
-        format_set_bold(formatTotal);
-        format_set_font_size(formatTotal, 12);
-        format_set_align   (formatTotal, LXW_ALIGN_CENTER);
-        format_set_align   (formatTotal, LXW_ALIGN_VERTICAL_CENTER);
-        format_set_bg_color(formatTotal, 0x95B3D7); 
 
-        worksheet_write_string(worksheet_, row_, column_, "Total Spending: ", formatTotal);
+        if(spendings.size() >0){
+            lxw_format *formatTotal = workbook_add_format(workbook_);
+            format_set_border  (formatTotal, LXW_BORDER_THIN);
+            format_set_bold(formatTotal);
+            format_set_font_size(formatTotal, 12);
+            format_set_align   (formatTotal, LXW_ALIGN_CENTER);
+            format_set_align   (formatTotal, LXW_ALIGN_VERTICAL_CENTER);
+            format_set_bg_color(formatTotal, 0x95B3D7); 
 
-        format_set_font_color(formatTotal, LXW_COLOR_RED);
-        worksheet_write_number(worksheet_, row_, column_+1, user_.countWholeSpendings() , formatTotal);
+            worksheet_write_string(worksheet_, row_, column_, "Total Spending: ", formatTotal);
+
+            format_set_font_color(formatTotal, LXW_COLOR_RED);
+            worksheet_write_number(worksheet_, row_, column_+1, user_.countWholeSpendings() , formatTotal);
+        }
 
         
         row_ = row_ - spendings.size();
@@ -287,21 +290,24 @@ void  ExcelGenerator::SummaryTable_Excel(){
             //INC row_ index
             ++row_;
         }
-        lxw_format *formatTotalEarning = workbook_add_format(workbook_);
-        format_set_border  (formatTotalEarning, LXW_BORDER_THIN);
-        format_set_bold(formatTotalEarning);
-        format_set_font_size(formatTotalEarning, 12);
-        format_set_align   (formatTotalEarning, LXW_ALIGN_CENTER);
-        format_set_align   (formatTotalEarning, LXW_ALIGN_VERTICAL_CENTER);
-        format_set_bg_color(formatTotalEarning, 0x95B3D7); 
-        worksheet_write_string(worksheet_, row_, column_+2, "Total Earning: ", formatTotalEarning);
+        
+        if(earnings.size() > 0){
+            lxw_format *formatTotalEarning = workbook_add_format(workbook_);
+            format_set_border  (formatTotalEarning, LXW_BORDER_THIN);
+            format_set_bold(formatTotalEarning);
+            format_set_font_size(formatTotalEarning, 12);
+            format_set_align   (formatTotalEarning, LXW_ALIGN_CENTER);
+            format_set_align   (formatTotalEarning, LXW_ALIGN_VERTICAL_CENTER);
+            format_set_bg_color(formatTotalEarning, 0x95B3D7); 
+            worksheet_write_string(worksheet_, row_, column_+2, "Total Earning: ", formatTotalEarning);
 
-        format_set_font_color(formatTotalEarning, LXW_COLOR_GREEN);
-        worksheet_write_number(worksheet_, row_, column_+3, user_.countWholeEarnings() , formatTotalEarning);
+            format_set_font_color(formatTotalEarning, LXW_COLOR_GREEN);
+            worksheet_write_number(worksheet_, row_, column_+3, user_.countWholeEarnings() , formatTotalEarning);
 
-        row_= row_ - earnings.size();
-        spendings.size() > earnings.size() ? row_+=spendings.size() : row_+= earnings.size();
-        row_++;
+            row_= row_ - earnings.size();
+            spendings.size() > earnings.size() ? row_+=spendings.size() : row_+= earnings.size();
+            row_++;
+        }
     
 }
 

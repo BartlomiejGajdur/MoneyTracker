@@ -40,26 +40,33 @@ void Menu_Main::excelMenuRun(const User& User, ExcelGenerator& ExcelGenerator){
     ExcelGenerator.open_Excel(FileName,"Summary");
     
     std::vector<std::pair<std::string,bool>> vec{
-        std::make_pair<std::string,bool>("GreetUser                  | ",false),
-        std::make_pair<std::string,bool>("CurrentMoney_Excel         | ",false),
-        std::make_pair<std::string,bool>("Transactions_Excel         | ",false),
-        std::make_pair<std::string,bool>("PieChart_ExcelSpendings    | ",false),
-        std::make_pair<std::string,bool>("PieChart_ExcelEarnigns     | ",false),
-        std::make_pair<std::string,bool>("SummaryTable_Excel         | ",false),
-        std::make_pair<std::string,bool>("Exit",false),
+        std::make_pair<std::string,bool>("GreetUser            | ",false),
+        std::make_pair<std::string,bool>("CurrentMoney         | ",false),
+        std::make_pair<std::string,bool>("Transactions         | ",false),
+        std::make_pair<std::string,bool>("PieChartSpendings    | ",false),
+        std::make_pair<std::string,bool>("PieChartEarnigns     | ",false),
+        std::make_pair<std::string,bool>("SummaryTable         | ",false),
+        std::make_pair<std::string,bool>("Generate Excel File",false),
         };
-    MenuFunctions::arrowMenu(vec);
-     MenuFunctions::WaitForAction();
+        MenuFunctions::arrowMenu(vec);
 
-        ExcelGenerator.greetUser_Excel();
-        ExcelGenerator.CurrentMoney_Excel();
-        ExcelGenerator.Transactions_Excel();
-        ExcelGenerator.PieChart_Excel(ExcelGenerator.getUser().percentageOfIndividualSpending(), "Percentage Of Individual Spendings");
-        ExcelGenerator.PieChart_Excel(ExcelGenerator.getUser().countIndividualEarning(), "Percentage Of Individual Earnings");
-        ExcelGenerator.SummaryTable_Excel();
+        if(vec[0].second)
+            ExcelGenerator.greetUser_Excel();
+        
+        if(vec[1].second)
+            ExcelGenerator.CurrentMoney_Excel();
 
+        if(vec[2].second)
+            ExcelGenerator.Transactions_Excel();
 
+        if(vec[3].second)
+            ExcelGenerator.PieChart_Excel(ExcelGenerator.getUser().percentageOfIndividualSpending(), "Percentage Of Individual Spendings");
 
+        if(vec[4].second)
+            ExcelGenerator.PieChart_Excel(ExcelGenerator.getUser().countIndividualEarning(), "Percentage Of Individual Earnings");
+
+        if(vec[5].second)
+            ExcelGenerator.SummaryTable_Excel();
 
     MenuFunctions::ClearTerminal();
     std::cout<<MenuFunctions::SetTextColor(Color::Green, "Excel File Generated Correctly!\n> FileName: " + FileName + " \n");
