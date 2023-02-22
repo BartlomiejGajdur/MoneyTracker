@@ -6,7 +6,7 @@ int main(){
     Date date(11,10,2000);
     Bills bills("description", 33,date, BillType::Electricity);
 
-    std::cout<<bills.getDescription();
+    std::cout<<bills;
 
 
     // Menu_Main Menu_Main;
