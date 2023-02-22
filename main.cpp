@@ -1,10 +1,16 @@
 #include "Include/Menu_Main.hpp"
-#include "Include/ExcelGenerator.hpp"
+#include "Include/Bills.hpp"
 
 int main(){
 
-    Menu_Main Menu_Main;
-    Menu_Main.run();
+    Date date(11,10,2000);
+    Bills bills("description", 33,date, BillType::Electricity);
+
+    std::cout<<bills.getDescription();
+
+
+    // Menu_Main Menu_Main;
+    // Menu_Main.run();
 
  
     // lxw_workbook  *workbook  = workbook_new("chart_line.xlsx");

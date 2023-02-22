@@ -3,6 +3,9 @@
 
 class Obligations{
 public:
+
+    Obligations(const std::string& description, int moneyToPay, Date paymentDate): description_(description), moneyToPay_(moneyToPay) {}
+
     //Getters
     Date getPaymentDate()        const {return paymentDate_;};
     int getMoneyToPay()          const {return moneyToPay_;};

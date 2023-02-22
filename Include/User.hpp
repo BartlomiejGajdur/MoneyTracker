@@ -5,8 +5,10 @@
 #include <vector>
 
 #include "Transaction.hpp"
+#include "Obligations.hpp"
 
 using vecTransactionPtr = std::vector<std::shared_ptr<Transaction>>;
+using vecObligationsPtr = std::vector<std::shared_ptr<Obligations>>;
 
 enum class UserErrorCode {Ok, NoTransactionFound, IncorrectData};
 enum class SortOrder {Ascending, Descending};
@@ -52,6 +54,7 @@ public:
 
 private:
     vecTransactionPtr transactions_;
+    vecTransactionPtr obligations_;
     double currentMoney_{0};
     std::string login_{};
     std::string password_{};
