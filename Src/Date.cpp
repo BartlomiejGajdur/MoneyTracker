@@ -115,14 +115,14 @@ int Date::distance(const Date& lhsDATE, const Date& rhsDATE){
     {
          while(lhs > rhs )
          {
-        ++counter;
+        --counter;
         ++rhs;
         }
     }else if (lhs < rhs) {
 
         while(lhs < rhs )
          {
-        --counter;
+        ++counter;
         ++lhs;
         }
 

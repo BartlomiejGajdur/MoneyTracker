@@ -35,3 +35,4 @@ std::ostream& operator<<(std::ostream &os, const Bills& Bills){
     Bills.printObligation(os);
     return os;
 }
+

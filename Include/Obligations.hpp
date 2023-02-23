@@ -19,6 +19,7 @@ public:
     //Functions
     friend std::ostream& operator<<(std::ostream &os, const Obligations& obligations);
     virtual void printObligation(std::ostream& os) const = 0;
+    int distanceToPayDate();
 
 protected:
     Date paymentDate_;

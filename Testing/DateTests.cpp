@@ -166,13 +166,13 @@ TEST(DataSet, Check_Bigger_Smaller_Operator6){
 TEST(DataSet, Distance){
     Date a{23,02,2023}; 
     Date b{04,02,2023};   
-    EXPECT_EQ(Date::distance(a,b),19);
+    EXPECT_EQ(Date::distance(a,b),-19);
 }
 
 TEST(DataSet, Distance2){
     Date a{5,02,2023};
     Date b{04,02,2023};  
-    EXPECT_EQ(Date::distance(a,b),1);
+    EXPECT_EQ(Date::distance(a,b),-1);
 }
 
 TEST(DataSet, Distance3){
@@ -184,17 +184,17 @@ TEST(DataSet, Distance3){
 TEST(DataSet, Distance4){
     Date a{1,02,2023};
     Date b{04,02,2023};    
-    EXPECT_EQ(Date::distance(a,b),-3);
+    EXPECT_EQ(Date::distance(a,b),3);
 }
 
 TEST(DataSet, Distance5){
     Date a{04,02,2024};
     Date b{04,02,2023};    
-    EXPECT_EQ(Date::distance(a,b),365);
+    EXPECT_EQ(Date::distance(a,b),-365);
 }
 
 TEST(DataSet, Distance6){
     Date a{04,02,2023};
     Date b{04,02,2024};    
-    EXPECT_EQ(Date::distance(a,b),-365);
+    EXPECT_EQ(Date::distance(a,b),365);
 }
