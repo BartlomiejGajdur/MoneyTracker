@@ -4,7 +4,7 @@
 
 #include "Date.hpp"
 
-enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insurance, Medical, PersonalSpending, Entertainment, Miscellaneous, SettingTheBill, Savings, Work, Others};
+enum class ExpenseCategory { Housing = 1, Transportation, Food, Utilities, Insurance, Medical, PersonalSpending, Entertainment, Miscellaneous, SettingTheBill, Savings, Work, Others, Bills, Loan};
 
 class Transaction{
 public:

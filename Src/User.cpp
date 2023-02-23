@@ -9,6 +9,8 @@
 
 #include "../Include/User.hpp"
 #include "../Include/Transaction.hpp"
+#include "../Include/Bills.hpp"
+#include "../Include/Loan.hpp"
 
 UserErrorCode User::addTransaction(const std::shared_ptr<Transaction> transaction){
     transaction->setID(TransactionCounter++);
@@ -329,13 +331,13 @@ std::string User::printOverdueObligations(){
     
     std::stringstream is;
 
-    is<<"+--------------+--------------+--------------+-------------+------------------+\n"
+    is<<"+--------------+--------------+--------------+-------------+--------------------+\n"
     <<"| "<<std::setw(12)<< std::left<< "Description" <<" | "
     <<std::setw(11) << std::left<<"Money To Pay"<<" | "
     <<std::setw(10) << std::left<<"Payment Date" <<" | "
     <<std::setw(10) << std::left<<"Days To Pay"<<" | "
-    <<std::setw(15) << std::left<<"Loan installment" <<" |\n"
-    <<"+--------------+--------------+--------------+-------------+------------------+\n";
+    <<std::setw(18) << std::left<<"Loan installment" <<" |\n"
+    <<"+--------------+--------------+--------------+-------------+--------------------+\n";
 
     ObligationsPartInString += is.str();
 
@@ -346,7 +348,7 @@ std::string User::printOverdueObligations(){
                                                                         ObligationsPartInString += Obligation->printObligation();
                                                                     }
                                                                });
-    ObligationsPartInString += "+-----------------------------------------------------------------------------+\n";
+    ObligationsPartInString += "+-------------------------------------------------------------------------------+\n";
 
     return ObligationsPartInString;
 }
@@ -356,13 +358,13 @@ std::string User::printAllObligations(){
     
     std::stringstream is;
 
-    is<<"+--------------+--------------+--------------+-------------+------------------+\n"
+    is<<"+--------------+--------------+--------------+-------------+--------------------+\n"
     <<"| "<<std::setw(12)<< std::left<< "Description" <<" | "
     <<std::setw(11) << std::left<<"Money To Pay"<<" | "
     <<std::setw(10) << std::left<<"Payment Date" <<" | "
     <<std::setw(10) << std::left<<"Days To Pay"<<" | "
-    <<std::setw(15) << std::left<<"Loan installment" <<" |\n"
-    <<"+--------------+--------------+--------------+-------------+------------------+\n";
+    <<std::setw(18) << std::left<<"Loan installment" <<" |\n"
+    <<"+--------------+--------------+--------------+-------------+--------------------+\n";
 
     ObligationsPartInString += is.str();
 
@@ -370,7 +372,7 @@ std::string User::printAllObligations(){
                                                                {
                                                                     ObligationsPartInString += Obligation->printObligation();
                                                                });
-    ObligationsPartInString += "+-----------------------------------------------------------------------------+\n";
+    ObligationsPartInString += "+-------------------------------------------------------------------------------+\n";
 
     return ObligationsPartInString;
 }
@@ -393,4 +395,43 @@ void User::sortByDaysToPayment(const SortOrder& SortOrder){
         };
         std::sort(obligations_.begin(), obligations_.end(),lambda);
     }
+}
+
+void User::payBills(){
+        do{
+            std::for_each(obligations_.begin(), obligations_.end(),[&](std::shared_ptr<Obligations> obligation)
+            {
+                if(obligation->distanceToPayDate() <= 0)
+                {
+                    if (auto derived_ptr = std::dynamic_pointer_cast<Bills>(obligation)) 
+                    {
+                        this->addTransaction(std::make_shared<Transaction>(derived_ptr->getBillType(),derived_ptr->getMoneyToPay(),ExpenseCategory::Bills));
+                        derived_ptr->nextMonth();    
+                    } 
+                    else if (auto derived_ptr = std::dynamic_pointer_cast<Loan>(obligation)) 
+                    {   
+                        if(derived_ptr->getNumberOfInstallments_() > 0){
+                            this->addTransaction(std::make_shared<Transaction>(derived_ptr->getDescription(),derived_ptr->getMoneyToPay(),ExpenseCategory::Loan));
+                            derived_ptr->InstallmentsPaid();
+                            derived_ptr->nextMonth(); 
+                        }else{
+                            do{
+                                derived_ptr->nextMonth();
+                            }while(obligation->distanceToPayDate() <= 0); 
+                        }
+                        
+                    } 
+                    else 
+                    {
+                        std::cout<<"ERROR";
+                    }
+                }
+            });
+        }while(std::find_if(obligations_.begin(),obligations_.end(),[](std::shared_ptr<Obligations> ptr){ return ptr->distanceToPayDate()<=0;}) != obligations_.end());
+
+    auto it = std::remove_if(obligations_.begin(),obligations_.end(),[](std::shared_ptr<Obligations> ptr){ return ptr->getNumberOfInstallments_() <= 0;});
+    obligations_.erase(it,obligations_.end());
+
+  
+  this->sortByDaysToPayment(SortOrder::Ascending);
 }

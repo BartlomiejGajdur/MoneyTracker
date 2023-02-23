@@ -57,6 +57,7 @@ public:
     std::string printIncomingObligations();
     std::string printOverdueObligations();
     std::string printAllObligations();
+    void payBills();
     void sortByDaysToPayment(const SortOrder& SortOrder);
 
     //Functions Saving/retrieving data
