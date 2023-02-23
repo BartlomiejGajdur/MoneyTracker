@@ -34,8 +34,10 @@ public:
     double getCurrentMoney()            const;
     std::string getLogin()              const {return login_;};
     vecTransactionPtr getTransactions() const {return transactions_;};
+    vecObligationsPtr getObligations()  const  {return obligations_;};
 
-    //Functions
+
+    //Functions Transactions
     UserErrorCode addTransaction(const std::shared_ptr<Transaction> transaction);
     UserErrorCode removeTransactionById(size_t ID);
     UserErrorCode modifyDateTransactionById(size_t ID,int,int,int);
@@ -49,12 +51,16 @@ public:
     std::map<ExpenseCategory,double> percentageOfIndividualSpending();
     std::map<ExpenseCategory,double> countIndividualEarning();
 
+    //Functions Obligations
+    void addObligation(const std::shared_ptr<Obligations> obligation);
+
+    //Functions Saving/retrieving data
     bool savePersonalConfigToFile();
     bool loadPersonalConfigFromFile();
 
 private:
     vecTransactionPtr transactions_;
-    vecTransactionPtr obligations_;
+    vecObligationsPtr obligations_;
     double currentMoney_{0};
     std::string login_{};
     std::string password_{};

@@ -284,3 +284,7 @@ bool User::loadPersonalConfigFromFile(){
         }
     
 }
+
+void User::addObligation(const std::shared_ptr<Obligations> obligation){
+    this->obligations_.push_back(obligation);
+}
