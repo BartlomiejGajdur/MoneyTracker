@@ -13,7 +13,7 @@ std::string Loan::printObligation() const{
     std::string day;
 
     is<<"| "<<std::setw(12)<< std::left<< description_<<" | "
-    <<std::setw(12) << std::left<<std::to_string(moneyToPay_)<<" | "
+    <<std::setw(12) << std::left<<std::to_string(moneyToPay_)+ " PLN"<<" | "
     <<std::setw(12) << std::left<<paymentDate_.dateInString() <<" | ";
     this->distanceToPayDate() == 1 || this->distanceToPayDate() == -1 ? day = " day" : day = " days";
 
