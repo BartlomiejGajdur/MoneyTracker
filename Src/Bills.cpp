@@ -28,7 +28,11 @@ std::string Bills::getBillType() const {
 
 
 void Bills::printObligation(std::ostream& os) const{
-    os<<description_<<" - "<<moneyToPay_<<" - "<<paymentDate_<<" - "<<this->getBillType();
+    os<<this->getBillType()<<" - "<<moneyToPay_<<" - "<<paymentDate_;
+}
+
+std::string Bills::printObligation() const{
+    return this->getBillType() + " - " + std::to_string(moneyToPay_)+ " - "+ paymentDate_.dateInString();
 }
 
 std::ostream& operator<<(std::ostream &os, const Bills& Bills){

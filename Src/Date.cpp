@@ -62,7 +62,7 @@ std::ostream& operator<<(std::ostream& os, const Date& date){
     return os<<date.day_<<"."<<date.month_<<"."<<date.year_;
 }
 
-std::string Date::dateInString(){
+std::string Date::dateInString() const{
     return std::to_string(this->day_) + "." + std::to_string(this->month_) + "." + std::to_string(this->year_);
 }
 

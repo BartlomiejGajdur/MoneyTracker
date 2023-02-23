@@ -4,7 +4,7 @@
 int main(){
 
     Date date(11,10,2000);
-    Bills bills("description", 33,date, BillType::Electricity);
+    Bills bills(BillType::Electricity, 33,date);
 
     std::cout<<bills;
 

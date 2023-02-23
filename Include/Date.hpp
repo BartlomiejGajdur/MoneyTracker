@@ -19,7 +19,7 @@ public:
     int getYear()  const   { return year_ ;}
 
     //Functions
-    std::string dateInString();
+    std::string dateInString() const;
     int distanceFromCurrentData();
     static std::string currentDataInString();
     static Date currentData();

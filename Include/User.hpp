@@ -53,6 +53,7 @@ public:
 
     //Functions Obligations
     void addObligation(const std::shared_ptr<Obligations> obligation);
+    std::string printIncomingObligations(int DaysNumberToPayment);
 
     //Functions Saving/retrieving data
     bool savePersonalConfigToFile();

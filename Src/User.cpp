@@ -5,6 +5,7 @@
 #include <iostream>
 #include <map>
 #include <sstream>
+#include <ostream>
 
 #include "../Include/User.hpp"
 #include "../Include/Transaction.hpp"
@@ -287,4 +288,31 @@ bool User::loadPersonalConfigFromFile(){
 
 void User::addObligation(const std::shared_ptr<Obligations> obligation){
     this->obligations_.push_back(obligation);
+}
+
+std::string User::printIncomingObligations(int DaysNumberToPayment){
+    std::string ObligationsPartInString{};
+    
+    std::stringstream is;
+
+    is<<"+-----+------------------------------------------+------------------+----------------------+------------+\n"
+    <<"| "<<std::setw(3)<< std::left<< "Description" <<" | "
+    <<std::setw(40) << std::left<<"MoneyToPay"<<" | "
+    <<std::setw(16) << std::left<<"PaymentDate" <<" | "
+    <<std::setw(20) << std::left<<"DaysToPay"<<" | "
+    <<std::setw(10) << std::left<<"Raty" <<" |\n"
+    <<"+-----+------------------------------------------+------------------+----------------------+------------+\n";
+
+    ObligationsPartInString += is.str();
+
+    std::for_each(obligations_.begin(), obligations_.end(),[&ObligationsPartInString, DaysNumberToPayment](std::shared_ptr<Obligations> Obligation)
+                                                               {
+                                                                    if(Obligation->distanceToPayDate() <= DaysNumberToPayment && Obligation->distanceToPayDate()>=1)
+                                                                    {
+                                                                        ObligationsPartInString += Obligation->printObligation() +"\n";
+                                                                    }
+                                                               });
+    ObligationsPartInString += "+-------------------------------------------------------------------------------------------------------+\n";
+
+    return ObligationsPartInString;
 }
