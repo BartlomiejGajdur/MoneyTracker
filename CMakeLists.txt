@@ -53,8 +53,29 @@ endif()
 project(MONEYTRACKER)
 enable_testing()
 
-add_executable(${PROJECT_NAME} main.cpp Src/Transaction.cpp Src/Date.cpp Src/User.cpp Src/ValidatePassword.cpp Src/Menu_LOG.cpp Src/MenuFunctions.cpp Src/Menu_Main.cpp Src/ExcelGenerator.cpp Src/Bills.cpp Src/Obligations.cpp Src/Loan.cpp)
-add_executable(${PROJECT_NAME}-ut Testing/DateTests.cpp Testing/UserTests.cpp Testing/ValidatePasswordTests.cpp Src/Transaction.cpp Src/Date.cpp Src/User.cpp Src/ValidatePassword.cpp Src/Menu_LOG.cpp Src/MenuFunctions.cpp Src/Menu_Main.cpp Src/ExcelGenerator.cpp Src/Bills.cpp Src/Obligations.cpp Src/Loan.cpp)
+set(COMMON_SOURCES 
+    Src/Transaction.cpp 
+    Src/Date.cpp 
+    Src/User.cpp 
+    Src/ValidatePassword.cpp 
+    Src/Menu_LOG.cpp 
+    Src/MenuFunctions.cpp 
+    Src/Menu_Main.cpp 
+    Src/ExcelGenerator.cpp 
+    Src/Bills.cpp 
+    Src/Obligations.cpp 
+    Src/Loan.cpp
+)
+
+set(TESTING_SOURCES 
+    Testing/DateTests.cpp 
+    Testing/Obligations.cpp 
+    Testing/UserTests.cpp 
+    Testing/ValidatePasswordTests.cpp
+)
+
+add_executable(${PROJECT_NAME} main.cpp ${COMMON_SOURCES})
+add_executable(${PROJECT_NAME}-ut ${TESTING_SOURCES} ${COMMON_SOURCES})
 
 target_link_libraries(${PROJECT_NAME}-ut gtest_main bcrypt xlsxwriter)
 target_link_libraries(${PROJECT_NAME} PRIVATE bcrypt xlsxwriter)
