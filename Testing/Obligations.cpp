@@ -9,7 +9,13 @@
 struct ObligationsUnderTests : public ::testing::Test{
     User person{};
     
-
+    void addObligations(){
+        person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,Date{24,02,2023}));
+        person.addObligation(std::make_shared<Bills>(BillType::Water, 33,Date{28,02,2023}));
+        person.addObligation(std::make_shared<Bills>(BillType::Gas, 33,Date{31,01,2023}));
+        person.addObligation(std::make_shared<Bills>(BillType::Internet, 33,Date{25,04,2023}));
+        person.addObligation(std::make_shared<Loan>("Iphone 12", 2000,Date{24,02,2023}, 11));
+    }
     
 };
 
@@ -23,42 +29,6 @@ TEST_F(ObligationsUnderTests, AddingObligations)
 
 TEST_F(ObligationsUnderTests, PrintingObligations)
 {   
-    Date date1(24,02,2023);
-    Date date2(28,02,2023);
-    Date date3(31,01,2023);
-    Date date4(25,04,2023);
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date1));
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date2));
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date3));
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date4));
-    person.addObligation(std::make_shared<Loan>("dasdasdas", 2000,date1, 11));
-    std::cout<<person.printIncomingObligations(10);
-}
-
-TEST_F(ObligationsUnderTests, PrintIncomingObligations)
-{   
-    Date date1(24,02,2023);
-    Date date2(28,02,2023);
-    Date date3(31,01,2023);
-    Date date4(25,04,2023);
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date1));
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date2));
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date3));
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date4));
-    person.addObligation(std::make_shared<Loan>("dasdasdas", 2000,date1, 11));
-    std::cout<<person.printIncomingObligations();
-}
-
-TEST_F(ObligationsUnderTests, PrintIncomingObligations2)
-{   
-    Date date1(24,02,2023);
-    Date date2(28,02,2023);
-    Date date3(31,01,2023);
-    Date date4(25,04,2023);
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date1));
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date2));
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date3));
-    person.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,date4));
-    person.addObligation(std::make_shared<Loan>("dasdasdas", 2000,date1, 11));
-    std::cout<<person.printOverdueObligations();
+    addObligations();
+    std::cout<<person.printAllObligations();
 }

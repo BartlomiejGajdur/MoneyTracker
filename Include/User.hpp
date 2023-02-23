@@ -56,6 +56,8 @@ public:
     std::string printIncomingObligations(int DaysNumberToPayment);
     std::string printIncomingObligations();
     std::string printOverdueObligations();
+    std::string printAllObligations();
+    void sortByDaysToPayment(const SortOrder& SortOrder);
 
     //Functions Saving/retrieving data
     bool savePersonalConfigToFile();

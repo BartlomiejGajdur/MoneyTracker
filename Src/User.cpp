@@ -74,6 +74,7 @@ std::string User::printAllTransations(){
 
     return allTransations;
 }
+
 void User::sortByDate(const SortOrder& SortOrder){
     if(SortOrder == SortOrder::Ascending)
     {   
@@ -93,6 +94,7 @@ void User::sortByDate(const SortOrder& SortOrder){
         std::sort(transactions_.begin(), transactions_.end(),lambda);
     }
 }
+
 void User::sortByNumberOfEnums(){
 
     struct CompareKeyForTransaction {
@@ -346,4 +348,48 @@ std::string User::printOverdueObligations(){
     ObligationsPartInString += "+-----------------------------------------------------------------------------+\n";
 
     return ObligationsPartInString;
+}
+
+std::string User::printAllObligations(){
+    std::string ObligationsPartInString{};
+    
+    std::stringstream is;
+
+    is<<"+--------------+--------------+--------------+-------------+------------------+\n"
+    <<"| "<<std::setw(12)<< std::left<< "Description" <<" | "
+    <<std::setw(11) << std::left<<"Money To Pay"<<" | "
+    <<std::setw(10) << std::left<<"Payment Date" <<" | "
+    <<std::setw(10) << std::left<<"Days To Pay"<<" | "
+    <<std::setw(15) << std::left<<"Loan installment" <<" |\n"
+    <<"+--------------+--------------+--------------+-------------+------------------+\n";
+
+    ObligationsPartInString += is.str();
+
+    std::for_each(obligations_.begin(), obligations_.end(),[&ObligationsPartInString](std::shared_ptr<Obligations> Obligation)
+                                                               {
+                                                                    ObligationsPartInString += Obligation->printObligation();
+                                                               });
+    ObligationsPartInString += "+-----------------------------------------------------------------------------+\n";
+
+    return ObligationsPartInString;
+}
+
+void User::sortByDaysToPayment(const SortOrder& SortOrder){
+    if(SortOrder == SortOrder::Ascending)
+    {   
+        auto lambda = [](std::shared_ptr<Obligations> lhs, std::shared_ptr<Obligations> rhs)
+        {
+            return lhs->distanceToPayDate() < rhs->distanceToPayDate() ;
+        };
+        std::sort(obligations_.begin(), obligations_.end(),lambda);
+    }
+
+    if(SortOrder == SortOrder::Descending)
+    {
+        auto lambda = [](std::shared_ptr<Obligations> lhs, std::shared_ptr<Obligations> rhs)
+        {
+            return lhs->distanceToPayDate() > rhs->distanceToPayDate() ;
+        };
+        std::sort(obligations_.begin(), obligations_.end(),lambda);
+    }
 }
