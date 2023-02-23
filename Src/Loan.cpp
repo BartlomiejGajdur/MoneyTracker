@@ -6,7 +6,7 @@ void Loan::printObligation(std::ostream& os) const{
 }
 
 std::string Loan::printObligation() const{
-    return description_ + " - " + std::to_string(moneyToPay_)+ " - "+ paymentDate_.dateInString() + " Pozostalo RAT "+ std::to_string(numberOfInstallments_);
+    return description_ + " - " + std::to_string(moneyToPay_)+ " - "+ paymentDate_.dateInString() + " Pozostalo RAT "+ std::to_string(numberOfInstallments_) + "\n";
 }
 
 std::ostream& operator<<(std::ostream &os, const Loan& Loan){

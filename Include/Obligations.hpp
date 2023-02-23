@@ -18,14 +18,11 @@ public:
     friend std::ostream& operator<<(std::ostream &os, const Obligations& obligations);
     virtual void printObligation(std::ostream& os) const = 0;
     virtual std::string printObligation() const = 0;
-    int distanceToPayDate();
+    int distanceToPayDate() const;
     void nextMonth();
 
 protected:
     Date paymentDate_;
     int moneyToPay_;
-
-    Date startPaymentDate_ = Date::currentData();
-
 };
 

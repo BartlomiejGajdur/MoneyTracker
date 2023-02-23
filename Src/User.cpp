@@ -295,13 +295,13 @@ std::string User::printIncomingObligations(int DaysNumberToPayment){
     
     std::stringstream is;
 
-    is<<"+-----+------------------------------------------+------------------+----------------------+------------+\n"
-    <<"| "<<std::setw(3)<< std::left<< "Description" <<" | "
-    <<std::setw(40) << std::left<<"MoneyToPay"<<" | "
-    <<std::setw(16) << std::left<<"PaymentDate" <<" | "
-    <<std::setw(20) << std::left<<"DaysToPay"<<" | "
-    <<std::setw(10) << std::left<<"Raty" <<" |\n"
-    <<"+-----+------------------------------------------+------------------+----------------------+------------+\n";
+    is<<"+--------------+--------------+--------------+-------------+------------------+\n"
+    <<"| "<<std::setw(12)<< std::left<< "Description" <<" | "
+    <<std::setw(11) << std::left<<"Money To Pay"<<" | "
+    <<std::setw(10) << std::left<<"Payment Date" <<" | "
+    <<std::setw(10) << std::left<<"Days To Pay"<<" | "
+    <<std::setw(15) << std::left<<"Loan installment" <<" |\n"
+    <<"+--------------+--------------+--------------+-------------+------------------+\n";
 
     ObligationsPartInString += is.str();
 
@@ -309,10 +309,41 @@ std::string User::printIncomingObligations(int DaysNumberToPayment){
                                                                {
                                                                     if(Obligation->distanceToPayDate() <= DaysNumberToPayment && Obligation->distanceToPayDate()>=1)
                                                                     {
-                                                                        ObligationsPartInString += Obligation->printObligation() +"\n";
+                                                                        ObligationsPartInString += Obligation->printObligation();
                                                                     }
                                                                });
-    ObligationsPartInString += "+-------------------------------------------------------------------------------------------------------+\n";
+    ObligationsPartInString += "+-----------------------------------------------------------------------------+\n";
+
+    return ObligationsPartInString;
+}
+
+std::string User::printIncomingObligations(){
+    return printIncomingObligations(INT_MAX);
+}
+
+std::string User::printOverdueObligations(){
+    std::string ObligationsPartInString{};
+    
+    std::stringstream is;
+
+    is<<"+--------------+--------------+--------------+-------------+------------------+\n"
+    <<"| "<<std::setw(12)<< std::left<< "Description" <<" | "
+    <<std::setw(11) << std::left<<"Money To Pay"<<" | "
+    <<std::setw(10) << std::left<<"Payment Date" <<" | "
+    <<std::setw(10) << std::left<<"Days To Pay"<<" | "
+    <<std::setw(15) << std::left<<"Loan installment" <<" |\n"
+    <<"+--------------+--------------+--------------+-------------+------------------+\n";
+
+    ObligationsPartInString += is.str();
+
+    std::for_each(obligations_.begin(), obligations_.end(),[&ObligationsPartInString](std::shared_ptr<Obligations> Obligation)
+                                                               {
+                                                                    if(Obligation->distanceToPayDate() <= 0)
+                                                                    {
+                                                                        ObligationsPartInString += Obligation->printObligation();
+                                                                    }
+                                                               });
+    ObligationsPartInString += "+-----------------------------------------------------------------------------+\n";
 
     return ObligationsPartInString;
 }

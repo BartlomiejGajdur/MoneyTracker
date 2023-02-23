@@ -5,7 +5,7 @@ std::ostream& operator<<(std::ostream &os, const Obligations& obligations){
     return os;
 }
 
-int Obligations::distanceToPayDate(){
+int Obligations::distanceToPayDate() const{
     return Date::distance(Date::currentData(), paymentDate_);
 }
 
