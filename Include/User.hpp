@@ -53,7 +53,7 @@ public:
 
     //Functions Obligations
     void addObligation(const std::shared_ptr<Obligations> obligation);
-    std::string printIncomingObligations(int DaysNumberToPayment);
+    std::string printIncomingObligations(int DaysNumberToPayment) const;
     std::string printIncomingObligations();
     std::string printOverdueObligations();
     std::string printAllObligations();

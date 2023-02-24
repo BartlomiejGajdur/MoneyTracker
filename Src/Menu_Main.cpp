@@ -8,7 +8,14 @@
 #include "../Include/Transaction.hpp"
 #include "../Include/Date.hpp"
 #include "../Include/ExcelGenerator.hpp"
+#include "../Include/Bills.hpp"
+#include "../Include/Loan.hpp"
 
+void Menu_Main::ObligationsMenuRun(const User& User){
+    MenuFunctions::ClearTerminal();
+    std::cout<<MenuFunctions::SetTextColor(Color::Blue, "OBLIGATIONS MENU TU BEDZIE DODAWANIE OBLIGACJI PLACENIE WYSWIETLANIE ETC...\n");
+    MenuFunctions::WaitForAction();
+}
 
 bool Menu_Main::fileExists(const std::string& fileName) {
     std::ifstream file(fileName);
@@ -84,24 +91,27 @@ void Menu_Main::greetUser(const User& User){
     std::cout <<"                        Current balance: ";
     User.getCurrentMoney() >= 0 ? std::cout<<MenuFunctions::SetTextColor(Color::Green,"+"+moneyToDisplay) :
                                   std::cout<<MenuFunctions::SetTextColor(Color::Red, moneyToDisplay);
+    std::cout<<std::endl;
+    std::cout<< User.printIncomingObligations(7);
 }
 
 void Menu_Main::printOptions(){
 
-    std::cout <<"+----------------------------------OPTIONS-----------------------------------+\n";
-    std::cout <<"| > 1.   Add new transaction                                                 |\n";
-    std::cout <<"| > 2.   Set current money                                                   |\n";
-    std::cout <<"| > 3.   Print all transactions                                              |\n";
-    std::cout <<"| > 4.   Sort transaction by date                                            |\n";
-    std::cout <<"| > 5.   Sort transaction by number of expense category                      |\n";
-    std::cout <<"| > 6.   Show earnings on individual expense category                        |\n";
-    std::cout <<"| > 7.   Show spendings on individual expense category                       |\n";
-    std::cout <<"| > 8.   Modify date transaction by ID                                       |\n";
-    std::cout <<"| > 9.   Remove transaction by ID                                            |\n";
-    std::cout <<"| > 10.  Delete all transactions                                             |\n";
-    std::cout <<"| > 11.  "<<MenuFunctions::SetTextColor(Color::Yellow,"Generate Summary in Excel file")<<"                                      |\n";
-    std::cout <<"| > 0.   SAVE & EXIT                                                         |\n";
-    std::cout <<"+----------------------------------------------------------------------------+\n";
+    std::cout <<"+----------------------------------OPTIONS--------------------------------------+\n";
+    std::cout <<"| > 1.   Add new transaction                                                    |\n";
+    std::cout <<"| > 2.   Set current money                                                      |\n";
+    std::cout <<"| > 3.   Print all transactions                                                 |\n";
+    std::cout <<"| > 4.   Sort transaction by date                                               |\n";
+    std::cout <<"| > 5.   Sort transaction by number of expense category                         |\n";
+    std::cout <<"| > 6.   Show earnings on individual expense category                           |\n";
+    std::cout <<"| > 7.   Show spendings on individual expense category                          |\n";
+    std::cout <<"| > 8.   Modify date transaction by ID                                          |\n";
+    std::cout <<"| > 9.   Remove transaction by ID                                               |\n";
+    std::cout <<"| > 10.  Delete all transactions                                                |\n";
+    std::cout <<"| > 11.  "<<MenuFunctions::SetTextColor(Color::Yellow,"Generate Summary in Excel file")<<"                                         |\n";
+    std::cout <<"| > 12.  "<<MenuFunctions::SetTextColor(Color::Yellow,"Obligations Menu")<<"                                                       |\n";
+    std::cout <<"| > 0.   SAVE & EXIT                                                            |\n";
+    std::cout <<"+-------------------------------------------------------------------------------+\n";
 }
 
 void Menu_Main::AddNewTransaction_Menu(User& user){
@@ -370,11 +380,18 @@ void Menu_Main::run(){
        
 
         User User{ValidatePassword::getCurrentUser()};
+        User.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,Date{24,02,2023}));
+        User.addObligation(std::make_shared<Bills>(BillType::Water, 33,Date{22,2,2023}));
+        User.addObligation(std::make_shared<Bills>(BillType::Gas, 33,Date{27,02,2023}));
+        User.addObligation(std::make_shared<Bills>(BillType::Internet, 33,Date{25,04,2023}));
+        User.addObligation(std::make_shared<Loan>("Iphone 12", 2000,Date{21,8,2023}, 3));
+        User.addObligation(std::make_shared<Loan>("Iphone 12A", 3222,Date{25,03,2023}, 5));
+        User.addObligation(std::make_shared<Loan>("MACBOC 13", 4522,Date{10,1,2023}, 2));
         ExcelGenerator ExcelGenerator{User};
         do{
             greetUser(User);
             printOptions();
-            liczba = MenuFunctions::insertNumber(0,11);
+            liczba = MenuFunctions::insertNumber(0,12);
             switch (liczba)
             {
             case 1:
@@ -428,6 +445,10 @@ void Menu_Main::run(){
                     std::cout<<MenuFunctions::SetTextColor(Color::Red, "You must have at least one transaction assigned to your account!\n");
                     MenuFunctions::WaitForAction();
                 }          
+                break;
+            case 12:
+                ObligationsMenuRun(User);
+                
                 break;
             case 0:
                 MenuFunctions::ClearTerminal();            

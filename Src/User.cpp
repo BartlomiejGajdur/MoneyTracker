@@ -11,6 +11,7 @@
 #include "../Include/Transaction.hpp"
 #include "../Include/Bills.hpp"
 #include "../Include/Loan.hpp"
+#include "../Include/MenuFunctions.hpp"
 
 UserErrorCode User::addTransaction(const std::shared_ptr<Transaction> transaction){
     transaction->setID(TransactionCounter++);
@@ -295,32 +296,48 @@ void User::addObligation(const std::shared_ptr<Obligations> obligation){
     this->sortByDaysToPayment(SortOrder::Ascending);
 }
 
-std::string User::printIncomingObligations(int DaysNumberToPayment){
+std::string User::printIncomingObligations(int DaysNumberToPayment) const{
     std::string ObligationsPartInString{};
     
     std::stringstream is;
-
-    is<<"+--------------+--------------+--------------+-------------+------------------+\n"
+    is<<"+--------------+--------------INCOMING PAYMENTS------------+--------------------+\n"
     <<"| "<<std::setw(12)<< std::left<< "Description" <<" | "
     <<std::setw(11) << std::left<<"Money To Pay"<<" | "
     <<std::setw(10) << std::left<<"Payment Date" <<" | "
     <<std::setw(10) << std::left<<"Days To Pay"<<" | "
-    <<std::setw(15) << std::left<<"Loan installment" <<" |\n"
-    <<"+--------------+--------------+--------------+-------------+------------------+\n";
+    <<std::setw(18) << std::left<<"Loan installment" <<" |\n"
+    <<"+--------------+--------------+--------------+-------------+--------------------+\n";
 
     ObligationsPartInString += is.str();
 
     std::for_each(obligations_.begin(), obligations_.end(),[&ObligationsPartInString, DaysNumberToPayment](std::shared_ptr<Obligations> Obligation)
                                                                {
-                                                                    if(Obligation->distanceToPayDate() <= DaysNumberToPayment && Obligation->distanceToPayDate()>=1)
+                                                                    if(Obligation->distanceToPayDate() <= DaysNumberToPayment)
                                                                     {
                                                                         ObligationsPartInString += Obligation->printObligation();
                                                                     }
                                                                });
-    ObligationsPartInString += "+-----------------------------------------------------------------------------+\n";
+    ObligationsPartInString += "+-------------------------------------------------------------------------------+\n";
+
+    auto it = std::find_if(obligations_.begin(), obligations_.end(),[DaysNumberToPayment](std::shared_ptr<Obligations> Obligation)
+                                                               {
+                                                                    return Obligation->distanceToPayDate() <= DaysNumberToPayment;
+                                                                   
+                                                               });
+
+    if(it == obligations_.end())
+    {   
+        std::stringstream is2;
+        ObligationsPartInString.clear();
+            is2<<"+-------------------------------------------------------------------------------+\n"
+            <<"| "<<std::setw(94)<< std::left<< MenuFunctions::SetBoldText(MenuFunctions::SetTextColor(Color::Green, "                     No incomming fees within 7 days!")) <<" | \n"
+            <<"+-------------------------------------------------------------------------------+\n";
+            ObligationsPartInString+=is2.str();
+    }
 
     return ObligationsPartInString;
 }
+                  
 
 std::string User::printIncomingObligations(){
     return printIncomingObligations(INT_MAX);
@@ -349,6 +366,8 @@ std::string User::printOverdueObligations(){
                                                                     }
                                                                });
     ObligationsPartInString += "+-------------------------------------------------------------------------------+\n";
+
+    
 
     return ObligationsPartInString;
 }
