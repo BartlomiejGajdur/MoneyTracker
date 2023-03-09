@@ -7,7 +7,7 @@ class Menu_Main{
 public:
     void run();
     void excelMenuRun(const User& User, ExcelGenerator& ExcelGenerator);
-    void ObligationsMenuRun(const User& User);
+    void ObligationsMenuRun(User& User);
 
 private:
     Menu_LOG MenuLOG;

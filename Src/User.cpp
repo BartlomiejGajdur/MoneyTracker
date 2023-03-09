@@ -107,8 +107,8 @@ void User::sortByNumberOfEnums(){
     std::map<Transaction,int,CompareKeyForTransaction> unMap;
     std::vector<std::pair<Transaction,int>> vecPairs{};
 
-    for(auto tranzaction : transactions_){
-        ++unMap[*tranzaction];
+    for(auto Transaction : transactions_){
+        ++unMap[*Transaction];
     }
 
     for(auto [key,value] : unMap){
@@ -237,11 +237,39 @@ bool User::savePersonalConfigToFile(){
                     <<it->getDate()<<";\n";
              }
             plik.close();
-            return true;
 
     }else{
         return false;
     }
+
+    std::fstream plik2;
+
+    plik2.open("../"+configName_+"O", plik2.out | plik2.trunc);
+
+    if (plik2.is_open())
+    {
+         for(auto it: obligations_){
+                if (auto derived_ptr = std::dynamic_pointer_cast<Bills>(it)) 
+                    {
+                         plik2<<derived_ptr->getBillType()<<";"
+                        <<derived_ptr->getMoneyToPay()<<";"
+                        <<derived_ptr->getPaymentDate()<<";\n";
+                    } 
+                    else if (auto derived_ptr = std::dynamic_pointer_cast<Loan>(it)) 
+                    {   
+                       plik2<<derived_ptr->getDescription()<<";"
+                        <<derived_ptr->getMoneyToPay()<<";"
+                        <<derived_ptr->getPaymentDate()<<";"
+                        <<derived_ptr->getNumberOfInstallments_()<<";\n";
+                    } 
+        }
+            plik2.close();
+
+    }else{
+        return false;
+    }
+
+    return true;
 }
 bool User::loadPersonalConfigFromFile(){
 
@@ -372,7 +400,7 @@ std::string User::printOverdueObligations(){
     return ObligationsPartInString;
 }
 
-std::string User::printAllObligations(){
+std::string User::printAllObligations() const{
     std::string ObligationsPartInString{};
     
     std::stringstream is;
@@ -424,13 +452,13 @@ void User::payBills(){
                 {
                     if (auto derived_ptr = std::dynamic_pointer_cast<Bills>(obligation)) 
                     {
-                        this->addTransaction(std::make_shared<Transaction>(derived_ptr->getBillType(),derived_ptr->getMoneyToPay(),ExpenseCategory::Bills));
+                        this->addTransaction(std::make_shared<Transaction>(derived_ptr->getBillType(),-derived_ptr->getMoneyToPay(),ExpenseCategory::Bills));
                         derived_ptr->nextMonth();    
                     } 
                     else if (auto derived_ptr = std::dynamic_pointer_cast<Loan>(obligation)) 
                     {   
                         if(derived_ptr->getNumberOfInstallments_() > 0){
-                            this->addTransaction(std::make_shared<Transaction>(derived_ptr->getDescription(),derived_ptr->getMoneyToPay(),ExpenseCategory::Loan));
+                            this->addTransaction(std::make_shared<Transaction>(derived_ptr->getDescription(),-derived_ptr->getMoneyToPay(),ExpenseCategory::Loan));
                             derived_ptr->InstallmentsPaid();
                             derived_ptr->nextMonth(); 
                         }else{

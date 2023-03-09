@@ -11,9 +11,49 @@
 #include "../Include/Bills.hpp"
 #include "../Include/Loan.hpp"
 
-void Menu_Main::ObligationsMenuRun(const User& User){
+void Menu_Main::ObligationsMenuRun(User& User){
     MenuFunctions::ClearTerminal();
-    std::cout<<MenuFunctions::SetTextColor(Color::Blue, "OBLIGATIONS MENU TU BEDZIE DODAWANIE OBLIGACJI PLACENIE WYSWIETLANIE ETC...\n");
+    int choice = MenuFunctions::arrowMenu({{"Show all obligations"},{"Add new obligation"},{"Pay all obligations"},{"EXIT"}});
+    int choice2,temp;
+    MenuFunctions::ClearTerminal();
+    switch (choice)
+    {
+    case 1:
+        MenuFunctions::ClearTerminal();
+        std::cout<<User.printAllObligations();
+        break;
+    case 2:
+            choice2 = MenuFunctions::arrowMenu({{"Loan"},{"Bill"},{"EXIT"}});
+            switch (choice2)
+            {
+            case 1:
+                MenuFunctions::ClearTerminal();
+                std::cout<<"Podaj jakies dane do LOAN";
+                MenuFunctions::WaitForAction();
+                break;
+            case 2:
+                MenuFunctions::ClearTerminal();
+                std::cout<<"Podaj jakies dane do BILL";
+                MenuFunctions::WaitForAction();
+                break;
+            default:
+                break;
+            }
+        break;
+    case 3:
+                MenuFunctions::ClearTerminal();
+                temp = User.getObligations().size();
+                User.payBills();
+                temp > User.getObligations().size() ?
+                std::cout<<MenuFunctions::SetTextColor(Color::Green,"All obligations have been paid!\n") :
+                std::cout<<MenuFunctions::SetTextColor(Color::Red,"No obligations to paid found!\n");
+        break;
+    
+    default:
+        break;
+    }
+    // std::cout<<choice;
+    // std::cout<<MenuFunctions::SetTextColor(Color::Blue, "OBLIGATIONS MENU TU BEDZIE DODAWANIE OBLIGACJI PLACENIE WYSWIETLANIE ETC...\n");
     MenuFunctions::WaitForAction();
 }
 
@@ -451,7 +491,8 @@ void Menu_Main::run(){
                 
                 break;
             case 0:
-                MenuFunctions::ClearTerminal();            
+                MenuFunctions::ClearTerminal();
+                User.savePersonalConfigToFile();            
                 ExcelGenerator.close_Excel();
                 break;
             default:

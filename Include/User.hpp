@@ -24,7 +24,7 @@ public:
                                                                                                             loadPersonalConfigFromFile();
                                                                                                          };
 
-    ~User(){savePersonalConfigToFile();};
+    ~User(){};
 
     //Setters
     void setCurrentMoney(const double& currentMoney);
@@ -56,7 +56,7 @@ public:
     std::string printIncomingObligations(int DaysNumberToPayment) const;
     std::string printIncomingObligations();
     std::string printOverdueObligations();
-    std::string printAllObligations();
+    std::string printAllObligations() const;
     void payBills();
     void sortByDaysToPayment(const SortOrder& SortOrder);
 
