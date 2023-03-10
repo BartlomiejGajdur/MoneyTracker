@@ -11,6 +11,62 @@
 #include "../Include/Bills.hpp"
 #include "../Include/Loan.hpp"
 
+void Menu_Main::AddNewObligation_Menu(User& User){
+    MenuFunctions::ClearTerminal();
+
+
+    int BillChoice, choice = MenuFunctions::arrowMenu({{"Loan"},{"Bill"},{"EXIT"}});
+    std::string desc,dateInString;
+    double moneyToPay;
+    int NumberOfLoans;
+    Date PaymentDate;
+
+            switch (choice)
+            {
+            case 1:
+    MenuFunctions::ClearTerminal();
+                std::cout<<"Insert loan Description\n>";
+                std::getline(std::cin,desc);
+                std::getline(std::cin,desc);
+    MenuFunctions::ClearTerminal();
+                std::cout<<"Insert Money to pay\n>";
+                moneyToPay = MenuFunctions::insertNumber(0.0,99999.0);
+    MenuFunctions::ClearTerminal();
+                std::cout<<"Insert payment date in format DD.MM.YYYY\n>";
+                std::getline(std::cin,dateInString);
+                std::getline(std::cin,dateInString);
+                PaymentDate = Date::DateFromString(dateInString);
+    MenuFunctions::ClearTerminal();
+                std::cout<<"Insert number of payments:\n";
+                NumberOfLoans = MenuFunctions::insertNumber(1,99);
+
+                User.addObligation(std::make_shared<Loan>(desc, moneyToPay,PaymentDate, NumberOfLoans));
+                
+                break;
+            case 2:
+                
+ 
+    BillChoice = MenuFunctions::arrowMenu({{"Water"},{"Gas"},{"Internet"},{"Electricity"}});
+    MenuFunctions::ClearTerminal();
+                std::cout<<"Insert Money to pay\n>";
+                moneyToPay = MenuFunctions::insertNumber(0.0,99999.0);
+    MenuFunctions::ClearTerminal();
+                std::cout<<"Insert payment date in format DD.MM.YYYY\n>";
+                std::getline(std::cin,dateInString);
+                std::getline(std::cin,dateInString);
+                PaymentDate = Date::DateFromString(dateInString);
+
+        User.addObligation(std::make_shared<Bills>(static_cast<BillType>(BillChoice), moneyToPay,PaymentDate));
+            
+                break;
+            default:
+                break;
+            }
+    MenuFunctions::ClearTerminal();
+    std::cout<<MenuFunctions::SetTextColor(Color::Green, "Obligation added correctly! :)\n");
+    MenuFunctions::WaitForAction();
+}
+
 void Menu_Main::ObligationsMenuRun(User& User){
     MenuFunctions::ClearTerminal();
     int choice = MenuFunctions::arrowMenu({{"Show all obligations"},{"Add new obligation"},{"Pay all obligations"},{"EXIT"}});
@@ -21,24 +77,10 @@ void Menu_Main::ObligationsMenuRun(User& User){
     case 1:
         MenuFunctions::ClearTerminal();
         std::cout<<User.printAllObligations();
+        MenuFunctions::WaitForAction();
         break;
     case 2:
-            choice2 = MenuFunctions::arrowMenu({{"Loan"},{"Bill"},{"EXIT"}});
-            switch (choice2)
-            {
-            case 1:
-                MenuFunctions::ClearTerminal();
-                std::cout<<"Podaj jakies dane do LOAN";
-                MenuFunctions::WaitForAction();
-                break;
-            case 2:
-                MenuFunctions::ClearTerminal();
-                std::cout<<"Podaj jakies dane do BILL";
-                MenuFunctions::WaitForAction();
-                break;
-            default:
-                break;
-            }
+        AddNewObligation_Menu(User);
         break;
     case 3:
                 MenuFunctions::ClearTerminal();
@@ -47,6 +89,7 @@ void Menu_Main::ObligationsMenuRun(User& User){
                 temp > User.getObligations().size() ?
                 std::cout<<MenuFunctions::SetTextColor(Color::Green,"All obligations have been paid!\n") :
                 std::cout<<MenuFunctions::SetTextColor(Color::Red,"No obligations to paid found!\n");
+                MenuFunctions::WaitForAction();
         break;
     
     default:
@@ -54,7 +97,6 @@ void Menu_Main::ObligationsMenuRun(User& User){
     }
     // std::cout<<choice;
     // std::cout<<MenuFunctions::SetTextColor(Color::Blue, "OBLIGATIONS MENU TU BEDZIE DODAWANIE OBLIGACJI PLACENIE WYSWIETLANIE ETC...\n");
-    MenuFunctions::WaitForAction();
 }
 
 bool Menu_Main::fileExists(const std::string& fileName) {
@@ -420,13 +462,6 @@ void Menu_Main::run(){
        
 
         User User{ValidatePassword::getCurrentUser()};
-        User.addObligation(std::make_shared<Bills>(BillType::Electricity, 33,Date{24,02,2023}));
-        User.addObligation(std::make_shared<Bills>(BillType::Water, 33,Date{22,2,2023}));
-        User.addObligation(std::make_shared<Bills>(BillType::Gas, 33,Date{27,02,2023}));
-        User.addObligation(std::make_shared<Bills>(BillType::Internet, 33,Date{25,04,2023}));
-        User.addObligation(std::make_shared<Loan>("Iphone 12", 2000,Date{21,8,2023}, 3));
-        User.addObligation(std::make_shared<Loan>("Iphone 12A", 3222,Date{25,03,2023}, 5));
-        User.addObligation(std::make_shared<Loan>("MACBOC 13", 4522,Date{10,1,2023}, 2));
         ExcelGenerator ExcelGenerator{User};
         do{
             greetUser(User);

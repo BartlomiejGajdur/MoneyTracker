@@ -15,6 +15,7 @@ private:
     void printOptions();
     void greetUser(const User& user);
     void AddNewTransaction_Menu(User& user);
+    void AddNewObligation_Menu(User& user);
     void SetCurrentMoney_Menu(User& user);
     void printAllTransactions_Menu(User& user);
     void sortTransactionByDate_Menu(User& user);
