@@ -8,7 +8,7 @@ public:
     Bills(const BillType& billType, double moneyToPay, Date paymentDate) : Obligations(moneyToPay,paymentDate), billType_(billType) {};
     ~Bills(){};
     std::string getBillType() const;
-    
+    BillType getType() const { return billType_;};
 
     friend std::ostream& operator<<(std::ostream &os, const Bills& Bills);
     void printObligation(std::ostream& os) const override;

@@ -251,7 +251,7 @@ bool User::savePersonalConfigToFile(){
          for(auto it: obligations_){
                 if (auto derived_ptr = std::dynamic_pointer_cast<Bills>(it)) 
                     {
-                         plik2<<derived_ptr->getBillType()<<";"
+                         plik2<<static_cast<int>(derived_ptr->getType())<<";"
                         <<derived_ptr->getMoneyToPay()<<";"
                         <<derived_ptr->getPaymentDate()<<";\n";
                     } 
