@@ -16,6 +16,7 @@
 UserErrorCode User::addTransaction(const std::shared_ptr<Transaction> transaction){
     transaction->setID(TransactionCounter++);
     transactions_.push_back(transaction);
+    this->sortByDate(SortOrder::Descending);
     return UserErrorCode::Ok;
 }
 

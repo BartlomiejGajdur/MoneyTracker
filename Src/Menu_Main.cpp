@@ -62,15 +62,19 @@ void Menu_Main::AddNewObligation_Menu(User& User){
             default:
                 break;
             }
-    MenuFunctions::ClearTerminal();
-    std::cout<<MenuFunctions::SetTextColor(Color::Green, "Obligation added correctly! :)\n");
+    if(choice != 0)
+    {
+        MenuFunctions::ClearTerminal();
+        std::cout<<MenuFunctions::SetTextColor(Color::Green, "Obligation added correctly! :)\n");
+    }
     MenuFunctions::WaitForAction();
 }
 
 void Menu_Main::ObligationsMenuRun(User& User){
     MenuFunctions::ClearTerminal();
     int choice = MenuFunctions::arrowMenu({{"Show all obligations"},{"Add new obligation"},{"Pay all obligations"},{"EXIT"}});
-    int choice2,temp;
+    int choice2;
+    double temp;
     MenuFunctions::ClearTerminal();
     switch (choice)
     {
@@ -84,9 +88,9 @@ void Menu_Main::ObligationsMenuRun(User& User){
         break;
     case 3:
                 MenuFunctions::ClearTerminal();
-                temp = User.getObligations().size();
+                temp = User.getCurrentMoney();
                 User.payBills();
-                temp > User.getObligations().size() ?
+                temp > User.getCurrentMoney() ?
                 std::cout<<MenuFunctions::SetTextColor(Color::Green,"All obligations have been paid!\n") :
                 std::cout<<MenuFunctions::SetTextColor(Color::Red,"No obligations to paid found!\n");
                 MenuFunctions::WaitForAction();
@@ -95,8 +99,7 @@ void Menu_Main::ObligationsMenuRun(User& User){
     default:
         break;
     }
-    // std::cout<<choice;
-    // std::cout<<MenuFunctions::SetTextColor(Color::Blue, "OBLIGATIONS MENU TU BEDZIE DODAWANIE OBLIGACJI PLACENIE WYSWIETLANIE ETC...\n");
+
 }
 
 bool Menu_Main::fileExists(const std::string& fileName) {
@@ -244,7 +247,6 @@ void Menu_Main::AddNewTransaction_Menu(User& user){
     default:
         break;
     }
-    user.sortByDate(SortOrder::Descending);
     
 }
 
