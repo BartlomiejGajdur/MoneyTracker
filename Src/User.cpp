@@ -311,13 +311,59 @@ bool User::loadPersonalConfigFromFile(){
          return a->getID() < b->getID();
     });
             TransactionCounter = it[0]->getID() + 1;
-             return true;
-
         }else{
             return false;
         }
-    
+
+    std::vector<std::string> vec2;
+    char znak2;
+    std::string linia2;
+    std::fstream plik2;
+    plik2.open("../"+configName_+"O",plik2.in);
+
+        if(plik2.is_open()){
+           
+            while (!plik2.eof())
+             {
+                znak2 = plik2.get();
+
+                if (znak2 == '\n')
+                {
+                    
+                }
+                else if(znak2 != ';')
+                {
+                    linia2 += znak2;
+                }
+                else
+                {
+                    vec2.push_back(linia2);
+                    linia2.clear();
+                }
+             }
+
+             plik2.close();
+
+        
+             for(int i = 0; i<vec2.size();){
+                if(vec2[i] == "0" || vec2[i] == "1" || vec2[i] == "2" || vec2[i] == "3")
+                {
+                    obligations_.push_back(std::make_shared<Bills>
+                    (static_cast<BillType>(std::stoi(vec2[i])),std::stod(vec2[i+1]),Date::DateFromString(vec2[i+2])));
+                    i += 3;
+                }else{
+                    obligations_.push_back(std::make_shared<Loan>
+                    (vec2[i],std::stod(vec2[i+1]),Date::DateFromString(vec2[i+2]), std::stoi(vec2[i+3])));
+                    i += 4;
+                }
+                
+             }
+        return true;
+    }else{
+        return false;
+    }
 }
+
 
 void User::addObligation(const std::shared_ptr<Obligations> obligation){
     this->obligations_.push_back(obligation);
