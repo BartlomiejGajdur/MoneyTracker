@@ -111,12 +111,12 @@ bool Menu_LOG::LogINMenu(){
         std::cout<<"+-------------+\n";
         std::cout<<"|    LogIN    |\n";
         std::cout<<"+-------------+\n\n";
-        // std::cout<<"Insert login:\n>";
-        // std::cin>>login;
-        // std::cout<<"Insert password:\n>";
-        // password = MenuFunctions::insertPassword();
-            login = "Bartek";
-            password = "Abcdefgh1!";
+        std::cout<<"Insert login:\n>";
+        std::cin>>login;
+        std::cout<<"Insert password:\n>";
+        password = MenuFunctions::insertPassword();
+            // login = "Bartek";
+            // password = "Abcdefgh1!";
         if(ValidatePassword::logIn(login,password)){
             std::cout<<"\n"<<MenuFunctions::SetTextColor(Color::Green,"You have logged in correctly! Hello " + login + "!")<<"\n";
             system("PAUSE");

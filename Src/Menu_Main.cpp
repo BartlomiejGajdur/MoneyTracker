@@ -161,7 +161,7 @@ void Menu_Main::excelMenuRun(const User& User, ExcelGenerator& ExcelGenerator){
             ExcelGenerator.SummaryTable_Excel();
 
     MenuFunctions::ClearTerminal();
-    std::cout<<MenuFunctions::SetTextColor(Color::Green, "Excel File Generated Correctly!\n> FileName: " + FileName + " \n");
+    std::cout<<MenuFunctions::SetTextColor(Color::Green, "Excel File Generated Correctly!\n> FileName: " + FileName + " \n>Close application!\n");
     MenuFunctions::WaitForAction();
 }
 
