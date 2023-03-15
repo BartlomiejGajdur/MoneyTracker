@@ -26,8 +26,9 @@ User2: $2b$10$3ISEmmRt5MeOaRJtobod8eHUf6/i1g1dzWl9E/0mdL5DePbkwJHAS;$2b$10$3ISEm
 <br><br>
 <h3 align="center">  Generating Excel File</h3>
 
-Using the Libxlsxwriter library, we can generate summaries in an Excel file. By using appropriate functions, we can create pie charts, tables with data, and also cost summaries. With the help of Libxlsxwriter, we can create professional-looking Excel files that can be used for a variety of purposes.
+Using the Libxlsxwriter library, we can generate summaries in an Excel file. By using appropriate functions, we can create pie charts, tables with data, and also cost summa!
+ries. With the help of Libxlsxwriter, we can create professional-looking Excel files that can be used for a variety of purposes.
 
-
+<div align="center"><img src="https://user-images.githubusercontent.com/85802542/225407337-7adfb7d3-2f7a-44f2-827b-224325ab20fa.gif" alt="ExcelFile" ></div>
 <div align="center"><img src="https://user-images.githubusercontent.com/85802542/224513420-6005e0b8-098e-4f33-a0d8-aea4c5264e9b.png" alt="GeneratedExcelFile" width="30%"></div>
 
