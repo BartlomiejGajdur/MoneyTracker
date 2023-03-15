@@ -32,3 +32,13 @@ ries. With the help of Libxlsxwriter, we can create professional-looking Excel f
 <div align="center"><img src="https://user-images.githubusercontent.com/85802542/225407337-7adfb7d3-2f7a-44f2-827b-224325ab20fa.gif" alt="ExcelFile" ></div>
 <div align="center"><img src="https://user-images.githubusercontent.com/85802542/224513420-6005e0b8-098e-4f33-a0d8-aea4c5264e9b.png" alt="GeneratedExcelFile" width="30%"></div>
 
+<br><br>
+
+<h3 align="center">  Obligations Adding Functionality </h3>
+
+
+This functionality allows users to add their financial obligations to the system, including loans and bills. Once added, the system will keep track of when the obligation is due, the amount owed, and any other relevant details. Users can also specify the pay date and for loans, the number of installment payments.
+
+For bills, payments are due monthly. The system will automatically calculate the amount due each month based on the user's input. This feature helps users to budget and plan ahead for recurring expenses.
+
+<div align="center"><img src="https://user-images.githubusercontent.com/85802542/225409780-b8317d47-4ad7-4f17-9c36-81ab491c1f39.gif" alt="Obligations" ></div>
