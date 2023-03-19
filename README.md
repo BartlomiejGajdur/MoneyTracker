@@ -1,7 +1,18 @@
 <h1  align="center"> MoneyTracker </h1>
 
 <h2  align="center"> MoneyTracker is a C++ console application that allows you to track your income and expenses. </h2>
-<br><br>
+<br>
+
+
+<h2  align="center"> How to use </h2>
+
+>     mkdir build
+>     cd build
+>     cmake ..
+>     make -j
+>     .\MONEYTRACKER.exe (app)
+>     .\MONEYTRACKER-ut.exe (tests)
+
 <h3 align="center">  Registration&Login Menu </h3>
 
 Data validation plays an important role in the registration and login process by ensuring that only valid data, or data that meets minimum requirements, is stored and used in the application. Using the **bcrypt library** to create password hashes increases the security of the application by preventing unauthorized access to user passwords.
