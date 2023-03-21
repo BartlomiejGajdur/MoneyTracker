@@ -1,12 +1,12 @@
 #include "../include/Bills.hpp"
-#include "../include/MenuFunctions.hpp"
+#include <cmath>
 #include <iomanip>
 #include <sstream>
-#include <cmath>
+#include "../include/MenuFunctions.hpp"
+
 
 std::string Bills::getBillType() const {
-    switch (billType_)
-    {
+    switch (billType_) {
     case BillType::Electricity:
         return "Electricity";
         break;
@@ -22,20 +22,18 @@ std::string Bills::getBillType() const {
     case BillType::Internet:
         return "Internet";
         break;
-    
+
     default:
         return "ERROR";
         break;
     }
 }
 
-
-void Bills::printObligation(std::ostream& os) const{
-    os<<this->getBillType()<<" - "<<moneyToPay_<<" - "<<paymentDate_;
+void Bills::printObligation(std::ostream& os) const {
+    os << this->getBillType() << " - " << moneyToPay_ << " - " << paymentDate_;
 }
 
-std::string Bills::printObligation() const{
-
+std::string Bills::printObligation() const {
     std::stringstream is;
     std::string day;
     std::ostringstream stream;
@@ -43,27 +41,27 @@ std::string Bills::printObligation() const{
     stream << std::fixed << moneyToPay_;
     std::string moneyToPayString = stream.str();
 
-    is<<"| "<<std::setw(12)<< std::left<< this->getBillType()<<" | "
-    <<std::setw(12) << std::left<<moneyToPayString + " PLN"<<" | "
-    <<std::setw(12) << std::left<<paymentDate_.dateInString() <<" | ";
+    is << "| " << std::setw(12) << std::left << this->getBillType() << " | "
+       << std::setw(12) << std::left << moneyToPayString + " PLN"
+       << " | "
+       << std::setw(12) << std::left << paymentDate_.dateInString() << " | ";
     this->distanceToPayDate() == 1 || this->distanceToPayDate() == -1 ? day = " day" : day = " days";
 
-    if(this->distanceToPayDate() > 0 && this->distanceToPayDate() <=7)
-    {
-        is<<std::setw(20) << std::left<<MenuFunctions::SetTextColor(Color::Yellow, std::to_string(this->distanceToPayDate()) + day)<<" | ";
-    }else if(this->distanceToPayDate() > 7){
-        is<<std::setw(20) << std::left<<MenuFunctions::SetTextColor(Color::Green, std::to_string(this->distanceToPayDate()) + day)<<" | ";
-    }else{
-        is<<std::setw(20) << std::left<<MenuFunctions::SetTextColor(Color::Red, std::to_string(this->distanceToPayDate()) + day)<<" | ";
+    if (this->distanceToPayDate() > 0 && this->distanceToPayDate() <= 7) {
+        is << std::setw(20) << std::left << MenuFunctions::SetTextColor(Color::Yellow, std::to_string(this->distanceToPayDate()) + day) << " | ";
+    } else if (this->distanceToPayDate() > 7) {
+        is << std::setw(20) << std::left << MenuFunctions::SetTextColor(Color::Green, std::to_string(this->distanceToPayDate()) + day) << " | ";
+    } else {
+        is << std::setw(20) << std::left << MenuFunctions::SetTextColor(Color::Red, std::to_string(this->distanceToPayDate()) + day) << " | ";
     }
 
-    is<<std::setw(16) << std::left<<"Recurring payments" <<" |\n";
+    is << std::setw(16) << std::left << "Recurring payments"
+       << " |\n";
 
     return is.str();
 }
 
-std::ostream& operator<<(std::ostream &os, const Bills& Bills){
+std::ostream& operator<<(std::ostream& os, const Bills& Bills) {
     Bills.printObligation(os);
     return os;
 }
-

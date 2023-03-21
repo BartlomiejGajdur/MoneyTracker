@@ -3,20 +3,25 @@
 #include <ostream>
 #include <string>
 
-enum class DateErrorCode { Ok, InvalidYear, InvalidMonth, InvalidDay, ERROR404};
+enum class DateErrorCode { Ok,
+                           InvalidYear,
+                           InvalidMonth,
+                           InvalidDay,
+                           ERROR404 };
 
-class Date{
+class Date {
 public:
     Date() = default;
-    Date(int day, int month, int year): day_(day) , month_(month), year_(year) {};
+    Date(int day, int month, int year)
+        : day_(day), month_(month), year_(year){};
 
-    //Setters  
-    DateErrorCode setDate(int day, int month, int year); 
+    //Setters
+    DateErrorCode setDate(int day, int month, int year);
 
     //Getters
-    int getDay()   const   { return day_;}
-    int getMonth() const   { return month_;}
-    int getYear()  const   { return year_ ;}
+    int getDay() const { return day_; }
+    int getMonth() const { return month_; }
+    int getYear() const { return year_; }
 
     //Functions
     std::string dateInString() const;
@@ -32,7 +37,7 @@ public:
     Date operator=(const Date& otherDate);
     bool operator==(const Date& otherDate) const;
     bool operator!=(const Date& otherDate) const;
-    Date& operator++(); //Prefix
+    Date& operator++();  //Prefix
     bool operator<(const Date& other) const;
     bool operator>(const Date& other) const;
 

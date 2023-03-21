@@ -1,9 +1,10 @@
 #pragma once
+#include "ExcelGenerator.hpp"
 #include "Menu_LOG.hpp"
 #include "User.hpp"
-#include "ExcelGenerator.hpp"
 
-class Menu_Main{
+
+class Menu_Main {
 public:
     void run();
     void excelMenuRun(const User& User, ExcelGenerator& ExcelGenerator);
@@ -28,6 +29,4 @@ private:
 
     bool fileExists(const std::string& fileName);
     std::string findFreeFileName();
-
-
 };
